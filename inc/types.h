@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/09 21:23:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/09 22:42:26 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef char[SIZE_OPCODE]		t_opcode;
 typedef char[SIZE_OCP]			t_ocp;
 
 # define SIZE_REGISTER_IDX 1
-typedef char[SIZE_REGISTER]		t_register_idx;
+typedef char[SIZE_REGISTER_IDX]	t_register_idx;
 
 # define SIZE_INDIRECT 2
 typedef char[SIZE_INDIRECT]		t_indirect;

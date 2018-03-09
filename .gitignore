@@ -1,3 +1,7 @@
+# Targets
+./corewar
+./asm
+
 # Prerequisites
 *.d
 

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 00:14:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 22:10:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@
 # define REG_SIZE 4
 typedef char[REG_SIZE]			t_register;
 
+typedef int						t_address;
+
 typedef struct					s_champion
 {
 	int							id;
+	t_address					spawn;
 	char						*name;
 	char						*comment;
 	char						*champion;
@@ -49,9 +52,8 @@ typedef struct					s_instruction
 typedef struct					s_process
 {
 	int							id;
-	int							owner;
-	int							spawn;
-	int							pc;
+	t_champion					*owner;
+	t_address					pc;
 	t_instruction				*current_task;
 	t_register					registers[REG_NUMBER];
 }								t_process;

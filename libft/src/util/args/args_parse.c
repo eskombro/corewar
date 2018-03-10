@@ -6,32 +6,34 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 02:02:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 06:45:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 19:39:10 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./args.h"
 
-static void		default_arg(t_args *args, char *arg)
+static int		default_arg(t_args *args, char *arg)
 {
 	t_llist		*new;
 	char		*dup;
 
 	if (!(dup = ft_strdup(arg)))
-		exit(1);
+		return (1);
 	if (!(new = ft_llist_new(dup)))
-		exit(1);
+		return (1);
 	args->default_count++;
 	ft_llist_back(&args->default_data, new);
+	return (0);
 }
 
-static void		push_arg_data(t_arg *arg, char const *data)
+static int		push_arg_data(t_arg *arg, char const *data)
 {
 	char		*dup;
 
 	if (!(dup = ft_strdup(data)))
-		exit(1);
+		return (1);
 	arg->data[arg->data_len - arg->data_count] = dup;
+	return (0);
 }
 
 static int		select_arg(t_args *args, t_arg **arg, char const *arg_name)
@@ -45,7 +47,7 @@ static int		select_arg(t_args *args, t_arg **arg, char const *arg_name)
 	shortcut = *arg_name == '-' ? 0 : 1;
 	args_count = shortcut ? ft_strlen(arg_name) : 1;
 	if (*arg && (*arg)->data_count)
-		return (0);
+		return (1);
 	count = -1;
 	while (++count < args_count)
 	{
@@ -58,51 +60,44 @@ static int		select_arg(t_args *args, t_arg **arg, char const *arg_name)
 				*(arg_name + count) == tmp->shortcut))
 			{
 				if (tmp->data_len && args_count > 1)
-					return (0);
+					return (1);
 				if (tmp->set && tmp->data_len)
-					return (0);
+					return (1);
 				*arg = tmp;
 				tmp->set = 1;
 				if (count >= args_count - 1)
-					return (1);
+					return (0);
 			}
 			list = list->next;
 		}
 	}
-	return (0);
+	return (1);
 }
 
 int				ft_args_parse(void *args_ptr, int argc, char **argv)
 {
-	t_args		*args;
 	t_arg		*last_arg;
 	int			i;
 
-	args = (t_args *)args_ptr;
-	if (args->parsed)
-		return (0);
-	args->parsed = 1;
+	if (((t_args *)args_ptr)->parsed)
+		return (1);
+	((t_args *)args_ptr)->parsed = 1;
 	i = 0;
 	while (++i < argc)
-	{
 		if (*(argv[i]) != '-')
 		{
 			if (last_arg && last_arg->data_count)
 			{
-				push_arg_data(last_arg, argv[i]);
+				if (push_arg_data(last_arg, argv[i]))
+					return (1);
 				last_arg->data_count--;
 			}
-			else
-				default_arg(args, argv[i]);
+			else if (default_arg((t_args *)args_ptr, argv[i]))
+				return (1);
 		}
-		else
-		{
-			ft_printf("testing %s\n", argv[i]);
-			if (!select_arg(args, &last_arg, argv[i] + 1))
-				return (0);
-		}
-	}
+		else if (select_arg((t_args *)args_ptr, &last_arg, argv[i] + 1))
+				return (1);
 	if (last_arg && last_arg->data_count)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }

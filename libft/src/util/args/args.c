@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 01:44:58 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 06:23:27 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 19:39:07 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,32 @@ void			*ft_args_new(void)
 
 void			ft_args_del(void *args)
 {
-	if (args)
-	{
-		ft_llist_del(&((t_args *)args)->args, &del_arg);
-		ft_llist_del(&((t_args *)args)->default_data, &free);
-	}
+	if (!args)
+		return ;
+	ft_llist_del(&((t_args *)args)->args, &del_arg);
+	ft_llist_del(&((t_args *)args)->default_data, &free);
 }
 
 
-void			ft_args_add(void *args, char const *name, char shortcut,
+int				ft_args_add(void *args, char const *name, char shortcut,
 							int data_len)
 {
 	t_arg		*arg;
 	t_llist		*new;
 
 	if (!(arg = (t_arg *)ft_memalloc(sizeof(t_arg))))
-		exit(1);
+		return (1);
 	if (!(arg->data = (char **)ft_memalloc(sizeof(char *) * (data_len + 1))))
-		exit(1);
+		return (1);
 	if (!(arg->name = ft_strdup(name)))
-		exit(1);
+		return (1);
 	arg->shortcut = shortcut;
 	arg->data_len = data_len;
 	arg->data_count = data_len;
 	if (!(new = ft_llist_new(arg)))
-		exit(1);
+		return (1);
 	ft_llist_front(&((t_args *)args)->args, new);
+	return (0);
 }
 
 char			**ft_args_default(void *ptr)
@@ -73,7 +73,7 @@ char			**ft_args_default(void *ptr)
 	args = (t_args *)ptr;
 	if (!args || !(default_args = (char **)ft_memalloc(
 		sizeof(char *) * (args->default_count + 1))))
-		exit(1);
+		return (NULL);
 	data = args->default_data;
 	if (!data)
 		return (NULL);
@@ -81,7 +81,7 @@ char			**ft_args_default(void *ptr)
 	while (++i < args->default_count)
 	{
 		if (!(default_args[i] = ft_strdup((char *)data->data)))
-			exit(1);
+			return (NULL);
 		data = data->next;
 	}
 	return (default_args);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 04:39:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 19:47:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int					ft_gnl(const int fd, char **line);
 
 int					ft_chartablen(char **tab);
 void				ft_chartabfree(char **tab);
+char				**ft_chartabdup(char **tab);
 
 /*
 ** Args manager
@@ -173,10 +174,12 @@ void				ft_chartabfree(char **tab);
 void				*ft_args_new(void);
 void				ft_args_del(void *args);
 
-void				ft_args_add(void *args, char const *name, char shortcut,
+int					ft_args_add(void *args, char const *name, char shortcut,
 							int data_len);
 int					ft_args_parse(void *args_ptr, int argc, char **argv);
+
 char				**ft_args_default(void *ptr);
+char				**ft_args_data(void *args, char *name);
 /*
 ** Simple linked lists (llist)
 */

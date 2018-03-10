@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.h                                             :+:      :+:    :+:   */
+/*   args_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/10 01:52:52 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 22:00:57 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/03/10 19:39:28 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/03/10 22:07:17 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGS_H
-# define ARGS_H
+#include "./args.h"
 
-# include "./libft.h"
-
-typedef struct		s_args
+char			**ft_args_data(void *args, char *name)
 {
-	int				parsed;
-	t_llist			*args;
-	int				default_count;
-	t_llist			*default_data;
-}					t_args;
+	t_llist		*args_list;
+	t_arg		*arg;
 
-typedef struct		s_arg
-{
-	int				set;
-	char			*name;
-	char			shortcut;
-	int				data_len;
-	int				data_count;
-	char			**data;
-}					t_arg;
-
-#endif
+	args_list = ((t_args *)args)->args;
+	while (args_list)
+	{
+		arg = (t_arg *)args_list->data;
+		if (ft_strequ(arg->name, name))
+			return (ft_chartabdup(arg->data));
+		args_list = args_list->next;
+	}
+	return (NULL);
+}

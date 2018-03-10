@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 19:47:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 22:38:53 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int					ft_args_parse(void *args_ptr, int argc, char **argv);
 
 char				**ft_args_default(void *ptr);
 char				**ft_args_data(void *args, char *name);
+int					ft_args_get(void *args, char *name);
 /*
 ** Simple linked lists (llist)
 */

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 19:39:28 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 22:07:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 22:39:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,20 @@ char			**ft_args_data(void *args, char *name)
 		args_list = args_list->next;
 	}
 	return (NULL);
+}
+
+int				ft_args_get(void *args, char *name)
+{
+	t_llist		*args_list;
+	t_arg		*arg;
+
+	args_list = ((t_args *)args)->args;
+	while (args_list)
+	{
+		arg = (t_arg *)args_list->data;
+		if (ft_strequ(arg->name, name) && arg->set)
+			return (1);
+		args_list = args_list->next;
+	}
+	return (0);
 }

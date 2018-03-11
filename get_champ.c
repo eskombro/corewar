@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/11 02:52:37 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/11 03:24:37 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static long	get_com(int fd, t_champion *champ)
 	return (*champ_size);
 }
 
-int			open_champ(char *path, t_champion *champ)
+static int	open_champ(char *path, t_champion *champ)
 {
 	char	buf[4];
 	char	buf2[128];
@@ -85,4 +85,22 @@ int			open_champ(char *path, t_champion *champ)
 	printf("\n%s\n", champ->name);
 	printf("%s\n", champ->comment);
 	return (1);
+}
+
+t_champion	*get_all_champ(char **jcvd)
+{
+	int			i;
+	t_champion	*champs;
+
+	i = 0;
+	if (!(champs = (t_champion*)malloc(sizeof(t_champion) *
+					ft_chartablen(jcvd))))
+		return (NULL);
+	while (*jcvd)
+	{
+		champs[i].id = i + 1;
+		open_champ(*jcvd, champs + i);
+		jcvd++;
+	}
+	return (champs);
 }

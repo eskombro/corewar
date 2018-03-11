@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 03:42:16 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/11 03:58:22 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 **	DONT FORGET TO FREE after read_memory;
 */
 
-uchar				*read_memory(int address, int size)
+uchar				*read_memory(t_addr address, int size)
 {
 	uchar			*arena;
 	uchar			*reg;
@@ -73,7 +73,7 @@ uchar				*read_memory(int address, int size)
 **	Writes a piece of the arena in stdout.
 */
 
-void				print_memory(int address, int size)
+void				print_memory(t_addr address, int size)
 {
 	uchar			*arena;
 	int				i;

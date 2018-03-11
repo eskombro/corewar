@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_access.c                                      :+:      :+:    :+:   */
+/*   ft_chartabdup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 05:06:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/10 05:11:28 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/03/10 19:17:08 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/03/10 19:47:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./args.h"
+#include "libft.h"
 
-t_arg		*get_arg(int idx)
+char		**ft_chartabdup(char **tab)
 {
-	t_arg	*arg;
+	char	**dup;
+	int		len;
 
-	arg = (*get_args())->args;
-	while (arg)
+	len = ft_chartablen(tab);
+	if (!tab)
+		return (NULL);
+	if (!(dup = (char **)ft_memalloc(sizeof(char *) * (len + 1))))
+		return (NULL);
+	while (len--)
 	{
-		if (arg->idx == idx)
-			return (arg);
-		arg = arg->next;
+		if (!(dup[len] = ft_strdup(tab[len])))
+			return (NULL);
 	}
-	return (NULL);
+	return (dup);
 }

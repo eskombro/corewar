@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/03 04:41:56 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/10 19:47:00 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,7 @@ SRC_1 =  mem/ft_bzero.c mem/ft_memadr.c mem/ft_memalloc.c mem/ft_memccpy.c \
 	util/ft_isdigit.c util/ft_islower.c util/ft_isprint.c \
 	util/ft_isupper.c util/ft_itoa.c util/ft_nbrmax.c util/ft_nbrmin.c \
 	util/ft_tolower.c util/ft_toupper.c util/ft_chartablen.c \
-	util/ft_chartabfree.c util/args/args.c util/args/args_destroy.c \
-	util/args/args_access.c \
+	util/ft_chartabfree.c util/ft_chartabdup.c \
 	util/xtoabase/ft_itoabase.c util/xtoabase/ft_uitoabase.c \
 	util/xtoabase/ft_ctoabase.c util/xtoabase/ft_uctoabase.c \
 	util/xtoabase/ft_stoabase.c util/xtoabase/ft_ustoabase.c \
@@ -60,7 +59,8 @@ SRC_1 =  mem/ft_bzero.c mem/ft_memadr.c mem/ft_memalloc.c mem/ft_memccpy.c \
 	util/xtoabase/ft_sitoabase.c util/xtoabase/ft_ssitoabase.c \
 	util/llist/ft_llist_new.c util/llist/ft_llist_front.c \
 	util/llist/ft_llist_back.c util/llist/ft_llist_rem.c \
-	util/llist/ft_llist_del.c util/llist/ft_llist_has_data.c
+	util/llist/ft_llist_del.c util/llist/ft_llist_has_data.c \
+	util/args/args.c util/args/args_parse.c util/args/args_getters.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 
 TARGET_2 = lib/libft.a

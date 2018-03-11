@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 22:11:27 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/11 05:56:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,55 @@
 # define REG_NUMBER 16
 
 # define REG_SIZE 4
-typedef char[REG_SIZE]			t_register;
 
-typedef struct					s_champion
+# define MEM_SIZE 640
+# define IDX_MOD 512
+
+typedef unsigned char			uchar;
+
+typedef char					t_reg[REG_SIZE];
+
+typedef int						t_addr;
+
+typedef struct					s_champ
 {
 	int							id;
+	t_addr						spawn;
 	char						*name;
 	char						*comment;
 	char						*champion;
-}								t_champion;
+}								t_champ;
 
-typedef struct					s_parameter
+typedef struct					s_par
 {
-	int							size;
-	int							value;
-}								t_parameter;
+	unsigned int				size;
+	unsigned int				value;
+}								t_par;
 
-typedef struct					s_instruction
+typedef struct					s_instr
 {
 	int							wait_cycles;
 	int							opcode;
-	t_parameter					*parameters;
-}								t_instruction;
+	t_par						*parameters;
+}								t_instr;
 
-typedef struct					s_process
+typedef struct					s_proc
 {
 	int							id;
-	int							owner;
-	int							spawn;
-	int							pc;
-	t_instruction				*current_task;
-	t_register					registers[REG_NUMBER];
-}								t_process;
+	t_champ						*owner;
+	t_addr						pc;
+	t_instr						*current_task;
+	t_reg						registers[REG_NUMBER];
+}								t_proc;
+
+/*
+**	gestion_memoire
+*/
+
+unsigned char					*get_arena(void);
+void							write_memory(t_addr pc, t_addr address, t_par par);
+unsigned char					*read_memory(int address, int size);
+void							print_memory(int address, int size);
+void							print_arena();
 
 #endif

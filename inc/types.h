@@ -6,12 +6,14 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/11 05:56:35 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/11 06:21:43 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
+
+# include "vm_params.h"
 
 # define SIZE_OPCODE 1
 # define SIZE_OCP 1
@@ -19,13 +21,6 @@
 # define SIZE_INDIRECT 2
 # define SIZE_DIRECT 2
 # define SIZE_LONG_DIRECT 4
-
-# define REG_NUMBER 16
-
-# define REG_SIZE 4
-
-# define MEM_SIZE 640
-# define IDX_MOD 512
 
 typedef unsigned char			uchar;
 
@@ -60,6 +55,7 @@ typedef struct					s_proc
 	int							id;
 	t_champ						*owner;
 	t_addr						pc;
+	int							carry;
 	t_instr						*current_task;
 	t_reg						registers[REG_NUMBER];
 }								t_proc;

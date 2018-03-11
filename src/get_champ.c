@@ -6,14 +6,13 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/11 06:01:48 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/11 06:21:58 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "libft.h"
-#include "types.h"
+#include "corewar.h"
 
 static int	get_champ(long size, int fd, t_champ *champ)
 {

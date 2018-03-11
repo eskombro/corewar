@@ -6,12 +6,11 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 03:58:22 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/11 06:20:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "types.h"
+#include "corewar.h"
 
 /*
 **	get_arena:

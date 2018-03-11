@@ -6,12 +6,11 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 23:10:48 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 03:49:46 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/11 06:20:12 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "types.h"
+#include "corewar.h"
 
 void		test_write_memory(unsigned char *arena, t_par par)
 {

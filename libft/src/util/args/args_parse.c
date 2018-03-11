@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 02:02:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 19:39:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/11 00:47:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ static int		select_arg(t_args *args, t_arg **arg, char const *arg_name)
 	return (1);
 }
 
+/*
+** Parses the given args instance
+**
+** [ Args ]	args: a pointer to the concerned args instance
+**			argc: argc
+**			argv: argv
+** [Return]	0: Success; 1: Failure
+*/
 int				ft_args_parse(void *args_ptr, int argc, char **argv)
 {
 	t_arg		*last_arg;

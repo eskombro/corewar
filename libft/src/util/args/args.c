@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 01:44:58 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 19:39:07 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/11 00:48:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static void		del_arg(void *ptr)
 	free(arg);
 }
 
+/*
+** Creates a new instance of arguments.
+**
+** [Return]	Pointer to the arguments instance
+*/
 void			*ft_args_new(void)
 {
 	t_args		*args;
@@ -33,6 +38,11 @@ void			*ft_args_new(void)
 	return (args);
 }
 
+/*
+** Destroys the given args instance
+**
+** [ Args ]	args: a pointer to the concerned args instance
+*/
 void			ft_args_del(void *args)
 {
 	if (!args)
@@ -41,7 +51,13 @@ void			ft_args_del(void *args)
 	ft_llist_del(&((t_args *)args)->default_data, &free);
 }
 
-
+/*
+** Register a parameter.
+**
+** [ Args ]	args: a pointer to the concerned args instance
+**			name: argument to create
+** [Return]	0: Success; 1: Failure
+*/
 int				ft_args_add(void *args, char const *name, char shortcut,
 							int data_len)
 {
@@ -63,6 +79,12 @@ int				ft_args_add(void *args, char const *name, char shortcut,
 	return (0);
 }
 
+/*
+** Returns data that was not bound to any parameter
+**
+** [ Args ]	ptr: a pointer to the concerned args instance
+** [Return]	0: Success; 1: Failure
+*/
 char			**ft_args_default(void *ptr)
 {
 	t_args		*args;

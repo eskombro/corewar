@@ -1,6 +1,8 @@
 # Targets
-./corewar
-./asm
+corewar
+asm
+lib/
+libft/lib
 
 # Prerequisites
 *.d

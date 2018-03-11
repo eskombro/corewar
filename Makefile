@@ -6,11 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2018/03/11 05:58:03 by hbouillo         ###   ########.fr        #
-=======
-#    Updated: 2018/03/11 06:19:23 by hbouillo         ###   ########.fr        #
->>>>>>> develop
+#    Updated: 2018/03/11 06:25:33 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +17,8 @@ CC = clang
 
 # TARGET 1
 TARGET_1 = corewar
-SRC_1 = vm/memory/gestion_memoire.c get_champ.c #vm/memory/memory_test.c
+SRC_1 = vm/memory/gestion_memoire.c vm/get_champ.c #vm/memory/memory_test.c
+
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

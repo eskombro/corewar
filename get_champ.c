@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/11 03:24:37 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/11 03:25:44 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ static int	open_champ(char *path, t_champion *champ)
 	champ->name = ft_strdup(buf2);
 	if (!get_com(fd, champ))
 		return (0);
-	printf("\n%s\n", champ->name);
-	printf("%s\n", champ->comment);
 	return (1);
 }
 

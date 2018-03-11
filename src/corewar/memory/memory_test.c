@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 23:10:48 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 02:26:57 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/11 03:49:46 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,26 @@ void		test_write_memory(unsigned char *arena, t_par par)
 
 void		test_read_memory(unsigned char *arena, t_par par)
 {
+	int				i;
+	unsigned char	ustr[500];
+	int				len;
+
 	ft_printf("\nRead memory (and printf): 0, 11\n");
-	ft_printf("%rgb%s%0rgb\n", 0x0099FF, read_memory(0, 11));
+	i = -1;
+	len = 11;
+	ft_memcpy(ustr, read_memory(0, len), len);
+	while (++i < len)
+		ft_printf("%rgb%.2x%0rgb ", 0x0099FF, ustr[i]);
+	ft_putchar('\n');
+	ft_bzero((char*)ustr, len);
 	ft_printf("\nRead memory (and printf): MEM_SIZE - 2, 16\n");
-	ft_printf("%rgb%s%0rgb\n", 0x0099FF, read_memory(MEM_SIZE - 2, 16));
+	i = -1;
+	len = 16;
+	ft_memcpy(ustr, read_memory(MEM_SIZE - 2, len), len);
+	while (++i < len)
+		ft_printf("%rgb%.2x%0rgb ", 0x0099FF, ustr[i]);
+	ft_bzero((char*)ustr, len);
+	ft_putchar('\n');
 }
 
 int			main(void)

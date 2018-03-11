@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 02:32:56 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/11 03:42:16 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ uchar				*read_memory(int address, int size)
 	arena = get_arena();
 	if (!(reg = (uchar *)ft_memalloc(sizeof(uchar) * (size + 1))))
 		return (NULL);
-	reg[--size] = arena[0];
-	while (size-- >= 0)
+	reg[size] = 0;
+	while (--size >= 0)
 	{
 		reg[size] = arena[address];
-		ft_printf("%rgb%.2x%0rgb ", 0x0099FF, reg[size]);
 		++address == MEM_SIZE ? address = 0 : 0;
 	}
 	return (reg);

@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/11 03:25:44 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/11 03:28:42 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ static int	open_champ(char *path, t_champion *champ)
 	int		fd;
 	int		*parse;
 
-	fd = open(path, O_RDONLY);
+	if (!(fd = open(path, O_RDONLY)))
+		return (0);
+	if (fd < 0)
+		return (0);
 	read(fd, buf, 4);
 	parse = (int*)buf;
 	if (*parse != -209458688)

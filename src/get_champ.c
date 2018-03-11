@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_champ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/11 03:28:42 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/11 06:01:48 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "libft/inc/libft.h"
-#include "types.h"
 #include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
+#include "types.h"
 
-static int	get_champ(long size, int fd, t_champion *champ)
+static int	get_champ(long size, int fd, t_champ *champ)
 {
 	char	*champion;
 	char	buf[4];
@@ -49,7 +48,7 @@ static long	convert_endian(long num)
 	return (swapped);
 }
 
-static long	get_com(int fd, t_champion *champ)
+static long	get_com(int fd, t_champ *champ)
 {
 	char	buf[2049];
 	char	buf2[8];
@@ -66,7 +65,7 @@ static long	get_com(int fd, t_champion *champ)
 	return (*champ_size);
 }
 
-static int	open_champ(char *path, t_champion *champ)
+static int	open_champ(char *path, t_champ *champ)
 {
 	char	buf[4];
 	char	buf2[128];
@@ -88,13 +87,13 @@ static int	open_champ(char *path, t_champion *champ)
 	return (1);
 }
 
-t_champion	*get_all_champ(char **jcvd)
+t_champ		*get_all_champ(char **jcvd)
 {
 	int			i;
-	t_champion	*champs;
+	t_champ		*champs;
 
 	i = 0;
-	if (!(champs = (t_champion*)malloc(sizeof(t_champion) *
+	if (!(champs = (t_champ *)malloc(sizeof(t_champ) *
 					ft_chartablen(jcvd))))
 		return (NULL);
 	while (*jcvd)

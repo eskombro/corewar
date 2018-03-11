@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/03 04:41:41 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/10 22:38:53 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,42 +165,22 @@ int					ft_gnl(const int fd, char **line);
 
 int					ft_chartablen(char **tab);
 void				ft_chartabfree(char **tab);
+char				**ft_chartabdup(char **tab);
 
 /*
 ** Args manager
 */
 
-# define ARG_DEFAULT -1
+void				*ft_args_new(void);
+void				ft_args_del(void *args);
 
-typedef struct		s_arg
-{
-	int				idx;
-	char			**data;
-	struct s_arg	*next;
-}					t_arg;
+int					ft_args_add(void *args, char const *name, char shortcut,
+							int data_len);
+int					ft_args_parse(void *args_ptr, int argc, char **argv);
 
-typedef struct		s_refarg
-{
-	int				idx;
-	char			*name;
-	char			short_name;
-	int				data_len;
-	struct s_refarg	*next;
-}					t_refarg;
-
-typedef struct		s_args
-{
-	t_refarg		*ref_args;
-	t_arg			*args;
-}					t_args;
-
-void				register_arg_ref(char *name, char short_name,
-						int data_len, int idx);
-int					parse_args(int argc, char **argv);
-t_args				**get_args(void);
-void				destroy_args(void);
-t_arg				*get_arg(int idx);
-
+char				**ft_args_default(void *ptr);
+char				**ft_args_data(void *args, char *name);
+int					ft_args_get(void *args, char *name);
 /*
 ** Simple linked lists (llist)
 */

@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/12 23:29:25 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:06:15 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	get_champ(long size, int fd, t_champ *champ)
 	champion = (char *)malloc(sizeof(char) * size);
 	read(fd, buf, 4);
 	empty = (int*)buf;
+	champ->size = (int)size;
 	ret = read(fd, champion, size);
 	champion[size] = '\0';
 	champ->champion = champion;

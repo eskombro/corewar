@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/13 13:13:16 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/13 19:45:51 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC = clang
 
 # TARGET 1
 TARGET_1 = corewar
-SRC_1 = vm/memory/gestion_memoire.c vm/logic.c vm/instructions.c vm/process.c #vm/memory/memory_test.c
+SRC_1 = vm/memory/gestion_memoire.c vm/logic/logic.c vm/logic/instructions.c vm/logic/process.c #vm/memory/memory_test.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

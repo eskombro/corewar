@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/13 13:14:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/13 19:55:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct					s_instr
 	int							wait_cycles;
 	char						opcode;
 	t_par						par[3];
+	void						(*run_instr)(void *process);
 }								t_instr;
 
 # define T_RG 0x01
@@ -65,6 +66,7 @@ typedef struct					s_instr_def
 	char						par_type[3];
 	int							cycles;
 	char						flags;
+	void						(*run_instr)(void *instr);
 }								t_instr_def;
 
 typedef struct					s_proc

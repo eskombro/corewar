@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/13 13:16:06 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/13 19:55:38 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,17 @@ void			spawn_process(t_llist **queue, t_proc *process)
 
 /*
 ** Runs cycle for a single process. Returns 0 if OK, 1 if process crashes or
-** did not report as alive.
+** did not report as alive, and -1 in case of error.
 */
 static int		run_process_cycle(t_proc *process)
 {
-	process = 0;
+	if (!process)
+		return (-1);
+	if (!process->current_task && !load_instr(process->pc + process->owner->spawn))
+		return (1);
+	process->current_task->wait_cycles--;
+	if (process->current_task->wait_cycles <= 0)
+		process->current_task->run_instr(process->current_task);
 	return (0);
 }
 

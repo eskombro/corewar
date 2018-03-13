@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/12 18:14:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/13 13:16:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		del_instr(void *data)
 	t_instr		*instr;
 
 	instr = (t_instr *)data;
-	free(instr->parameters);
+	free(instr->par);
 	free(instr);
 }
 
@@ -47,17 +47,20 @@ static void		kill_process(t_llist **queue, t_proc *process)
 
 void			spawn_process(t_llist **queue, t_proc *process)
 {
+	static int	id;
 	t_llist		*new;
 
 	if (!queue)
 		return ;
+	process->id = id++;
 	if (!(new = ft_llist_new(process)))
 		exit(1);
 	ft_llist_front(queue, new);
 }
 
 /*
-** Runs cycle for a single process. Returns 0 if OK, 1 if process crashes.
+** Runs cycle for a single process. Returns 0 if OK, 1 if process crashes or
+** did not report as alive.
 */
 static int		run_process_cycle(t_proc *process)
 {
@@ -65,22 +68,28 @@ static int		run_process_cycle(t_proc *process)
 	return (0);
 }
 
-void			run_loop(void)
+void			run_loop(t_champ *champs)
 {
 	int			cycles;
-	t_llist		*process_queue;
+	t_llist		*proc_queue;
 	t_llist		*tmp;
 
-	process_queue = NULL;
+	proc_queue = NULL;
 	cycles = 0;
-	while (1)
+	while (champs)
 	{
-		tmp = process_queue;
+		spawn_process(&proc_queue, load_process(champs, champs->spawn, NULL));
+		champs++;
+	}
+	while (proc_queue)
+	{
+		tmp = proc_queue;
 		while (tmp)
 		{
 			if (run_process_cycle((t_proc *)tmp->data))
-				kill_process(&process_queue, (t_proc *)tmp->data);
+				kill_process(&proc_queue, (t_proc *)tmp->data);
 			tmp = tmp->next;
 		}
+		cycles++;
 	}
 }

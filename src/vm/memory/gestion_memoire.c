@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 06:20:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:45:21 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 /*
 **	get_arena:
-**	Returns a pointer to the arena, which is allocated in static. If it is not
-**	initialized, it clears the memory with fT_bzero();
+**	Returns a pointer to the arena, which is allocated in static.
 */
 
 uchar				*get_arena(void)
@@ -33,15 +32,16 @@ uchar				*get_arena(void)
 void				write_memory(t_addr pc, t_addr address, t_par par)
 {
 	int				i;
+	int				ct;
 	uchar			*arena;
 
 	arena = get_arena();
-	while (par.size--)
-	{
-		i = (pc + (((address - pc) + par.size) % IDX_MOD)) % MEM_SIZE;
-		arena[i] = (uchar)(par.value & 0xFF);
-		par.value >>= 8;
-	}
+	ct = 0;
+	i = par.size - 1 + pc + ((address) % IDX_MOD);
+	while (i < MEM_SIZE)
+		i += MEM_SIZE;
+	while (ct < par.size)
+		arena[i-- % MEM_SIZE] = (uchar)((par.value >> (8 * (ct++))) & 0xFF);
 }
 
 /*
@@ -54,15 +54,17 @@ uchar				*read_memory(t_addr address, int size)
 {
 	uchar			*arena;
 	uchar			*reg;
+	int				i;
 
 	arena = get_arena();
 	if (!(reg = (uchar *)ft_memalloc(sizeof(uchar) * (size + 1))))
 		return (NULL);
 	reg[size] = 0;
-	while (--size >= 0)
+	i = -1;
+	while (++i < size)
 	{
-		reg[size] = arena[address];
-		++address == MEM_SIZE ? address = 0 : 0;
+		address >= MEM_SIZE ? address = address % MEM_SIZE : 0;
+		reg[i] = arena[address++];
 	}
 	return (reg);
 }
@@ -82,9 +84,9 @@ void				print_memory(t_addr address, int size)
 	while (size)
 	{
 		if (arena[address] != 0)
-			ft_printf("%rgb%.2x%0rgb ", 0x0099FF, arena[address]);
+			ft_printf("%rgb%.2x%0rgb ", 0x00CC99, arena[address]);
 		else
-			ft_printf("%rgb00%0rgb ", 0x0000FF);
+			ft_printf("%rgb00%0rgb ", 0x0000CC);
 		i++ % 64 == 63 ? ft_putchar('\n') : 0;
 		++address == MEM_SIZE ? address = 0 : 0;
 		size--;
@@ -107,9 +109,9 @@ void				print_arena(void)
 	while (++i < MEM_SIZE)
 	{
 		if (arena[i] != 0)
-			ft_printf("%rgb%.2x%0rgb ", 0x0099FF, arena[i]);
+			ft_printf("%rgb%.2x%0rgb ", 0x00CC99, arena[i]);
 		else
-			ft_printf("%rgb00%0rgb ", 0x0000FF);
+			ft_printf("%rgb00%0rgb ", 0x0000CC);
 		i % 64 == 63 ? ft_putchar('\n') : 0;
 	}
 }

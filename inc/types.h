@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/11 06:18:21 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:29:05 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct					s_champ
 	char						*name;
 	char						*comment;
 	char						*champion;
+	int							size;
 }								t_champ;
 
 typedef struct					s_par

@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 23:10:48 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/11 06:20:12 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:45:38 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void		test_write_memory(unsigned char *arena, t_par par)
 {
-	ft_printf("\nWrite mem: write_memory(10, 520, par);\n");
-	write_memory(10, 520, par);
-	ft_printf("\nPrint arena:\n");
-	print_arena();
+	ft_printf("\nWrite mem: write_memory(20, -10, par);\n");
+	write_memory(20, -10, par);
+	ft_printf("\nWrite mem: write_memory(0, 5, par);\n");
+	write_memory(0, 5, par);
 	ft_printf("\nWrite mem: write_memory(MEM_SIZE - 2,MEM_SIZE - 2, par);\n");
-	write_memory(MEM_SIZE - 2, MEM_SIZE - 2, par);
+	write_memory(MEM_SIZE - 2, MEM_SIZE, par);
 	ft_printf("\nPrint arena:\n");
 	print_arena();
 }
@@ -27,7 +27,7 @@ void		test_write_memory(unsigned char *arena, t_par par)
 void		test_read_memory(unsigned char *arena, t_par par)
 {
 	int				i;
-	unsigned char	ustr[500];
+	unsigned char	ustr[5000];
 	int				len;
 
 	ft_printf("\nRead memory (and printf): 0, 11\n");
@@ -35,7 +35,7 @@ void		test_read_memory(unsigned char *arena, t_par par)
 	len = 11;
 	ft_memcpy(ustr, read_memory(0, len), len);
 	while (++i < len)
-		ft_printf("%rgb%.2x%0rgb ", 0x0099FF, ustr[i]);
+		ft_printf("%rgb%.2x%0rgb ", 0x00CC99, ustr[i]);
 	ft_putchar('\n');
 	ft_bzero((char*)ustr, len);
 	ft_printf("\nRead memory (and printf): MEM_SIZE - 2, 16\n");
@@ -43,7 +43,7 @@ void		test_read_memory(unsigned char *arena, t_par par)
 	len = 16;
 	ft_memcpy(ustr, read_memory(MEM_SIZE - 2, len), len);
 	while (++i < len)
-		ft_printf("%rgb%.2x%0rgb ", 0x0099FF, ustr[i]);
+		ft_printf("%rgb%.2x%0rgb ", 0x00CC99, ustr[i]);
 	ft_bzero((char*)ustr, len);
 	ft_putchar('\n');
 }

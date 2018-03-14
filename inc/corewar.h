@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 16:52:23 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:58:45 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int					calc_spawn(int players, t_champ *champs);
 */
 unsigned char		*get_arena(void);
 void				write_memory(t_addr pc, t_addr address, t_par par);
-unsigned char		*read_memory(int address, int size);
-void				print_memory(int address, int size);
+unsigned char		*read_memory(t_addr pc, t_addr address, int size, int mod);
+void				print_memory(t_addr address, int size);
 void				print_arena();
 void				write_champ(t_champ *champ);
 

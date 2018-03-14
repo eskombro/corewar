@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 17:00:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:31:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void		run_corewar(char **champ_files)
 	int			i;
 
 	amount = ft_chartablen(champ_files);
-	champions = get_all_champ(champ_files);
+	if (!(champions = get_all_champ(champ_files)))
+		exit(1);
 	calc_spawn(amount, champions);
 	ft_chartabfree(champ_files);
 	ft_printf("%d champions loaded.\n", amount);

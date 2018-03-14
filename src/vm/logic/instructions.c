@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/13 19:57:21 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:24:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ t_instr_def		get_instr_def(int opcode)
 	return (defs[opcode]);
 }
 
-t_instr				*load_instr(t_addr instr_addr)
+t_instr				*load_instr(t_proc *process, t_addr instr_addr)
 {
 	t_instr_def	def;
 	t_instr		*instr;
 
-	//TODO: Load def from opcode, load opcode from memory
+	process = 0;
+	instr_addr = 0;
+	def.opcode = 0;
 	if (!def.opcode)
 		return (NULL);
 	if (!(instr = (t_instr *)ft_memalloc(sizeof(t_instr))))
@@ -51,6 +53,5 @@ t_instr				*load_instr(t_addr instr_addr)
 	instr->opcode = def.opcode;
 	instr->wait_cycles = def.cycles;
 	instr->run_instr = def.run_instr;
-	instr_addr = 0; // TODO: Load instr from memory
 	return (instr);
 }

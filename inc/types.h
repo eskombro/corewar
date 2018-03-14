@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 15:17:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 19:46:08 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct					s_par
 
 typedef struct					s_instr
 {
+	int							mem_size;
 	int							wait_cycles;
 	char						opcode;
 	t_par						par[3];

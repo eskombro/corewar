@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/13 19:55:38 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:15:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void		del_instr(void *data)
 	t_instr		*instr;
 
 	instr = (t_instr *)data;
-	free(instr->par);
 	free(instr);
 }
 
@@ -40,7 +39,10 @@ static void		kill_process(t_llist **queue, t_proc *process)
 	while (list)
 	{
 		if (list->data == process)
+		{
 			ft_llist_rem(queue, list, &del_process);
+			return ;
+		}
 		list = list->next;
 	}
 }
@@ -66,35 +68,43 @@ static int		run_process_cycle(t_proc *process)
 {
 	if (!process)
 		return (-1);
-	if (!process->current_task && !load_instr(process->pc + process->owner->spawn))
+	if (!process->current_task && !(process->current_task =
+			load_instr(process, process->owner->spawn)))
 		return (1);
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
-		process->current_task->run_instr(process->current_task);
+	{
+		if (process->current_task->run_instr)
+			process->current_task->run_instr(process->current_task);
+		del_instr(process->current_task);
+		process->current_task = NULL;
+	}
 	return (0);
 }
 
-void			run_loop(t_champ *champs)
+void			run_loop(t_champ *champs, int players_count)
 {
 	int			cycles;
 	t_llist		*proc_queue;
 	t_llist		*tmp;
+	t_llist		*tmp2;
+	int			i;
 
 	proc_queue = NULL;
 	cycles = 0;
-	while (champs)
-	{
-		spawn_process(&proc_queue, load_process(champs, champs->spawn, NULL));
-		champs++;
-	}
+	i = -1;
+	while (++i < players_count)
+		spawn_process(&proc_queue, load_process(champs + i, champs[i].spawn, NULL));
 	while (proc_queue)
 	{
+		//ft_printf("Running cycle %d\n", cycles);
 		tmp = proc_queue;
 		while (tmp)
 		{
+			tmp2 = tmp->next;
 			if (run_process_cycle((t_proc *)tmp->data))
 				kill_process(&proc_queue, (t_proc *)tmp->data);
-			tmp = tmp->next;
+			tmp = tmp2;
 		}
 		cycles++;
 	}

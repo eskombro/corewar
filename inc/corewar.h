@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 17:58:45 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:20:48 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,11 @@ t_proc				*load_process(t_champ *owner, t_addr addr, t_proc *parent);
 */
 t_instr				*load_instr(t_addr instr_addr);
 
+void				ld_funct(void *proc);
+
+void				write_reg(t_reg reg, long value);
+int					read_reg(t_reg reg);
+long				get_parameter_result(t_par par, t_proc *process,
+						int restricted);
 
 #endif

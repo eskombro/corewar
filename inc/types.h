@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 15:17:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 19:23:56 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct					s_par
 {
 	unsigned int				size;
 	unsigned int				value;
+	unsigned int				type;
 }								t_par;
 
 typedef struct					s_instr

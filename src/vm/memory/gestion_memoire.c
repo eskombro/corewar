@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/14 18:02:07 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 22:28:25 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 
 	arena = get_arena();
 	ct = 0;
-	i = par.size - 1 + pc + ((address) % IDX_MOD);
+	i = par.size - 1 + pc + (address % IDX_MOD);
 	while (i < MEM_SIZE)
 		i += MEM_SIZE;
 	while (ct < par.size)
@@ -50,7 +50,7 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 **	DONT FORGET TO FREE after read_memory;
 */
 
-uchar				*read_memory(t_addr address, int size)
+uchar				*read_memory(t_addr pc, t_addr address, int size, int mod)
 {
 	uchar			*arena;
 	uchar			*reg;
@@ -61,11 +61,11 @@ uchar				*read_memory(t_addr address, int size)
 		return (NULL);
 	reg[size] = 0;
 	i = -1;
+	address = (mod ? pc + (address % IDX_MOD) : pc + address);
+	while (address < MEM_SIZE)
+		address += MEM_SIZE;
 	while (++i < size)
-	{
-		address >= MEM_SIZE ? address = address % MEM_SIZE : 0;
-		reg[i] = arena[address++];
-	}
+		reg[i] = arena[address++ % MEM_SIZE];
 	return (reg);
 }
 

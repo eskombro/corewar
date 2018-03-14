@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 23:10:48 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/14 15:14:34 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 18:28:05 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,39 @@
 void		test_write_memory(t_par par)
 {
 	ft_printf("\nWrite mem: write_memory(20, -10, par);\n");
-	write_memory(20, -10, par);
+	write_memory(0, 128, par);
 	ft_printf("\nWrite mem: write_memory(0, 5, par);\n");
 	write_memory(0, 5, par);
 	ft_printf("\nWrite mem: write_memory(MEM_SIZE - 2,MEM_SIZE - 2, par);\n");
-	write_memory(MEM_SIZE - 2, MEM_SIZE, par);
+	write_memory(MEM_SIZE - 4, MEM_SIZE, par);
+	ft_printf("\nWrite mem: write_memory(MEM_SIZE - 2,MEM_SIZE - 2, par);\n");
+	write_memory(-128, 0, par);
 	ft_printf("\nPrint arena:\n");
 	print_arena();
 }
 
-void		test_read_memory()
+void		test_read_memory(void)
 {
 	int				i;
 	unsigned char	ustr[5000];
 	int				len;
 
-	ft_printf("\nRead memory (and printf): 0, 11\n");
+	ft_printf("\nRead memory (and printf): 0, 128, 4, 0\n");
 	i = -1;
-	len = 11;
-	ft_memcpy(ustr, read_memory(0, len), len);
+	len = 4;
+	ft_memcpy(ustr, read_memory(0, 128, 4, 0), len);
 	while (++i < len)
 		ft_printf("%rgb%.2x%0rgb ", 0x00CC99, ustr[i]);
 	ft_putchar('\n');
 	ft_bzero((char*)ustr, len);
-	ft_printf("\nRead memory (and printf): MEM_SIZE - 2, 16\n");
+	ft_printf("\nRead memory (and printf): 0, 128, 4, 1\n");
 	i = -1;
-	len = 16;
-	ft_memcpy(ustr, read_memory(MEM_SIZE - 2, len), len);
+	len = 4;
+	ft_memcpy(ustr, read_memory(0, 128, 4, 1), len);
 	while (++i < len)
 		ft_printf("%rgb%.2x%0rgb ", 0x00CC99, ustr[i]);
-	ft_bzero((char*)ustr, len);
 	ft_putchar('\n');
+	ft_bzero((char*)ustr, len);
 }
 
 int			main(void)

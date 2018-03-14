@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 02:02:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/11 00:47:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:28:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int				ft_args_parse(void *args_ptr, int argc, char **argv)
 		return (1);
 	((t_args *)args_ptr)->parsed = 1;
 	i = 0;
+	last_arg = NULL;
 	while (++i < argc)
 		if (*(argv[i]) != '-')
 		{

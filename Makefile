@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/14 15:14:57 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/14 15:23:12 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC_1 = vm/memory/gestion_memoire.c \
 	vm/get_spawn.c \
 	vm/logic/logic.c \
 	vm/logic/instructions.c \
-	vm/logic/process.c #vm/memory/memory_test.c
+	vm/logic/process.c \
+	vm/main.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

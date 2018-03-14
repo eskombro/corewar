@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 15:08:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:17:11 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,5 @@ typedef struct					s_proc
 	t_instr						*current_task;
 	t_reg						reg[REG_NUMBER];
 }								t_proc;
-
-/*
-**	gestion_memoire
-*/
-
-unsigned char					*get_arena(void);
-void							write_memory(t_addr pc, t_addr address, t_par par);
-unsigned char					*read_memory(int address, int size);
-void							print_memory(int address, int size);
-void							print_arena();
 
 #endif

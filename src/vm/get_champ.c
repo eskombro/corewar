@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/13 21:06:15 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:59:49 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	get_champ(long size, int fd, t_champ *champ)
 	empty = (int*)buf;
 	champ->size = (int)size;
 	ret = read(fd, champion, size);
-	champion[size] = '\0';
 	champ->champion = champion;
 	if (ret != size || *empty != 0)
 		return (0);
@@ -101,7 +100,9 @@ t_champ		*get_all_champ(char **jcvd)
 	while (*jcvd)
 	{
 		champs[i].id = i + 1;
-		open_champ(*jcvd, champs + i);
+		if (!open_champ(*jcvd, champs + i))
+			return (NULL);
+		i++;
 		jcvd++;
 	}
 	return (champs);

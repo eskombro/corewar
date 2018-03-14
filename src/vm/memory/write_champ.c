@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 21:19:14 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/13 21:45:50 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:00:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void		write_champ(t_champ *champ)
 	i = -1;
 	arena = get_arena();
 	while (++i < champ->size)
-		arena[champ->spawn + i] = (uchar)champ->champion[i];
+		arena[(champ->spawn + i) % MEM_SIZE] = (uchar)champ->champion[i];
 }

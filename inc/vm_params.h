@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:07:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/13 12:14:11 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:37:49 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 ** Memory parameters
 */
-# define MEM_SIZE (4 * 256)
+# define MEM_SIZE (4 * 1024)
 # define IDX_MOD (MEM_SIZE / 8)
 
 # define REG_NUMBER 16

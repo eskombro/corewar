@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 14:59:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:08:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,28 @@ typedef struct					s_par
 typedef struct					s_instr
 {
 	int							wait_cycles;
-	int							opcode;
-	t_par						*parameters;
+	char						opcode;
+	t_par						par[3];
+	void						(*run_instr)(void *process);
 }								t_instr;
+
+# define T_RG 0x01
+# define T_D2 0x02
+# define T_D4 0x04
+# define T_ID 0x08
+
+# define F_OCP 0x01
+# define F_ADDR 0x02
+
+typedef struct					s_instr_def
+{
+	char						opcode;
+	char						par_nbr;
+	char						par_type[3];
+	int							cycles;
+	char						flags;
+	void						(*run_instr)(void *instr);
+}								t_instr_def;
 
 typedef struct					s_proc
 {
@@ -58,7 +77,7 @@ typedef struct					s_proc
 	t_addr						pc;
 	int							carry;
 	t_instr						*current_task;
-	t_reg						registers[REG_NUMBER];
+	t_reg						reg[REG_NUMBER];
 }								t_proc;
 
 /*

@@ -6,13 +6,13 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 23:10:48 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/13 21:45:38 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:14:34 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		test_write_memory(unsigned char *arena, t_par par)
+void		test_write_memory(t_par par)
 {
 	ft_printf("\nWrite mem: write_memory(20, -10, par);\n");
 	write_memory(20, -10, par);
@@ -24,7 +24,7 @@ void		test_write_memory(unsigned char *arena, t_par par)
 	print_arena();
 }
 
-void		test_read_memory(unsigned char *arena, t_par par)
+void		test_read_memory()
 {
 	int				i;
 	unsigned char	ustr[5000];
@@ -50,21 +50,19 @@ void		test_read_memory(unsigned char *arena, t_par par)
 
 int			main(void)
 {
-	unsigned char	*arena;
 	t_par			par;
 
 	par.size = 3;
 	par.value = 0xABCDEF;
-	arena = get_arena();
 	ft_printf("Print arena:\n");
 	print_arena();
-	test_write_memory(arena, par);
+	test_write_memory(par);
 	ft_printf("\nPrint memory: 0, 10\n");
 	print_memory(0, 10);
 	ft_printf("\nPrint memory: MEM_SIZE -2, 20\n");
 	print_memory(MEM_SIZE - 2, 20);
 	ft_printf("\nPrint memory: 0, 128\n");
 	print_memory(0, 128);
-	test_read_memory(arena, par);
+	test_read_memory();
 	return (0);
 }

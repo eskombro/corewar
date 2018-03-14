@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/13 21:45:21 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:13:41 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ uchar				*get_arena(void)
 void				write_memory(t_addr pc, t_addr address, t_par par)
 {
 	int				i;
-	int				ct;
+	unsigned int	ct;
 	uchar			*arena;
 
 	arena = get_arena();

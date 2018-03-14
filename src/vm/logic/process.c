@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llist_has_data.c                                :+:      :+:    :+:   */
+/*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/03 04:40:06 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/12 18:03:52 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/03/13 13:19:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-int					ft_llist_has_data(t_llist *list, void *data)
+t_proc			*load_process(t_champ *owner, t_addr addr, t_proc *parent)
 {
-	while (list)
+	t_proc		*process;
+	int			i;
+
+	if (!(process = (t_proc *)ft_memalloc(sizeof(t_proc))))
+		exit(1);
+	process->owner = owner;
+	process->pc = addr;
+	if (parent)
 	{
-		if (list->data == data)
-			return (1);
-		list = list->next;
+		i = -1;
+		while (++i < REG_NUMBER)
+			ft_memcpy(process->reg[i], parent->reg[i], sizeof(t_reg));
 	}
-	return (0);
+	return (process);
 }

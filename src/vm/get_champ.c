@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 16:59:49 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:16:23 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static long	get_com(int fd, t_champ *champ)
 	champ_size = (long*)buf2;
 	*champ_size = convert_endian(*champ_size);
 	champ->comment = ft_strdup(buf);
-	if (!get_champ(*champ_size, fd, champ))
+	if (*champ_size > CHAMP_MAX_SIZE || !get_champ(*champ_size, fd, champ))
 		return (0);
 	return (*champ_size);
 }

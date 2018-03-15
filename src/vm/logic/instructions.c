@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 23:11:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 23:16:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ t_instr_def		get_instr_def(int opcode)
 		{ I_LIVE, 1, { T_D4 }, 10, 0, &live },
 		{ I_LD, 2, { T_ID | T_D4, T_RG }, 5, F_OCP | F_ADDR, &ld },
 		{ I_ST, 2, { T_RG, T_RG | T_ID }, 5, F_OCP | F_ADDR, NULL },
-		{ I_ADD, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, NULL },
-		{ I_SUB, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, NULL },
-		{ I_AND, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, NULL },
-		{ I_OR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, NULL },
-		{ I_XOR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, NULL },
-		{ I_ZJMP, 1, { T_D2 }, 20, 0, NULL },
+		{ I_ADD, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, &add },
+		{ I_SUB, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, &sub },
+		{ I_AND, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, &and },
+		{ I_OR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, &or },
+		{ I_XOR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, &xor },
+		{ I_ZJMP, 1, { T_D2 }, 20, 0, &zjmp },
 		{ I_LDI, 3, { T_RG | T_ID | T_D2, T_D2, T_RG }, 25, F_OCP | F_ADDR, &ldi },
 		{ I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_D2 }, 25, F_OCP | F_ADDR, NULL },
 		{ I_FORK, 1, { T_D2 }, 800, F_ADDR, &sfork },
 		{ I_LLD, 2, { T_ID | T_D4, T_RG }, 10, F_OCP, &lld },
 		{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, 50, F_OCP, &lldi },
 		{ I_LFORK, 1, { T_D2 }, 1000, 0, &lfork },
-		{ I_AFF, 1, { T_RG }, 2, F_OCP, NULL } };
+		{ I_AFF, 1, { T_RG }, 2, F_OCP, &aff } };
 
-	if (opcode < 0 || opcode >= 16)
+	if (opcode < 0 || opcode > 16)
 		opcode = 0;
 	return (defs[opcode]);
 }

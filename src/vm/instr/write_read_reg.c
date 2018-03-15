@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/14 22:55:01 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:25:24 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ long	get_parameter_result(t_par par, t_proc *process, int restricted)
 		i = -1;
 		while (++i < REG_SIZE)
 		{
-			result |= read[i] & 0xFF;
 			result <<= 8;
+			result |= read[i] & 0xFF;
 		}
 		free(read);
 	}

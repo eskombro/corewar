@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/14 18:28:42 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:08:07 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,24 @@ void				print_arena(void)
 {
 	uchar			*arena;
 	int				i;
+	int				last;
 
 	i = -1;
 	arena = get_arena();
 	while (++i < MEM_SIZE)
 	{
-		if (arena[i] != 0)
-			ft_printf("%rgb%.2x%0rgb ", 0x00CC99, arena[i]);
-		else
-			ft_printf("%rgb00%0rgb ", 0x0000CC);
+		if (arena[i] != 0 && last != 1)
+		{
+			ft_printf("%rgb", 0x00CC99);
+			last = 1;
+		}
+		else if (arena[i] == 0 && last != 0)
+		{
+			ft_printf("%rgb", 0x0000CC);
+			last = 0;
+		}
+		ft_printf("%.2x ", arena[i]);
 		i % 64 == 63 ? ft_putchar('\n') : 0;
 	}
+	ft_printf("%0rgb");
 }

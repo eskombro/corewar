@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 17:31:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/14 18:08:52 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void		run_corewar(char **champ_files)
 	while (++i < amount)
 		write_champ(champions + i);
 	print_arena();
+	run_loop(champions, amount);
 }
 
 int				main(int argc, char **argv)

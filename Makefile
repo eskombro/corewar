@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/14 22:22:51 by sjimenez         ###   ########.fr        #
+#    Updated: 2018/03/15 18:24:41 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_1 = vm/memory/gestion_memoire.c \
 	vm/instr/ld.c \
 	vm/instr/ldi.c \
 	vm/instr/write_read_reg.c \
-	vm/main.c
+	vm/main.c \
+	vm/debug.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

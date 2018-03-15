@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 23:16:06 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 23:45:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int			read_ocp(t_proc *process, t_instr_def def,
 	while (i--)
 	{
 		(*buf) >>= 2;
+		if (i >= def.par_nbr)
+			continue ;
 		if (((*buf) & 0x03) == MT_RG && (def.par_type[i] & T_RG))
 			init_par(instr->par + i, T_RG);
 		else if (((*buf) & 0x03) == MT_ID && (def.par_type[i] & T_ID))
@@ -111,11 +113,13 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 {
 	uchar			*buf;
 	int				i;
+	int				code;
 
+	code = 0;
 	if (def.flags & F_OCP)
 	{
 		if (read_ocp(process, def, instr, instr_addr))
-			return (1);
+			code = 1;
 	}
 	else
 		default_types(def, instr);
@@ -128,7 +132,7 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 		instr->mem_size += instr->par[i].size;
 		free(buf);
 	}
-	return (0);
+	return (code);
 }
 
 t_instr				*load_instr(t_proc *process, t_addr instr_addr)

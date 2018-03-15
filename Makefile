@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/14 21:48:15 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/15 18:08:55 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC_1 = vm/memory/gestion_memoire.c \
 	vm/logic/logic.c \
 	vm/logic/instructions.c \
 	vm/logic/process.c \
-	vm/main.c
+	vm/main.c \
+	vm/debug.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 17:59:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:15:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ static int				run_process_cycle(t_proc *process)
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-		ft_printf("[%9d] Executing instruction %#.2x on champ %s\n", get_logic()->cycles, process->current_task->opcode, process->owner->name);
+		if (process->current_task->opcode)
+			debug_instr(get_logic()->cycles, process->current_task);
 		pc = process->pc;
 		if (process->current_task->run_instr)
 			process->current_task->run_instr(process);
@@ -109,7 +110,7 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, champs[i].spawn, NULL));
-	while (logic->queue && logic->cycles < 100)
+	while (logic->queue && logic->cycles < 10000)
 	{
 		//ft_printf("Running cycle %d\n", cycles);
 		tmp = logic->queue;

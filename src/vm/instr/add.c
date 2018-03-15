@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:11:01 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 18:36:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:14:33 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void		add(void *or_proc)
 
 	proc = (t_proc*)or_proc;
 	instr = proc->current_task;
-	write_reg(proc->reg[instr->par[2].value],
-			read_reg(proc->reg[instr->par[1].value]) +
-			read_reg(proc->reg[instr->par[0].value]));
-	if (read_reg(proc->reg[instr->par[2].value]) == 0)
+	write_reg(proc->reg[instr->par[2].value - 1],
+			read_reg(proc->reg[instr->par[1].value - 1]) +
+			read_reg(proc->reg[instr->par[0].value - 1]));
+	if (read_reg(proc->reg[instr->par[2].value - 1]) == 0)
 		proc->carry = 1;
 	else
 		proc->carry = 0;

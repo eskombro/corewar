@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:19:31 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 18:37:07 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:17:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void		sub(void *or_proc)
 
 	proc = (t_proc*)or_proc;
 	instr = proc->current_task;
-	write_reg(proc->reg[instr->par[2].value],
-			read_reg(proc->reg[instr->par[0].value]) -
-			read_reg(proc->reg[instr->par[1].value]));
-	if (read_reg(proc->reg[instr->par[2].value]) == 0)
+	write_reg(proc->reg[instr->par[2].value - 1],
+			read_reg(proc->reg[instr->par[0].value - 1]) -
+			read_reg(proc->reg[instr->par[1].value - 1]));
+	if (read_reg(proc->reg[instr->par[2].value - 1]) == 0)
 		proc->carry = 1;
 	else
 		proc->carry = 0;

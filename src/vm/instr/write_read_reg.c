@@ -6,13 +6,13 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/15 18:58:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:15:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				write_reg(t_reg reg, long value)
+void				write_reg(t_reg reg, unsigned long value)
 {
 	int				i;
 

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 19:46:08 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:49:48 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 
 # include "vm_params.h"
 
-# define SIZE_OPCODE 1
-# define SIZE_OCP 1
-# define SIZE_REGISTER_IDX 1
-# define SIZE_INDIRECT 2
-# define SIZE_DIRECT 2
-# define SIZE_LONG_DIRECT 4
+# define S_RG 1
+# define S_ID 2
+# define S_D2 2
+# define S_D4 4
 
 typedef unsigned char			uchar;
 
@@ -40,13 +38,18 @@ typedef struct					s_champ
 
 typedef struct					s_par
 {
+	char						type;
 	unsigned int				size;
-	unsigned int				value;
+	unsigned long				value;
 }								t_par;
+
+# define MT_RG 0x01
+# define MT_DT 0x02
+# define MT_ID 0x03
 
 typedef struct					s_instr
 {
-	int							mem_size;
+	unsigned int				mem_size;
 	int							wait_cycles;
 	char						opcode;
 	t_par						par[3];
@@ -80,5 +83,11 @@ typedef struct					s_proc
 	t_instr						*current_task;
 	t_reg						reg[REG_NUMBER];
 }								t_proc;
+
+typedef struct					s_logic
+{
+	t_llist						*queue;
+	int							cycles;
+}								t_logic;
 
 #endif

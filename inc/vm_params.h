@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:07:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/14 18:30:05 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:33:11 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define CYCLE_DELTA 50
 # define NBR_LIVE 21
 # define MAX_CHECKS 10
+
+# define CRASH_ON_NULL_INSTR 0
 
 /*
 ** Champions parameters

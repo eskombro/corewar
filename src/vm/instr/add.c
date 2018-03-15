@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:11:01 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 21:39:38 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:36:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/corewar.h"
-#include "../../../inc/instructions.h"
-#include "../../../inc/types.h"
-#include "../../../inc/vm_params.h"
+#include "corewar.h"
 
 void		add(void *or_proc)
 {

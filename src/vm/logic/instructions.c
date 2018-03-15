@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 18:13:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:42:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_instr_def		get_instr_def(int opcode)
 	static t_instr_def	defs[17] = {
 		{ 0, 0, { 0, 0, 0 }, 0, 0, NULL},
 		{ I_LIVE, 1, { T_D4 }, 10, 0, NULL },
-		{ I_LD, 2, { T_ID | T_D4, T_RG }, 5, F_OCP | F_ADDR, NULL },
+		{ I_LD, 2, { T_ID | T_D4, T_RG }, 5, F_OCP | F_ADDR, &ld },
 		{ I_ST, 2, { T_RG, T_RG | T_ID }, 5, F_OCP | F_ADDR, NULL },
 		{ I_ADD, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, NULL },
 		{ I_SUB, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, NULL },

@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/15 18:24:41 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/15 18:35:32 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +17,30 @@ CC = clang
 
 # TARGET 1
 TARGET_1 = corewar
-SRC_1 = vm/memory/gestion_memoire.c \
-	vm/memory/write_champ.c \
+SRC_1 = vm/main.c \
+	vm/debug.c \
 	vm/get_champ.c \
 	vm/get_spawn.c \
+	\
+	vm/memory/gestion_memoire.c \
+	vm/memory/write_champ.c \
+	\
 	vm/logic/logic.c \
 	vm/logic/instructions.c \
 	vm/logic/process.c \
+	\
+	vm/instr/add.c \
+	vm/instr/aff.c \
+	vm/instr/and.c \
+	vm/instr/fork.c \
 	vm/instr/ld.c \
 	vm/instr/ldi.c \
-	vm/instr/write_read_reg.c \
-	vm/main.c \
-	vm/debug.c
+	vm/instr/lfork.c \
+	vm/instr/or.c \
+	vm/instr/sub.c \
+	vm/instr/xor.c \
+	vm/instr/zjmp.c \
+	vm/instr/write_read_reg.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

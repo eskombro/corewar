@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   zjmp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:45:40 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 23:01:20 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:36:48 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/corewar.h"
-#include "../../../inc/instructions.h"
-#include "../../../inc/types.h"
-#include "../../../inc/vm_params.h"
+#include "corewar.h"
 
 void		zjmp(void *or_proc)
 {

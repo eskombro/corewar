@@ -6,15 +6,15 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/15 18:25:24 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:58:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	write_reg(t_reg reg, long value)
+void				write_reg(t_reg reg, long value)
 {
-	int			i;
+	int				i;
 
 	i = REG_SIZE;
 	while (i-- > 0)
@@ -24,10 +24,10 @@ void	write_reg(t_reg reg, long value)
 	}
 }
 
-int		read_reg(t_reg reg)
+unsigned long		read_reg(t_reg reg)
 {
-	int			i;
-	int			value;
+	int				i;
+	unsigned long	value;
 
 	i = -1;
 	value = 0;
@@ -39,9 +39,9 @@ int		read_reg(t_reg reg)
 	return (value);
 }
 
-long	get_parameter_result(t_par par, t_proc *process, int restricted)
+unsigned long		get_parameter_result(t_par par, t_proc *process, int restricted)
 {
-	long			result;
+	unsigned long	result;
 	unsigned char	*read;
 	int				i;
 

@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:19:31 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 21:39:55 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:37:07 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/corewar.h"
-#include "../../../inc/instructions.h"
-#include "../../../inc/types.h"
-#include "../../../inc/vm_params.h"
+#include "corewar.h"
 
-void		add(void *or_proc)
+void		sub(void *or_proc)
 {
 	t_proc	*proc;
 	t_instr	*instr;

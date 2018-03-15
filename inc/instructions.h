@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 00:19:07 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 17:14:08 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 19:00:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,22 @@
 # define I_LLDI 0x0e
 # define I_LFORK 0x0f
 # define I_AFF 0x10
+
+/*
+** Handlers
+*/
+void				add(void *proc);
+void				aff(void *proc);
+void				and(void *proc);
+void				sfork(void *proc);
+void				ld(void *proc);
+void				lld(void *proc);
+void				ldi(void *proc);
+void				lldi(void *proc);
+void				lfork(void *proc);
+void				or(void *proc);
+void				sub(void *proc);
+void				xor(void *proc);
+void				zjmp(void *proc);
 
 #endif

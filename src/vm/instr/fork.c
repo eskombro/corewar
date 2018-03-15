@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 23:01:44 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 23:14:51 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:57:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/corewar.h"
-#include "../../../inc/instructions.h"
-#include "../../../inc/types.h"
-#include "../../../inc/vm_params.h"
+#include "corewar.h"
 
-void		fork(void *or_proc)
+void		sfork(void *or_proc)
 {
 	t_proc	*proc;
 	t_proc	*child;

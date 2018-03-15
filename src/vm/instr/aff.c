@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 23:18:16 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 23:32:03 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/15 18:52:19 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/corewar.h"
-#include "../../../inc/instructions.h"
-#include "../../../inc/types.h"
-#include "../../../inc/vm_params.h"
+#include "corewar.h"
 
 void		aff(void *or_proc)
 {
@@ -29,5 +26,5 @@ void		aff(void *or_proc)
 		proc->carry = 1;
 	else
 		proc->carry = 0;
-	write(1, &i, 1);
+	ft_putchar(i);
 }

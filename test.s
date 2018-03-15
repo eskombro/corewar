@@ -1,5 +1,10 @@
 .name "test"
 .comment "uyweFBOASLK"
 
-ld 124,r4
-zjmp %0
+ld %42,r1
+aff r1
+aff r1
+aff r2
+aff r1
+aff r2
+

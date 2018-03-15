@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:45:40 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 20:18:35 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:39:11 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void		zjmp(void *or_proc)
 	proc = (t_proc*)or_proc;
 	instr = proc->current_task;
 	if (proc->carry)
-		proc->pc = get_parameter_result(instr->par[0], proc, 0);
+		proc->pc += get_parameter_result(instr->par[0], proc, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 19:01:08 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:16:41 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ static int				run_process_cycle(t_proc *process)
 			ft_printf("carry is %d\n", process->carry);
 			process->current_task->run_instr(process);
 			ft_printf("REG 4 is %#.8lx\n", read_reg(process->reg[3]));
+			ft_printf("REG 4 is %#.32lb\n", read_reg(process->reg[3]));
+			ft_printf("REG 3 is %#.8lx\n", read_reg(process->reg[2]));
+			ft_printf("REG 3 is %#.32lb\n", read_reg(process->reg[2]));
 			ft_printf("carry is %d\n", process->carry);
 		}
 		if (process->pc == pc)
@@ -115,7 +118,7 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, champs[i].spawn, NULL));
-	while (logic->queue && logic->cycles < 50)
+	while (logic->queue && logic->cycles < 100)
 	{
 		//ft_printf("Running cycle %d\n", cycles);
 		tmp = logic->queue;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 18:42:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 23:11:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_instr_def		get_instr_def(int opcode)
 {
 	static t_instr_def	defs[17] = {
 		{ 0, 0, { 0, 0, 0 }, 0, 0, NULL},
-		{ I_LIVE, 1, { T_D4 }, 10, 0, NULL },
+		{ I_LIVE, 1, { T_D4 }, 10, 0, &live },
 		{ I_LD, 2, { T_ID | T_D4, T_RG }, 5, F_OCP | F_ADDR, &ld },
 		{ I_ST, 2, { T_RG, T_RG | T_ID }, 5, F_OCP | F_ADDR, NULL },
 		{ I_ADD, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, NULL },
@@ -25,12 +25,12 @@ t_instr_def		get_instr_def(int opcode)
 		{ I_OR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, NULL },
 		{ I_XOR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, NULL },
 		{ I_ZJMP, 1, { T_D2 }, 20, 0, NULL },
-		{ I_LDI, 3, { T_RG | T_ID | T_D2 | T_D2, T_RG }, 25, F_OCP | F_ADDR, NULL },
+		{ I_LDI, 3, { T_RG | T_ID | T_D2, T_D2, T_RG }, 25, F_OCP | F_ADDR, &ldi },
 		{ I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_D2 }, 25, F_OCP | F_ADDR, NULL },
-		{ I_FORK, 1, { T_D2 }, 800, F_ADDR, NULL },
-		{ I_LLD, 2, { T_ID | T_D4, T_RG }, 10, F_OCP, NULL },
-		{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, 50, F_OCP, NULL },
-		{ I_LFORK, 1, { T_D2 }, 1000, 0, NULL },
+		{ I_FORK, 1, { T_D2 }, 800, F_ADDR, &sfork },
+		{ I_LLD, 2, { T_ID | T_D4, T_RG }, 10, F_OCP, &lld },
+		{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, 50, F_OCP, &lldi },
+		{ I_LFORK, 1, { T_D2 }, 1000, 0, &lfork },
 		{ I_AFF, 1, { T_RG }, 2, F_OCP, NULL } };
 
 	if (opcode < 0 || opcode >= 16)
@@ -57,15 +57,17 @@ static void			default_types(t_instr_def def, t_instr *instr)
 
 	i = -1;
 	while (++i < 3)
+	{
 		init_par(instr->par + i, def.par_type[i]);
+	}
 }
 
-static void			read_ocp(t_proc *process, t_instr_def def,
+static int			read_ocp(t_proc *process, t_instr_def def,
 						t_instr *instr, t_addr instr_addr)
 {
 	uchar			*buf;
 	int				i;
-	//TODO: Erreurs de parametres ?
+
 	buf = read_memory(process->pc + process->owner->spawn,
 		instr_addr + instr->mem_size, 1, 0);
 	i = 3;
@@ -73,14 +75,19 @@ static void			read_ocp(t_proc *process, t_instr_def def,
 	while (i--)
 	{
 		(*buf) >>= 2;
-		if (((*buf) & 0x03) == MT_RG)
+		if (((*buf) & 0x03) == MT_RG && (def.par_type[i] & T_RG))
 			init_par(instr->par + i, T_RG);
-		else if (((*buf) & 0x03) == MT_ID)
+		else if (((*buf) & 0x03) == MT_ID && (def.par_type[i] & T_ID))
 			init_par(instr->par + i, T_ID);
-		else if (((*buf) & 0x03) == MT_DT)
-			init_par(instr->par + i, def.par_type[i] & T_D2 ? T_D2 : T_D4);
+		else if (((*buf) & 0x03) == MT_DT && (def.par_type[i] & T_D2))
+			init_par(instr->par + i, T_D2);
+		else if (((*buf) & 0x03) == MT_DT && (def.par_type[i] & T_D4))
+			init_par(instr->par + i, T_D4);
+		else
+			return (1);
 	}
 	free(buf);
+	return (0);
 }
 
 static long			result_from_mem(unsigned int size, uchar *mem)
@@ -99,14 +106,17 @@ static long			result_from_mem(unsigned int size, uchar *mem)
 	return (result);
 }
 
-static void			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
+static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 						t_addr instr_addr)
 {
 	uchar			*buf;
 	int				i;
 
 	if (def.flags & F_OCP)
-		read_ocp(process, def, instr, instr_addr);
+	{
+		if (read_ocp(process, def, instr, instr_addr))
+			return (1);
+	}
 	else
 		default_types(def, instr);
 	i = -1;
@@ -118,6 +128,7 @@ static void			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 		instr->mem_size += instr->par[i].size;
 		free(buf);
 	}
+	return (0);
 }
 
 t_instr				*load_instr(t_proc *process, t_addr instr_addr)
@@ -137,6 +148,7 @@ t_instr				*load_instr(t_proc *process, t_addr instr_addr)
 	instr->opcode = def.opcode;
 	instr->wait_cycles = def.cycles;
 	instr->run_instr = def.run_instr;
-	fill_parameters(process, def, instr, instr_addr);
+	if (fill_parameters(process, def, instr, instr_addr))
+		instr->run_instr = NULL;
 	return (instr);
 }

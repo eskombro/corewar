@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/15 20:15:21 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:56:25 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ unsigned long		get_parameter_result(t_par par, t_proc *process, int restricted)
 
 	result = 0;
 	if (par.type == T_RG)
-		result = read_reg(process->reg[par.value]);
+		result = read_reg(process->reg[par.value - 1]);
 	else if (par.type == T_ID)
 	{
 		read = read_memory(process->pc, par.value, REG_SIZE, restricted);

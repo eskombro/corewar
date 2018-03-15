@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 20:48:59 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/03/15 22:51:38 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/03/15 23:06:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-t_proc			*load_process(t_champ *owner, t_addr addr, t_proc *parent)
+void		live(void *ptr)
 {
-	t_proc		*process;
-	int			i;
+	t_proc	*proc;
 
-	if (!(process = (t_proc *)ft_memalloc(sizeof(t_proc))))
-		exit(1);
-	process->owner = owner;
-	process->pc = addr;
-	if (parent)
-	{
-		i = -1;
-		while (++i < REG_NUMBER)
-			ft_memcpy(process->reg[i], parent->reg[i], sizeof(t_reg));
-	}
-	return (process);
+	proc = (t_proc *)ptr;
+	proc->lives++;
+	report_live(get_parameter_result(proc->current_task->par[0], proc, 0));
 }

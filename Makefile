@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/15 18:35:32 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/15 23:04:28 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_1 = vm/main.c \
 	vm/instr/ld.c \
 	vm/instr/ldi.c \
 	vm/instr/lfork.c \
+	vm/instr/live.c \
 	vm/instr/or.c \
 	vm/instr/sub.c \
 	vm/instr/xor.c \

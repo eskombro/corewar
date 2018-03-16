@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 23:17:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/16 19:30:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,20 @@ static void				kill_process(t_proc *process)
 	}
 }
 
-void					report_live(unsigned long player)
+void					report_live(t_proc *process, unsigned long player)
 {
 	t_logic				*logic;
 	int					i;
 
 	logic = get_logic();
 	i = -1;
+	process->lives++;
 	while (++i < logic->players_count)
 	{
 		if (logic->champs[i].id == player)
 		{
 			logic->champs[i].lives++;
-			ft_printf("Player %s (%d) reported as alive\n", logic->champs[i].name, player);
+			debug_live_report(process, logic->champs + i);
 		}
 	}
 }
@@ -99,7 +100,7 @@ static int				run_process_cycle(t_proc *process)
 	if (!process)
 		return (-1);
 	if (!process->current_task && !(process->current_task =
-			load_instr(process, process->owner->spawn)))
+			load_instr(process)))
 		return (1);
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
@@ -112,9 +113,11 @@ static int				run_process_cycle(t_proc *process)
 			process->current_task->run_instr(process);
 			ft_printf("  Carry: %d\n", process->carry);
 			debug_reg(process);
+			print_arena();
 		}
 		if (process->pc == pc)
 			process->pc += process->current_task->mem_size;
+		process->pc %= MEM_SIZE;
 		del_instr(process->current_task);
 		process->current_task = NULL;
 	}
@@ -133,10 +136,9 @@ void					run_loop(t_champ *champs, int players_count)
 	logic->champs = champs;
 	i = -1;
 	while (++i < players_count)
-		spawn_process(load_process(champs + i, champs[i].spawn, NULL));
-	while (logic->queue && logic->cycles < 1600)
+		spawn_process(load_process(champs + i, 0, NULL));
+	while (logic->queue)
 	{
-		//ft_printf("Running cycle %d\n", cycles);
 		tmp = logic->queue;
 		while (tmp)
 		{

@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 23:06:37 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/16 19:17:43 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_champ		*get_all_champ(char **jcvd)
 	t_champ		*champs;
 
 	i = 0;
-	if (!(champs = (t_champ *)malloc(sizeof(t_champ) *
+	if (!(champs = (t_champ *)ft_memalloc(sizeof(t_champ) *
 					ft_chartablen(jcvd))))
 		return (NULL);
 	while (*jcvd)

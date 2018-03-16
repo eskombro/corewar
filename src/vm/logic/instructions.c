@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 23:45:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/16 19:17:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_instr_def		get_instr_def(int opcode)
 		{ 0, 0, { 0, 0, 0 }, 0, 0, NULL},
 		{ I_LIVE, 1, { T_D4 }, 10, 0, &live },
 		{ I_LD, 2, { T_ID | T_D4, T_RG }, 5, F_OCP | F_ADDR, &ld },
-		{ I_ST, 2, { T_RG, T_RG | T_ID }, 5, F_OCP | F_ADDR, NULL },
+		{ I_ST, 2, { T_RG, T_RG | T_ID }, 5, F_OCP | F_ADDR, &st },
 		{ I_ADD, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, &add },
 		{ I_SUB, 3, { T_RG, T_RG, T_RG }, 10, F_OCP, &sub },
 		{ I_AND, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, &and },
@@ -26,7 +26,7 @@ t_instr_def		get_instr_def(int opcode)
 		{ I_XOR, 3, { T_RG | T_ID | T_D4, T_RG | T_ID | T_D4, T_RG }, 6, F_OCP | F_ADDR, &xor },
 		{ I_ZJMP, 1, { T_D2 }, 20, 0, &zjmp },
 		{ I_LDI, 3, { T_RG | T_ID | T_D2, T_D2, T_RG }, 25, F_OCP | F_ADDR, &ldi },
-		{ I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_D2 }, 25, F_OCP | F_ADDR, NULL },
+		{ I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_D2 }, 25, F_OCP | F_ADDR, &sti },
 		{ I_FORK, 1, { T_D2 }, 800, F_ADDR, &sfork },
 		{ I_LLD, 2, { T_ID | T_D4, T_RG }, 10, F_OCP, &lld },
 		{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, 50, F_OCP, &lldi },
@@ -57,19 +57,17 @@ static void			default_types(t_instr_def def, t_instr *instr)
 
 	i = -1;
 	while (++i < 3)
-	{
 		init_par(instr->par + i, def.par_type[i]);
-	}
 }
 
 static int			read_ocp(t_proc *process, t_instr_def def,
-						t_instr *instr, t_addr instr_addr)
+						t_instr *instr)
 {
 	uchar			*buf;
 	int				i;
 
 	buf = read_memory(process->pc + process->owner->spawn,
-		instr_addr + instr->mem_size, 1, 0);
+		instr->mem_size, 1, 0);
 	i = 3;
 	instr->mem_size += 1;
 	while (i--)
@@ -108,8 +106,7 @@ static long			result_from_mem(unsigned int size, uchar *mem)
 	return (result);
 }
 
-static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
-						t_addr instr_addr)
+static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr)
 {
 	uchar			*buf;
 	int				i;
@@ -118,7 +115,7 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 	code = 0;
 	if (def.flags & F_OCP)
 	{
-		if (read_ocp(process, def, instr, instr_addr))
+		if (read_ocp(process, def, instr))
 			code = 1;
 	}
 	else
@@ -127,7 +124,7 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 	while (++i < 3)
 	{
 		buf = read_memory(process->pc + process->owner->spawn,
-			instr_addr + instr->mem_size, instr->par[i].size, 0);
+			instr->mem_size, instr->par[i].size, 0);
 		instr->par[i].value = result_from_mem(instr->par[i].size, buf);
 		instr->mem_size += instr->par[i].size;
 		free(buf);
@@ -135,13 +132,13 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr,
 	return (code);
 }
 
-t_instr				*load_instr(t_proc *process, t_addr instr_addr)
+t_instr				*load_instr(t_proc *process)
 {
 	t_instr_def		def;
 	t_instr			*instr;
 	uchar			*buf;
 
-	buf = read_memory(process->pc + process->owner->spawn, instr_addr, 1, 0);
+	buf = read_memory(process->pc + process->owner->spawn, 0, 1, 0);
 	def = get_instr_def((int)*buf);
 	free(buf);
 	if (!def.opcode && CRASH_ON_NULL_INSTR)
@@ -152,7 +149,7 @@ t_instr				*load_instr(t_proc *process, t_addr instr_addr)
 	instr->opcode = def.opcode;
 	instr->wait_cycles = def.cycles;
 	instr->run_instr = def.run_instr;
-	if (fill_parameters(process, def, instr, instr_addr))
+	if (fill_parameters(process, def, instr))
 		instr->run_instr = NULL;
 	return (instr);
 }

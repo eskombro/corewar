@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 20:48:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/16 18:25:12 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ t_proc			*load_process(t_champ *owner, t_addr addr, t_proc *parent)
 		while (++i < REG_NUMBER)
 			ft_memcpy(process->reg[i], parent->reg[i], sizeof(t_reg));
 	}
+	else
+		write_reg(process->reg[0], owner->id);
 	return (process);
 }

@@ -1,4 +1,6 @@
 .name "test"
 .comment "uyweFBOASLK"
 
-fork %513
+ld %-1,r1
+ld %10,r2
+sti r1,2,%10

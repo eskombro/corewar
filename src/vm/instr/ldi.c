@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:11:41 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/15 22:24:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/16 18:32:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	load_indirect(void *proc, int restricted)
 	ustr = read_memory(p1->pc + p1->owner->spawn, address, REG_SIZE, restricted);
 	while (++i < REG_SIZE)
 		reg[i] = ustr[i];
-	p1->carry = (!ustr ? 1 : 0);
+	p1->carry = (read_reg(reg) == 0 ? 1 : 0);
 }
 
 void		ldi(void *proc)

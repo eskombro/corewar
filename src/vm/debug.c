@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 18:01:49 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 23:16:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/16 19:15:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void			debug_instr(int cycle, t_instr *instr, t_proc *proc)
 	int			i;
 	char		*type;
 
-	ft_printf("Exec 0x%.2x at cycle %d by process %d\n", instr->opcode,
-		cycle, proc->id);
+	ft_printf("Exec 0x%.2x at cycle %d by process %d at pc %d (spawn is %d)\n", instr->opcode,
+		cycle, proc->id, proc->pc, proc->owner->spawn);
 	i = -1;
 	while (++i < 3)
 	{
@@ -47,4 +47,10 @@ void			debug_reg(t_proc *proc)
 		if (!((i + 1) % 4))
 			ft_putchar('\n');
 	}
+}
+
+void			debug_live_report(t_proc *process, t_champ *champ)
+{
+	ft_printf("Process %d (lives: %d) reported %s (%d) (lives: %d) as alive\n",
+		process->id, process->lives, champ->name, champ->id, champ->lives);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/16 19:30:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 15:42:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ static int				run_process_cycle(t_proc *process)
 		return (-1);
 	if (!process->current_task && !(process->current_task =
 			load_instr(process)))
+	{
+		debug_process_crash(process);
 		return (1);
+	}
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
@@ -120,6 +123,7 @@ static int				run_process_cycle(t_proc *process)
 		process->pc %= MEM_SIZE;
 		del_instr(process->current_task);
 		process->current_task = NULL;
+		// sleep(1);
 	}
 	return (0);
 }
@@ -137,7 +141,7 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, 0, NULL));
-	while (logic->queue)
+	while (logic->queue && logic->cycles < 100000)
 	{
 		tmp = logic->queue;
 		while (tmp)

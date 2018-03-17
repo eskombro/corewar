@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/16 19:16:47 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 15:39:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_instr				*load_instr(t_proc *process);
 */
 void				ld_funct(void *proc);
 
-void				write_reg(t_reg reg, unsigned long value);
-unsigned long		read_reg(t_reg reg);
-unsigned long		get_parameter_result(t_par par, t_proc *process,
+void				write_reg(t_reg reg, t_value value);
+t_value				read_reg(t_reg reg);
+t_value				get_parameter_result(t_par par, t_proc *process,
 						int restricted);
 /*
 ** Debug
@@ -66,5 +66,6 @@ unsigned long		get_parameter_result(t_par par, t_proc *process,
 void				debug_instr(int cycle, t_instr *instr, t_proc *process);
 void				debug_reg(t_proc *proc);
 void				debug_live_report(t_proc *proc, t_champ *champ);
+void				debug_process_crash(t_proc *proc);
 
 #endif

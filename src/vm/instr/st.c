@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 23:47:38 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/16 18:10:24 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 16:48:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void				st(void *proc)
 {
 	t_proc			*p1;
-	unsigned long	value;
+	t_value			value;
 	t_par			par;
 
 	p1 = (t_proc *)proc;
@@ -28,7 +28,6 @@ void				st(void *proc)
 		par.size = S_D4;
 		par.value = value;
 		write_memory(p1->pc + p1->owner->spawn,
-			p1->current_task->par[1].value, par);
+			(short)p1->current_task->par[1].value, par);
 	}
-	p1->carry = (value == 0 ? 1 : 0);
 }

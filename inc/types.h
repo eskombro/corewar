@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 22:59:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 15:09:49 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef char					t_reg[REG_SIZE];
 
 typedef int						t_addr;
 
+typedef long					t_value;
+
 typedef struct					s_champ
 {
 	int							id;
@@ -41,7 +43,7 @@ typedef struct					s_par
 {
 	char						type;
 	unsigned int				size;
-	unsigned long				value;
+	t_value						value;
 }								t_par;
 
 # define MT_RG 0x01

@@ -6,13 +6,13 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/15 23:47:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 16:46:08 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				write_reg(t_reg reg, unsigned long value)
+void				write_reg(t_reg reg, t_value value)
 {
 	int				i;
 
@@ -24,10 +24,10 @@ void				write_reg(t_reg reg, unsigned long value)
 	}
 }
 
-unsigned long		read_reg(t_reg reg)
+t_value				read_reg(t_reg reg)
 {
 	int				i;
-	unsigned long	value;
+	t_value			value;
 
 	i = -1;
 	value = 0;
@@ -39,9 +39,9 @@ unsigned long		read_reg(t_reg reg)
 	return (value);
 }
 
-unsigned long		get_parameter_result(t_par par, t_proc *process, int restricted)
+t_value				get_parameter_result(t_par par, t_proc *process, int restricted)
 {
-	unsigned long	result;
+	t_value			result;
 	unsigned char	*read;
 	int				i;
 
@@ -58,7 +58,10 @@ unsigned long		get_parameter_result(t_par par, t_proc *process, int restricted)
 			result |= read[i] & 0xFF;
 		}
 		free(read);
+		result = (short)result;
 	}
+	else if (par.type == T_D2)
+		result = (short)par.value;
 	else
 		result = par.value;
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:07:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/16 19:22:07 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 16:53:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define NBR_LIVE 21
 # define MAX_CHECKS 10
 
-# define CRASH_ON_NULL_INSTR 0
+# define CRASH_ON_ERROR 0
 
 /*
 ** Champions parameters

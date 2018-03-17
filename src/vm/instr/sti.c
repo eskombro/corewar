@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 23:47:11 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/16 18:29:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 16:03:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ void				sti(void *proc)
 	par.size = S_D4;
 	par.value = value;
 	write_memory(p1->pc + p1->owner->spawn, address, par);
-	p1->carry = (value == 0 ? 1 : 0);
 }

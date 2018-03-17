@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 23:47:38 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 18:09:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 18:12:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void				st(void *proc)
 	p1 = (t_proc *)proc;
 	value = read_reg(p1->reg[p1->current_task->par[0].value - 1]);
 	if (p1->current_task->par[1].type == T_RG)
-	{
 		write_reg(p1->reg[p1->current_task->par[1].value - 1], value);
-	}
 	else
 	{
 		par.type = T_D4;

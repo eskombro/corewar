@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/17 16:46:08 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 17:50:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void				write_reg(t_reg reg, t_value value)
 	i = REG_SIZE;
 	while (i-- > 0)
 	{
+		ft_printf("%p\n", reg + i);
 		reg[i] = value & 0xFF;
 		value >>= 8;
 	}

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 15:42:50 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 17:46:12 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 static t_logic			*get_logic(void)
 {
+	static int			set;
 	static t_logic		logic;
 
+	if (!set)
+	{
+		set = 1;
+		logic.cycles_to_die = CYCLE_TO_DIE;
+		logic.cycles_left = CYCLE_TO_DIE;
+	}
 	return  (&logic);
 }
 
@@ -69,6 +76,7 @@ void					report_live(t_proc *process, unsigned long player)
 		if (logic->champs[i].id == player)
 		{
 			logic->champs[i].lives++;
+			logic->last_live = logic->champs + i;
 			debug_live_report(process, logic->champs + i);
 		}
 	}
@@ -108,24 +116,56 @@ static int				run_process_cycle(t_proc *process)
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-		if (process->current_task->opcode)
-			debug_instr(get_logic()->cycles, process->current_task, process);
+		// if (process->current_task->opcode)
+			// debug_instr(get_logic()->cycles, process->current_task, process);
 		pc = process->pc;
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
-			ft_printf("  Carry: %d\n", process->carry);
-			debug_reg(process);
-			print_arena();
+			// ft_printf("  Carry: %d\n", process->carry);
+			// debug_reg(process);
+			// print_arena();
 		}
 		if (process->pc == pc)
 			process->pc += process->current_task->mem_size;
 		process->pc %= MEM_SIZE;
 		del_instr(process->current_task);
 		process->current_task = NULL;
-		// sleep(1);
 	}
 	return (0);
+}
+
+void					check_lives(void)
+{
+	static int			nodecrement_checks;
+	t_logic				*logic;
+	t_llist				*tmp;
+	t_llist				*tmp2;
+	int					lives;
+
+	logic = get_logic();
+	lives = 0;
+	if (logic->cycles_left <= 0)
+	{
+		tmp = logic->queue;
+		while (tmp)
+		{
+			tmp2 = tmp->next;
+			lives += ((t_proc *)tmp->data)->lives;
+			if (((t_proc *)tmp->data)->lives == 0)
+				kill_process((t_proc *)tmp->data);
+			else
+				((t_proc *)tmp->data)->lives = 0;
+			tmp = tmp2;
+		}
+		nodecrement_checks++;
+		if (lives >= NBR_LIVE || nodecrement_checks >= MAX_CHECKS)
+		{
+			nodecrement_checks = 0;
+			logic->cycles_to_die -= CYCLE_DELTA;
+		}
+		logic->cycles_left = logic->cycles_to_die;
+	}
 }
 
 void					run_loop(t_champ *champs, int players_count)
@@ -141,8 +181,9 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, 0, NULL));
-	while (logic->queue && logic->cycles < 100000)
+	while (logic->queue)
 	{
+		logic->cycles++;
 		tmp = logic->queue;
 		while (tmp)
 		{
@@ -151,6 +192,10 @@ void					run_loop(t_champ *champs, int players_count)
 				kill_process((t_proc *)tmp->data);
 			tmp = tmp2;
 		}
-		logic->cycles++;
+		check_lives();
+		logic->cycles_left--;
 	}
+	if (logic->last_live)
+		ft_printf("\nPlayer %s (%d) won at cycle %d.\n", logic->last_live->name,
+			logic->last_live->id, logic->cycles);
 }

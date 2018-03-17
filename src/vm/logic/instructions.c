@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 16:17:30 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 18:11:33 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr)
 		buf = read_memory(process->pc + process->owner->spawn,
 			instr->mem_size, instr->par[i].size, 0);
 		instr->par[i].value = result_from_mem(instr->par[i].size, buf);
+		if (instr->par[i].value > REG_NUMBER)
+			code = 1;
 		instr->mem_size += instr->par[i].size;
 		free(buf);
 	}

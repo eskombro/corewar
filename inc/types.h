@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 15:09:49 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 18:09:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ typedef struct					s_proc
 
 typedef struct					s_logic
 {
+	t_champ						*last_live;
+	int							cycles_to_die;
+	int							cycles_left;
 	t_champ						*champs;
 	int							players_count;
 	t_llist						*queue;

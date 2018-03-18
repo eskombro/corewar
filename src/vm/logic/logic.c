@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 02:02:39 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/18 19:16:52 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static int				run_process_cycle(t_proc *process)
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
-			verbose(process);
+			// verbose(process);
 			// ft_printf("  Carry: %d\n", process->carry);
 			// debug_reg(process);
 			// print_arena();
@@ -182,7 +182,7 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, 0, NULL));
-	while (logic->queue)
+	while (logic->queue && logic->cycles < 2000)
 	{
 		logic->cycles++;
 		tmp = logic->queue;
@@ -196,6 +196,7 @@ void					run_loop(t_champ *champs, int players_count)
 		check_lives();
 		logic->cycles_left--;
 	}
+	print_arena_dump();
 	if (logic->last_live)
 		ft_printf("\nPlayer %s (%d) won at cycle %d.\n", logic->last_live->name,
 			logic->last_live->id, logic->cycles);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 23:17:28 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/18 19:16:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ unsigned char		*get_arena(void);
 void				write_memory(t_addr pc, t_addr address, t_par par);
 unsigned char		*read_memory(t_addr pc, t_addr address, int size, int mod);
 void				print_memory(t_addr address, int size);
-void				print_arena();
+void				print_arena(void);
+void				print_arena_dump(void);
 void				write_champ(t_champ *champ);
 
 /*

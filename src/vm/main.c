@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/15 23:11:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/18 19:17:54 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static void		run_corewar(char **champ_files)
 	calc_spawn(amount, champions);
 	ft_chartabfree(champ_files);
 	ft_printf("%d champions loaded.\n", amount);
+	ft_printf("%d champions loaded.\n", amount);
 	i = -1;
 	while (++i < amount)
 		write_champ(champions + i);
-	print_arena();
 	run_loop(champions, amount);
 	free(champions);
 }

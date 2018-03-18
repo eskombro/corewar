@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/16 16:50:20 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/18 00:58:04 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ CC = clang
 # TARGET 1
 TARGET_1 = corewar
 SRC_1 = vm/main.c \
-	vm/debug.c \
 	vm/get_champ.c \
 	vm/get_spawn.c \
 	\
@@ -43,7 +42,14 @@ SRC_1 = vm/main.c \
 	vm/instr/sub.c \
 	vm/instr/xor.c \
 	vm/instr/zjmp.c \
-	vm/instr/write_read_reg.c
+	vm/instr/write_read_reg.c \
+	\
+	vm/Display/verbose.c \
+	vm/Display/load.c \
+	vm/Display/spe_instr.c \
+	vm/Display/store.c \
+	vm/Display/bin_op.c
+
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 15:39:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/17 23:17:28 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_value				get_parameter_result(t_par par, t_proc *process,
 /*
 ** Debug
 */
+int					verbose(void *or_proc);
 void				debug_instr(int cycle, t_instr *instr, t_proc *process);
 void				debug_reg(t_proc *proc);
 void				debug_live_report(t_proc *proc, t_champ *champ);

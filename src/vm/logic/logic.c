@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 17:46:12 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/18 02:02:39 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void					report_live(t_proc *process, unsigned long player)
 	process->lives++;
 	while (++i < logic->players_count)
 	{
-		if (logic->champs[i].id == player)
+		if ((unsigned long)logic->champs[i].id == player)
 		{
 			logic->champs[i].lives++;
 			logic->last_live = logic->champs + i;
-			debug_live_report(process, logic->champs + i);
+//			debug_live_report(process, logic->champs + i);
 		}
 	}
 }
@@ -110,7 +110,7 @@ static int				run_process_cycle(t_proc *process)
 	if (!process->current_task && !(process->current_task =
 			load_instr(process)))
 	{
-		debug_process_crash(process);
+//		debug_process_crash(process);
 		return (1);
 	}
 	process->current_task->wait_cycles--;
@@ -122,6 +122,7 @@ static int				run_process_cycle(t_proc *process)
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
+			verbose(process);
 			// ft_printf("  Carry: %d\n", process->carry);
 			// debug_reg(process);
 			// print_arena();

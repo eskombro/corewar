@@ -1,0 +1,881 @@
+1 champions loaded.
+1 champions loaded.
+P    1 | ld 1 r16
+P    1 | st r1 6
+P    1 | live -1
+P    1 | zjmp -5 FAILED
+P    1 | st r15 -12
+P    1 | st r16 -22
+P    1 | fork 91 (121)
+P    2 | st r1 6
+P    1 | st r1 6
+P    2 | live -1
+P    1 | live -1
+P    2 | fork 44 (175)
+P    1 | fork 368 (411)
+P    3 | st r1 6
+P    2 | st r1 6
+P    1 | st r1 6
+P    3 | live -1
+P    2 | live -1
+P    1 | live -1
+P    3 | ld 269090790 r13
+P    2 | ld 190057743 r13
+P    1 | ld 589824 r13
+P    4 | ldi -399 0 r1
+       | -> load from -399 + 0 = -399 (with pc and mod 12)
+P    3 | ld -405 r14
+P    2 | ld -409 r14
+P    1 | ld 8 r14
+P    3 | ld -17 r15
+P    2 | ld -21 r15
+P    1 | ld -511 r15
+P    3 | ld 0 r16
+P    2 | ld 0 r16
+P    1 | ld 0 r16
+P    4 | ldi -406 4 r2
+       | -> load from -406 + 4 = -402 (with pc and mod 16)
+P    4 | ld 196608 r3
+P    3 | zjmp -126 OK
+P    2 | zjmp -85 OK
+P    1 | zjmp 3 OK
+P    3 | ld 190057742 r11
+P    2 | ld 190057742 r11
+P    1 | ld 190057742 r11
+P    4 | add r2 r3 r3
+P    3 | ld 269090402 r12
+P    2 | ld 269090402 r12
+P    1 | ld 269090402 r12
+P    4 | ld 57671937 r16
+P    3 | ld 0 r16
+P    2 | ld 0 r16
+P    1 | ld 0 r16
+P    4 | st r16 511
+P    3 | st r11 -501
+P    2 | st r11 -501
+P    1 | st r11 -501
+P    4 | ld -16551933 r16
+P    3 | st r12 -502
+P    2 | st r12 -502
+P    1 | st r12 -502
+P    4 | st r16 503
+P    4 | ld 33424240 r16
+P    4 | st r16 495
+P    4 | ld 16907523 r16
+P    3 | zjmp -511 OK
+P    2 | zjmp -511 OK
+P    1 | zjmp -511 OK
+P    4 | st r16 487
+P    4 | ld 1879245308 r16
+P    4 | st r16 479
+P    4 | ld 57671937 r16
+P    4 | st r16 471
+P    3 | sti r13 -405 0
+       | -> store to -405 + 0 = -405 (with pc and mod -798)
+P    2 | sti r13 -409 0
+       | -> store to -409 + 0 = -409 (with pc and mod -802)
+P    1 | sti r13 8 0
+       | -> store to 8 + 0 = 8 (with pc and mod -385)
+P    4 | ld -83660798 r16
+P    4 | st r16 463
+P    4 | ld 33162096 r16
+P    4 | st r16 455
+P    3 | zjmp -414 OK
+P    2 | zjmp -414 OK
+P    1 | zjmp -414 OK
+P    4 | ld 285205251 r16
+P    4 | st r16 447
+P    4 | ld 1880162275 r16
+P    4 | st r16 439
+P    4 | ld 57676031 r16
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -819)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -823)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1313)
+P    4 | st r16 431
+P    4 | ld -486313968 r16
+P    4 | st r16 423
+P    4 | ld -1899664 r16
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | st r16 415
+P    4 | ld 285205251 r16
+P    4 | st r16 407
+P    4 | ld 1880162275 r16
+P    4 | st r16 399
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -840)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -844)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1334)
+P    4 | ld 151110400 r16
+P    4 | st r16 391
+P    4 | ld 0 r16
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp 319 OK
+P    4 | st r1 511
+P    4 | st r3 510
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -861)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -865)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1355)
+P    4 | st r1 509
+P    4 | st r3 508
+P    4 | st r1 507
+P    4 | st r2 506
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | st r16 -29
+P    4 | st r16 -29
+P    4 | st r16 -29
+P    4 | st r16 -29
+P    4 | st r16 -29
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -882)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -886)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1376)
+P    4 | st r16 -29
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp 451 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -903)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -907)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1397)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -924)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -928)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1418)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -945)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -949)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1439)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -966)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -970)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1460)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -987)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -991)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1481)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1008)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1012)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1502)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1029)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1033)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1523)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1050)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1054)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1544)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1071)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1075)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1565)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1092)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1096)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1586)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1113)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1117)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1607)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1134)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1138)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1628)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1155)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1159)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1649)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1176)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1180)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1670)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1197)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1201)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1691)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1218)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1222)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1712)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1239)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1243)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1733)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1260)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1264)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1754)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | fork 65531 (67002)
+P    5 | live -1
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1281)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1285)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1775)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1302)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1306)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1796)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1323)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1327)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1817)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1344)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1348)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1838)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1365)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1369)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1859)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1386)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1390)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1880)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1407)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1411)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1901)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1428)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1432)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1922)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1449)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1453)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1943)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1470)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1474)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1964)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1491)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1495)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -1985)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1512)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1516)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2006)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1533)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1537)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2027)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1554)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1558)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2048)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1575)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1579)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2069)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1596)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1600)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2090)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1617)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1621)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2111)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1638)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1642)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2132)
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    5 | fork 65531 (67002)
+P    4 | fork 65531 (67010)
+P    7 | live -1
+P    6 | live -1
+P    5 | live -1
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1659)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1663)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2153)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1680)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1684)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2174)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1701)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1705)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2195)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1722)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1726)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2216)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1743)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1747)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2237)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1764)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1768)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2258)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1785)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1789)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2279)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1806)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1810)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2300)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1827)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1831)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2321)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1848)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1852)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2342)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1869)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1873)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2363)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1890)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1894)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2384)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1911)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1915)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2405)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1932)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1936)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2426)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1953)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1957)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2447)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1974)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1978)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2468)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -1995)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -1999)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2489)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -2016)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -2020)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2510)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    7 | fork 65531 (67010)
+P    6 | fork 65531 (67002)
+P    5 | fork 65531 (67010)
+P    4 | zjmp -5 OK
+P   10 | live -1
+P    9 | live -1
+P    8 | live -1
+P    7 | live -1
+P    6 | live -1
+P    5 | live -1
+P    4 | live -1
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -2037)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -2041)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2531)
+P    7 | zjmp -5 FAILED
+P    5 | zjmp -5 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -2058)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -2062)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2552)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -2079)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -2083)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2573)
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    3 | sti r13 -17 0
+       | -> store to -17 + 0 = -17 (with pc and mod -2100)
+P    2 | sti r13 -21 0
+       | -> store to -21 + 0 = -21 (with pc and mod -2104)
+P    1 | sti r13 -511 0
+       | -> store to -511 + 0 = -511 (with pc and mod -2594)
+P    4 | live -1
+P    3 | zjmp -26 OK
+P    2 | zjmp -26 OK
+P    1 | zjmp -26 OK
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P   10 | fork 65531 (67010)
+P    9 | fork 65531 (67002)
+P    8 | fork 65531 (67010)
+P    6 | fork 65531 (67010)
+P    4 | zjmp -5 OK
+P   14 | live -1
+P   13 | live -1
+P   12 | live -1
+P   11 | live -1
+P   10 | live -1
+P    9 | live -1
+P    8 | live -1
+P    6 | live -1
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P   10 | zjmp -5 FAILED
+P    8 | zjmp -5 FAILED
+P    6 | zjmp -5 FAILED
+P    4 | zjmp -5 OK
+P    4 | live -1
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P   10 | zjmp 0 FAILED
+P    8 | zjmp 0 FAILED
+P    6 | zjmp 0 FAILED
+P    4 | live -1
+P    4 | zjmp -5 OK
+P    7 | zjmp 0 FAILED
+P    5 | zjmp 0 FAILED
+P    4 | live -1
+P   10 | zjmp 0 FAILED
+P    8 | zjmp 0 FAILED
+P    6 | zjmp 0 FAILED
+P    4 | zjmp -5 OK
+P    7 | sti r13 0 0
+       | -> store to 0 + 0 = 0 (with pc and mod 1992)
+P    5 | sti r13 0 0
+       | -> store to 0 + 0 = 0 (with pc and mod 1992)
+
+Player Overwatch (-1) won at cycle 5360.

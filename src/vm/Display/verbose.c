@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 21:44:55 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/18 04:19:30 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/18 22:26:23 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void		print_norm_line(t_proc *proc, int nb_param, int restr)
 	{
 		if (proc->current_task->par[i].type != T_RG)
 		{
-			ft_printf(" %ld", get_parameter_result(proc->current_task->par[i],
+			ft_printf(" %d", get_parameter_result(proc->current_task->par[i],
 						proc, restr));
 		}
 		else
-			ft_printf(" r%ld", proc->current_task->par[i].value);
+			ft_printf(" r%d", proc->current_task->par[i].value);
 		i++;
 	}
 	ft_printf("\n");

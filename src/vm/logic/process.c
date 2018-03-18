@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 15:28:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/18 22:49:24 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_proc			*load_process(t_champ *owner, t_addr addr, t_proc *parent)
 	process->pc = addr;
 	if (parent)
 	{
+		process->carry = parent->carry;
 		i = -1;
 		while (++i < REG_NUMBER)
 			ft_memcpy(process->reg[i], parent->reg[i], sizeof(t_reg));

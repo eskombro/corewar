@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:27:00 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/18 22:26:09 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/18 22:37:44 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void		print_sti(t_proc *proc)
 	ft_printf(" r%d %d %d\n", proc->current_task->par[0].value, j % IDX_MOD,
 			i % IDX_MOD);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-			j % IDX_MOD, i % IDX_MOD, (i + j) % IDX_MOD, (i + j + proc->pc)
+			j % IDX_MOD, i % IDX_MOD, (i + j) % IDX_MOD, (unsigned int)(i + j + proc->pc)
 			% MEM_SIZE);
 }

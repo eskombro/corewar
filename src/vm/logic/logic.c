@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 22:28:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/18 23:22:08 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ static int				run_process_cycle(t_proc *process)
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-		if (process->current_task->opcode)
-			debug_instr(get_logic()->cycles, process->current_task, process);
+//		if (process->current_task->opcode)
+//			debug_instr(get_logic()->cycles, process->current_task, process);
 		pc = process->pc;
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
-//			 verbose(process);
+//			verbose(process);
 			// ft_printf("  Carry: %d\n", process->carry);
-			debug_reg(process);
+//			debug_reg(process);
 //			print_arena();
 		}
 		if (process->pc == pc)
@@ -196,7 +196,7 @@ void					run_loop(t_champ *champs, int players_count)
 		check_lives();
 		logic->cycles_left--;
 	}
-//	print_arena_dump();
+	print_arena_dump();
 	if (logic->last_live)
 		ft_printf("\nPlayer %s (%d) won at cycle %d.\n", logic->last_live->name,
 			logic->last_live->id, logic->cycles);

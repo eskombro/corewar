@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/16 19:17:43 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/18 19:21:23 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_champ		*get_all_champ(char **jcvd)
 		return (NULL);
 	while (*jcvd)
 	{
-		champs[i].id = i + 1;
+		champs[i].id = -i - 1;
 		if (!open_champ(*jcvd, champs + i))
 			return (NULL);
 		i++;

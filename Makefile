@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/18 00:58:04 by bacrozat         ###   ########.fr        #
+#    Updated: 2018/03/18 19:33:11 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CC = clang
 TARGET_1 = corewar
 SRC_1 = vm/main.c \
 	vm/get_champ.c \
+	vm/debug.c \
 	vm/get_spawn.c \
 	\
 	vm/memory/gestion_memoire.c \

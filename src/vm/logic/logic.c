@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 19:16:52 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/18 19:49:40 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ static int				run_process_cycle(t_proc *process)
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-		// if (process->current_task->opcode)
-			// debug_instr(get_logic()->cycles, process->current_task, process);
+		if (process->current_task->opcode)
+			debug_instr(get_logic()->cycles, process->current_task, process);
 		pc = process->pc;
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
 			// verbose(process);
 			// ft_printf("  Carry: %d\n", process->carry);
-			// debug_reg(process);
+			debug_reg(process);
 			// print_arena();
 		}
 		if (process->pc == pc)
@@ -182,7 +182,7 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, 0, NULL));
-	while (logic->queue && logic->cycles < 2000)
+	while (logic->queue)
 	{
 		logic->cycles++;
 		tmp = logic->queue;

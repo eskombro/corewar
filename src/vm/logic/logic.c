@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 23:22:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 00:17:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void					check_lives(void)
 	}
 }
 
-void					run_loop(t_champ *champs, int players_count)
+void					run_loop(t_champ *champs, int players_count, int dump)
 {
 	t_logic				*logic;
 	t_llist				*tmp;
@@ -182,7 +182,7 @@ void					run_loop(t_champ *champs, int players_count)
 	i = -1;
 	while (++i < players_count)
 		spawn_process(load_process(champs + i, 0, NULL));
-	while (logic->queue)
+	while (logic->queue && (dump < 0 || logic->cycles <= dump))
 	{
 		logic->cycles++;
 		tmp = logic->queue;
@@ -196,8 +196,9 @@ void					run_loop(t_champ *champs, int players_count)
 		check_lives();
 		logic->cycles_left--;
 	}
-	print_arena_dump();
-	if (logic->last_live)
-		ft_printf("\nPlayer %s (%d) won at cycle %d.\n", logic->last_live->name,
+	if (dump >= 0)
+		print_arena_dump();
+	else if (logic->last_live)
+		ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,
 			logic->last_live->id, logic->cycles);
 }

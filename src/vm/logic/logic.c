@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 21:49:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 23:44:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void					spawn_process(t_proc *process)
 */
 static int				run_process_cycle(t_proc *process)
 {
-	int					pc;
-
 	if (!process)
 		return (-1);
 	if (!process->current_task && !(process->current_task =
@@ -119,17 +117,15 @@ static int				run_process_cycle(t_proc *process)
 	{
 		// if (process->current_task->opcode)
 			// debug_instr(get_logic()->cycles, process->current_task, process);
-		pc = process->pc;
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
 			// verbose(process);
 			// ft_printf("  Carry: %d\n", process->carry);
-//			debug_reg(process);
+			// debug_reg(process);
 //			print_arena();
 		}
-		if (process->pc == pc)
-			process->pc += process->current_task->mem_size;
+		process->pc += process->current_task->mem_size;
 		process->pc %= MEM_SIZE;
 		del_instr(process->current_task);
 		process->current_task = NULL;

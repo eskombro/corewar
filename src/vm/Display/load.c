@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:03:05 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/19 18:23:26 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:58:02 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void		print_ldi(t_proc *proc)
 	int i;
 	int j;
 
-	i = get_parameter_result(proc->current_task->par[1], proc, 1) % IDX_MOD;
-	j = get_parameter_result(proc->current_task->par[0], proc, 1) % IDX_MOD;
+	i = get_parameter_result(proc->current_task->par[1], proc, 1) % MEM_SIZE;
+	j = get_parameter_result(proc->current_task->par[0], proc, 1) % MEM_SIZE;
 	ft_printf("P%5d | ", proc->id + 1);
 	print_instr(proc->current_task->opcode);
 	ft_printf(" %d %d r%d\n", j, i, proc->current_task->par[2].value);
@@ -43,13 +43,13 @@ void		print_lldi(t_proc *proc)
 	int i;
 	int j;
 
-	i = get_parameter_result(proc->current_task->par[1], proc, 1) % IDX_MOD;
-	j = get_parameter_result(proc->current_task->par[0], proc, 1) % IDX_MOD;
+	i = get_parameter_result(proc->current_task->par[1], proc, 1) % MEM_SIZE;
+	j = get_parameter_result(proc->current_task->par[0], proc, 1) % MEM_SIZE;
 	ft_printf("P%5d | ", proc->id + 1);
 	print_instr(proc->current_task->opcode);
 	ft_printf(" %d %d r%d\n", j, i, proc->current_task->par[2].value);
 	ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
-			j, i, i + j, (i + j) % IDX_MOD +
+			j, i, i + j, (i + j) % MEM_SIZE +
 			(((proc->pc % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
 
 }

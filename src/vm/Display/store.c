@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:27:00 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/18 22:37:44 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:20:39 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void		print_sti(t_proc *proc)
 	int i;
 	int j;
 
-	i = get_parameter_result(proc->current_task->par[2], proc, 1);
-	j = get_parameter_result(proc->current_task->par[1], proc, 1);
+	i = get_parameter_result(proc->current_task->par[2], proc, 1) % IDX_MOD;
+	j = get_parameter_result(proc->current_task->par[1], proc, 1) % IDX_MOD;
 	ft_printf("P%5d | ", proc->id + 1);
 	print_instr(proc->current_task->opcode);
-	ft_printf(" r%d %d %d\n", proc->current_task->par[0].value, j % IDX_MOD,
-			i % IDX_MOD);
+	ft_printf(" r%d %d %d\n", proc->current_task->par[0].value, j ,
+			i);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-			j % IDX_MOD, i % IDX_MOD, (i + j) % IDX_MOD, (unsigned int)(i + j + proc->pc)
-			% MEM_SIZE);
+			j, i, i + j, (i + j) % IDX_MOD +
+			(((proc->pc % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
 }

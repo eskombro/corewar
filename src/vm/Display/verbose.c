@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 21:44:55 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/18 22:26:23 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:22:57 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,3 @@ int			verbose(void *or_proc)
 	print[(int)proc->current_task->opcode](proc);
 	return(0);
 }
-/*
-int			verbose(void *or_proc)
-{
-	t_proc *proc;
-
-	proc = (t_proc*)or_proc;
-	static void (*const print[17])(t_proc *or_proc) = { NULL, &print_live, &print_ld,
-		NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-		NULL, NULL };
-
-	print[(int)proc->current_task->opcode](proc);
-	return(0);
-}*/

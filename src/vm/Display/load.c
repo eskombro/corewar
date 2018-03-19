@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:03:05 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/18 03:02:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:23:26 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ void		print_ldi(t_proc *proc)
 	int i;
 	int j;
 
-	i = get_parameter_result(proc->current_task->par[0], proc, 1);
-	j = get_parameter_result(proc->current_task->par[1], proc, 1);
-	print_norm_line(proc, 3, 1);
-	ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", i, j, i + j,
-			i + j + proc->pc);
+	i = get_parameter_result(proc->current_task->par[1], proc, 1) % IDX_MOD;
+	j = get_parameter_result(proc->current_task->par[0], proc, 1) % IDX_MOD;
+	ft_printf("P%5d | ", proc->id + 1);
+	print_instr(proc->current_task->opcode);
+	ft_printf(" %d %d r%d\n", j, i, proc->current_task->par[2].value);
+	ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+			j, i, i + j, (i + j) % IDX_MOD +
+			(((proc->pc % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
+
 }
 
 void		print_lld(t_proc *proc)
@@ -39,9 +43,13 @@ void		print_lldi(t_proc *proc)
 	int i;
 	int j;
 
-	i = get_parameter_result(proc->current_task->par[0], proc, 1);
-	j = get_parameter_result(proc->current_task->par[1], proc, 1);
-	print_norm_line(proc, 3, 0);
-	ft_printf("       | -> load from %d + %d = %d (with pc %d)\n", i, j,
-			i + j, i + j + proc->pc);
+	i = get_parameter_result(proc->current_task->par[1], proc, 1) % IDX_MOD;
+	j = get_parameter_result(proc->current_task->par[0], proc, 1) % IDX_MOD;
+	ft_printf("P%5d | ", proc->id + 1);
+	print_instr(proc->current_task->opcode);
+	ft_printf(" %d %d r%d\n", j, i, proc->current_task->par[2].value);
+	ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
+			j, i, i + j, (i + j) % IDX_MOD +
+			(((proc->pc % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
+
 }

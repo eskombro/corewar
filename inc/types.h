@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 21:22:56 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:51:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef char					t_reg[REG_SIZE];
 
 typedef int						t_addr;
 
-typedef long					t_value;
+typedef int						t_value;
 
 typedef struct					s_champ
 {

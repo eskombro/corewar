@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 19:11:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:56:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ static int			read_ocp(t_proc *process, t_instr_def def,
 	return (0);
 }
 
-static long			result_from_mem(unsigned int size, uchar *mem)
+static t_value		result_from_mem(unsigned int size, uchar *mem)
 {
-	long			result;
+	t_value			result;
 	unsigned int	i;
 
 	i = 0;

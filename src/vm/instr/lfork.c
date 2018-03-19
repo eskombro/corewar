@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 23:01:51 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/16 18:26:32 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 19:47:49 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void		lfork(void *or_proc)
 
 	proc = (t_proc*)or_proc;
 	instr = proc->current_task;
-	child = load_process(proc->owner,
-				proc->pc + get_parameter_result(instr->par[0],
+	child = load_process(proc->owner, proc->pc + get_parameter_result(instr->par[0],
 				proc, 0), proc);
 	spawn_process(child);
 }

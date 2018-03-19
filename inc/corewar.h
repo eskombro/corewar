@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 23:57:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:37:07 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				run_loop(t_champ *champs, int players_count, int dump);
 
 void				spawn_process(t_proc *process);
 
-void				report_live(t_proc *proc, unsigned long player);
+void				report_live(t_proc *proc, int player);
 /*
 ** Process
 */

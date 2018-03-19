@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 00:22:07 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:27:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,22 @@ static void				kill_process(t_proc *process)
 	}
 }
 
-void					report_live(t_proc *process, unsigned long player)
+void					report_live(t_proc *process, int player)
 {
 	t_logic				*logic;
 	int					i;
 
 	logic = get_logic();
 	i = -1;
-	process->lives++;
+	process->alive = 1;
 	while (++i < logic->players_count)
 	{
-		if ((unsigned long)logic->champs[i].id == player)
+		if (logic->champs[i].id == player)
 		{
 			logic->champs[i].lives++;
 			logic->last_live = logic->champs + i;
-//			debug_live_report(process, logic->champs + i);
+			logic->valid_lives++;
+			//debug_live_report(process, logic->champs + i);
 		}
 	}
 }
@@ -116,8 +117,8 @@ static int				run_process_cycle(t_proc *process)
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-//		if (process->current_task->opcode)
-//			debug_instr(get_logic()->cycles, process->current_task, process);
+		if (process->current_task->opcode)
+			debug_instr(get_logic()->cycles, process->current_task, process);
 		pc = process->pc;
 		if (process->current_task->run_instr)
 		{
@@ -142,29 +143,28 @@ void					check_lives(void)
 	t_logic				*logic;
 	t_llist				*tmp;
 	t_llist				*tmp2;
-	int					lives;
 
 	logic = get_logic();
-	lives = 0;
 	if (logic->cycles_left <= 0)
 	{
 		tmp = logic->queue;
 		while (tmp)
 		{
 			tmp2 = tmp->next;
-			lives += ((t_proc *)tmp->data)->lives;
-			if (((t_proc *)tmp->data)->lives == 0)
+			if (!((t_proc *)tmp->data)->alive)
 				kill_process((t_proc *)tmp->data);
 			else
-				((t_proc *)tmp->data)->lives = 0;
+				((t_proc *)tmp->data)->alive = 0;
 			tmp = tmp2;
 		}
 		nodecrement_checks++;
-		if (lives >= NBR_LIVE || nodecrement_checks >= MAX_CHECKS)
+		if (logic->valid_lives >= NBR_LIVE || nodecrement_checks >= MAX_CHECKS)
 		{
 			nodecrement_checks = 0;
 			logic->cycles_to_die -= CYCLE_DELTA;
+			ft_printf("CYCLES DECREM %d at cycle %d (lives %d)\n", logic->cycles_to_die, logic->cycles, logic->valid_lives);
 		}
+		logic->valid_lives = 0;
 		logic->cycles_left = logic->cycles_to_die;
 	}
 }
@@ -201,4 +201,5 @@ void					run_loop(t_champ *champs, int players_count, int dump)
 	else if (logic->last_live)
 		ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,
 			logic->last_live->id, logic->cycles);
+	ft_printf("The End\n");
 }

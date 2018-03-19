@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 22:24:19 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:22:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef char					t_reg[REG_SIZE];
 
 typedef int						t_addr;
 
-typedef int						t_value;
+typedef long					t_value;
 
 typedef struct					s_champ
 {
@@ -80,7 +80,7 @@ typedef struct					s_instr_def
 typedef struct					s_proc
 {
 	int							id;
-	int							lives;
+	int							alive;
 	t_champ						*owner;
 	t_addr						pc;
 	int							carry;
@@ -97,6 +97,7 @@ typedef struct					s_logic
 	int							players_count;
 	t_llist						*queue;
 	int							cycles;
+	int							valid_lives;
 }								t_logic;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/18 19:40:30 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 19:20:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_value				get_parameter_result(t_par par, t_proc *process, int restricted)
 			result |= read[i] & 0xFF;
 		}
 		free(read);
-		result = (short)result;
 	}
 	else if (par.type == T_D2)
 		result = (short)par.value;

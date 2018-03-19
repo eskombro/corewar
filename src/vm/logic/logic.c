@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 21:28:53 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:45:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ static int				run_process_cycle(t_proc *process)
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-		if (process->current_task->opcode)
-			debug_instr(get_logic()->cycles, process->current_task, process);
+		// if (process->current_task->opcode)
+			// debug_instr(get_logic()->cycles, process->current_task, process);
 		pc = process->pc;
 		if (process->current_task->run_instr)
 		{
@@ -162,7 +162,7 @@ void					check_lives(void)
 		{
 			nodecrement_checks = 0;
 			logic->cycles_to_die -= CYCLE_DELTA;
-			ft_printf("CYCLES DECREM %d at cycle %d (lives %d)\n", logic->cycles_to_die, logic->cycles, logic->valid_lives);
+			// ft_printf("CYCLES DECREM %d at cycle %d (lives %d)\n", logic->cycles_to_die, logic->cycles, logic->valid_lives);
 		}
 		logic->valid_lives = 0;
 		logic->cycles_left = logic->cycles_to_die;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 23:47:11 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/17 16:03:27 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:45:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void				sti(void *proc)
 {
 	t_proc			*p1;
-	unsigned long	value;
-	unsigned long	address;
+	t_value			value;
+	t_addr			address;
 	t_par			par;
 
 	p1 = (t_proc *)proc;

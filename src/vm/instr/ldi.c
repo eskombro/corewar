@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:11:41 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/19 19:47:23 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:44:38 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	load_indirect(void *proc, int restricted)
 {
 	t_proc		*p1;
-	unsigned long		address;
+	t_addr		address;
 	char		*reg;
 	uchar		*ustr;
 	int			i;

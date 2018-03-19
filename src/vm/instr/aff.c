@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 23:18:16 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 22:27:01 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/19 21:44:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		aff(void *or_proc)
 {
-	unsigned long	i;
+	t_value	i;
 	t_proc	*proc;
 	t_instr *instr;
 

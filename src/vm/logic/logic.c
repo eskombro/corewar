@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 23:44:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 23:52:44 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ static int				run_process_cycle(t_proc *process)
 			// debug_reg(process);
 //			print_arena();
 		}
-		process->pc += process->current_task->mem_size;
+		if (!(process->current_task->opcode == I_ZJMP && process->carry == 1))
+			process->pc += process->current_task->mem_size;
 		process->pc %= MEM_SIZE;
 		del_instr(process->current_task);
 		process->current_task = NULL;

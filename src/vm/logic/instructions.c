@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 23:45:20 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/19 23:49:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,5 @@ t_instr				*load_instr(t_proc *process)
 		if (CRASH_ON_ERROR)
 			return (NULL);
 	}
-	if (instr->opcode == I_ZJMP)
-		instr->mem_size = 0;
 	return (instr);
 }

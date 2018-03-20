@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 16:04:37 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/20 20:30:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_proc				*load_process(t_champ *owner, t_addr addr, t_proc *parent);
 ** Instructions
 */
 t_instr				*load_instr(t_proc *process);
+void				fill_instr(t_proc *process);
 
 /*
 ** Instructions

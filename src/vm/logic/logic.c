@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 17:08:53 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/20 20:31:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ static int				run_process_cycle(t_proc *process, int verb)
 	{
 		// if (process->current_task->opcode)
 			// debug_instr(get_logic()->cycles, process->current_task, process);
+		fill_instr(process);
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);

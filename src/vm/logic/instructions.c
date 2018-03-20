@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 17:56:56 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/20 20:32:09 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,18 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr)
 	return (code);
 }
 
+void				fill_instr(t_proc *process)
+{
+	t_instr_def		def;
+	t_instr			*instr;
+
+	instr = process->current_task;
+	def = get_instr_def(instr->opcode);
+	instr->run_instr = def.run_instr;
+	if (fill_parameters(process, def, instr))
+		instr->run_instr = NULL;
+}
+
 t_instr				*load_instr(t_proc *process)
 {
 	t_instr_def		def;
@@ -150,13 +162,5 @@ t_instr				*load_instr(t_proc *process)
 	instr->mem_size = 1;
 	instr->opcode = def.opcode;
 	instr->wait_cycles = def.cycles;
-	instr->run_instr = def.run_instr;
-	if (fill_parameters(process, def, instr))
-	{
-//		instr->mem_size = 1;
-		instr->run_instr = NULL;
-		if (CRASH_ON_ERROR)
-			return (NULL);
-	}
 	return (instr);
 }

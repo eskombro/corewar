@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 20:31:36 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/20 22:25:31 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ void					report_live(t_proc *process, int player)
 
 	logic = get_logic();
 	i = -1;
-	process->alive = 1;
 	while (++i < logic->players_count)
 	{
 		if (logic->champs[i].id == player)
 		{
 			logic->champs[i].lives++;
 			logic->last_live = logic->champs + i;
-			logic->valid_lives++;
 			//debug_live_report(process, logic->champs + i);
 		}
 	}
+	logic->valid_lives++;
+	process->alive = 1;
 }
 
 void					spawn_process(t_proc *process)
@@ -118,7 +118,8 @@ static int				run_process_cycle(t_proc *process, int verb)
 	{
 		// if (process->current_task->opcode)
 			// debug_instr(get_logic()->cycles, process->current_task, process);
-		fill_instr(process);
+		if (process->current_task->opcode)
+			fill_instr(process);
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
@@ -186,7 +187,7 @@ void					run_loop(t_champ *champs, int players_count, int dump,
 	while (logic->queue && (dump < 0 || logic->cycles <= dump))
 	{
 		logic->cycles++;
-		ft_printf("It is now cycle %d\n", logic->cycles);
+		// ft_printf("It is now cycle %d\n", logic->cycles);
 		tmp = logic->queue;
 		while (tmp)
 		{

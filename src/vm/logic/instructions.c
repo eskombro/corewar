@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 21:59:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/20 22:04:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ void				fill_instr(t_proc *process)
 	if (fill_parameters(process, def, instr))
 	{
 		instr->run_instr = NULL;
-		instr->mem_size = 1;
 	}
 }
 

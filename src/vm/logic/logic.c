@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 23:52:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:08:53 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void					spawn_process(t_proc *process)
 	if (!queue)
 		return ;
 	process->id = id++;
+//	ft_printf("Process %d, at pc %d\n",process->id + 1, process->pc);
 	if (!(new = ft_llist_new(process)))
 		exit(1);
 	ft_llist_front(queue, new);
@@ -102,7 +103,7 @@ void					spawn_process(t_proc *process)
 ** Runs cycle for a single process. Returns 0 if OK, 1 if process crashes or
 ** did not report as alive, and -1 in case of error.
 */
-static int				run_process_cycle(t_proc *process)
+static int				run_process_cycle(t_proc *process, int verb)
 {
 	if (!process)
 		return (-1);
@@ -120,7 +121,8 @@ static int				run_process_cycle(t_proc *process)
 		if (process->current_task->run_instr)
 		{
 			process->current_task->run_instr(process);
-			// verbose(process);
+			if (verb >= 0)
+				verbose(process);
 			// ft_printf("  Carry: %d\n", process->carry);
 			// debug_reg(process);
 //			print_arena();
@@ -166,7 +168,8 @@ void					check_lives(void)
 	}
 }
 
-void					run_loop(t_champ *champs, int players_count, int dump)
+void					run_loop(t_champ *champs, int players_count, int dump,
+		int verbose)
 {
 	t_logic				*logic;
 	t_llist				*tmp;
@@ -182,11 +185,12 @@ void					run_loop(t_champ *champs, int players_count, int dump)
 	while (logic->queue && (dump < 0 || logic->cycles <= dump))
 	{
 		logic->cycles++;
+		ft_printf("It is now cycle %d\n", logic->cycles);
 		tmp = logic->queue;
 		while (tmp)
 		{
 			tmp2 = tmp->next;
-			if (run_process_cycle((t_proc *)tmp->data))
+			if (run_process_cycle((t_proc *)tmp->data, verbose))
 				kill_process((t_proc *)tmp->data);
 			tmp = tmp2;
 		}

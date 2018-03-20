@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 20:32:09 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/20 20:33:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void				fill_instr(t_proc *process)
 
 	instr = process->current_task;
 	def = get_instr_def(instr->opcode);
-	instr->run_instr = def.run_instr;
 	if (fill_parameters(process, def, instr))
 		instr->run_instr = NULL;
 }
@@ -162,5 +161,6 @@ t_instr				*load_instr(t_proc *process)
 	instr->mem_size = 1;
 	instr->opcode = def.opcode;
 	instr->wait_cycles = def.cycles;
+	instr->run_instr = def.run_instr;
 	return (instr);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/19 21:51:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/20 22:30:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef int						t_value;
 
 typedef struct					s_champ
 {
+	int							fixed_id;
 	int							id;
 	int							lives;
 	t_addr						spawn;

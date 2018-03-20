@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 22:25:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/20 23:05:40 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,10 @@ static int				run_process_cycle(t_proc *process, int verb)
 			fill_instr(process);
 		if (process->current_task->run_instr)
 		{
-			process->current_task->run_instr(process);
 			if (verb >= 0)
 				verbose(process);
-			// ft_printf("  Carry: %d\n", process->carry);
+			process->current_task->run_instr(process);
+				// ft_printf("  Carry: %d\n", process->carry);
 			// debug_reg(process);
 //			print_arena();
 		}

@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:27:00 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/19 18:54:06 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/20 23:11:21 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ void		print_sub(t_proc  *proc)
 
 void		print_st(t_proc  *proc)
 {
+	t_par par;
+
+	par = proc->current_task->par[1];
 	proc->current_task->par[1].type = 0;
-	proc->current_task->par[1].value = (short)proc->current_task->par[1].value;
+	proc->current_task->par[1].value = (short)par.value;
 	print_norm_line(proc, 2, 1);
+	proc->current_task->par[1] = par;
+	
 }
 
 void		print_sti(t_proc *proc)

@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:14:11 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/19 18:22:35 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/20 23:14:14 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		print_fork(t_proc *proc)
 {
 	ft_printf("P%5d | ", proc->id + 1);
 	ft_printf("fork %d (%d)\n", (short)proc->current_task->par[0].value,
-			(short)proc->current_task->par[0].value + proc->pc);
+			((short)proc->current_task->par[0].value % IDX_MOD) + proc->pc);
 }
 
 void		print_lfork(t_proc *proc)

@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:12:41 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 21:45:33 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/20 22:50:43 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		or(void *or_proc)
 {
 	t_proc	*proc;
 	t_instr	*instr;
-	unsigned long		res;
+	t_value	res;
 
 	proc = (t_proc*)or_proc;
 	instr = proc->current_task;

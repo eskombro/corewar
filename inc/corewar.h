@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/20 20:30:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/21 02:56:21 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 # include "types.h"
 # include "instructions.h"
+
+#include <unistd.h>
+#include <ncurses.h>
 
 /*
 ** Champions importation
@@ -38,7 +41,7 @@ void				write_champ(t_champ *champ);
 ** Loop
 */
 void				run_loop(t_champ *champs, int players_count, int dump,
-		int verbose);
+		int verbose, int visu);
 
 void				spawn_process(t_proc *process);
 
@@ -71,5 +74,12 @@ void				debug_instr(int cycle, t_instr *instr, t_proc *process);
 void				debug_reg(t_proc *proc);
 void				debug_live_report(t_proc *proc, t_champ *champ);
 void				debug_process_crash(t_proc *proc);
+
+/*
+** visu_ncurses
+*/
+uchar				*get_arena_visu(void);
+void				update_arena_visu(t_proc *process);
+void				print_screen(t_logic *logic);
 
 #endif

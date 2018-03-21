@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/18 19:33:11 by bacrozat         ###   ########.fr        #
+#    Updated: 2018/03/21 01:41:41 by sjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC_1 = vm/main.c \
 	vm/Display/load.c \
 	vm/Display/spe_instr.c \
 	vm/Display/store.c \
-	vm/Display/bin_op.c
+	vm/Display/bin_op.c \
+	vm/visu_ncurses/visual.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
@@ -59,7 +60,8 @@ CFLAGS_1 = $(DEBUG_FLAGS) \
 LFLAGS_1 = $(DEBUG_FLAGS) \
 	-L$(LIBS_PATH)/lib \
 	-Llib \
-	-lft
+	-lft \
+	-lncurses
 
 all: prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1)
 	@echo > /dev/null

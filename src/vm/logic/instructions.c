@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/22 21:22:12 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:25:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr)
 		instr->mem_size += instr->par[i].size;
 		free(buf);
 	}
-	ft_putchar('\n');
 	return (code);
 }
 

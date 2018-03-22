@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:07:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/22 19:18:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:15:20 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@
 /*
 ** Ncurse parameters
 */
-# define NCURSE_DELAY 1000000
+# define NCURSE_DELAY 1000000 / 2
 
 #endif

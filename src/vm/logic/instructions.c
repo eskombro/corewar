@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/21 00:13:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:22:12 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,12 @@ static int			read_ocp(t_proc *process, t_instr_def def,
 		(*buf) >>= 2;
 		if (i >= def.par_nbr)
 			continue ;
-		if (((*buf) & 0x03) == MT_RG && (def.par_type[i] & T_RG))
+		if (((*buf) & 0x03) == MT_RG)
 			init_par(instr->par + i, T_RG);
-		else if (((*buf) & 0x03) == MT_ID && (def.par_type[i] & T_ID))
+		else if (((*buf) & 0x03) == MT_ID)
 			init_par(instr->par + i, T_ID);
-		else if (((*buf) & 0x03) == MT_DT && (def.par_type[i] & T_D2))
-			init_par(instr->par + i, T_D2);
-		else if (((*buf) & 0x03) == MT_DT && (def.par_type[i] & T_D4))
-			init_par(instr->par + i, T_D4);
+		else if (((*buf) & 0x03) == MT_DT)
+			init_par(instr->par + i, (def.par_type[i] & T_D4) ? T_D4 : T_D2);
 		else
 			return (1);
 	}
@@ -121,17 +119,19 @@ static int			fill_parameters(t_proc *process, t_instr_def def, t_instr *instr)
 	else
 		default_types(def, instr);
 	i = -1;
-	while (++i < 3)
+	while (++i < def.par_nbr)
 	{
 		buf = read_memory(process->pc + process->owner->spawn,
 			instr->mem_size, instr->par[i].size, 0);
 		instr->par[i].value = result_from_mem(instr->par[i].size, buf);
-		if (instr->par[i].type == T_RG && (instr->par[i].value > REG_NUMBER
-			|| instr->par[i].value <= 0))
+		if (!(instr->par[i].type & def.par_type[i]) ||
+			(instr->par[i].type == T_RG &&
+			(instr->par[i].value > REG_NUMBER || instr->par[i].value <= 0)))
 			code = 1;
 		instr->mem_size += instr->par[i].size;
 		free(buf);
 	}
+	ft_putchar('\n');
 	return (code);
 }
 

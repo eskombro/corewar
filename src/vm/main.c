@@ -6,78 +6,98 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/21 02:24:54 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:18:34 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		run_corewar(char **champ_files, int dump, int verbose, int visu)
+static void				run_corewar()
 {
-	t_champ		*champions;
-	int			amount;
-	int			i;
+	t_champ				*champions;
+	int					i;
+	t_params			params;
 
-	amount = ft_chartablen(champ_files);
-	if (!(champions = get_all_champ(champ_files)))
+	params = get_params();
+	if (!(champions = get_all_champ(params.champs_files)))
 		exit(1);
-	calc_spawn(amount, champions);
-	ft_chartabfree(champ_files);
-	//ft_printf("%d champions loaded.\n", amount);
+	calc_spawn(params.players, champions);
 	i = -1;
-	while (++i < amount)
+	while (++i < params.players)
 		write_champ(champions + i);
-	run_loop(champions, amount, dump, verbose, visu);
+	run_loop(champions);
+	ft_chartabfree(params.champs_files);
 	free(champions);
 }
 
-int				main(int argc, char **argv)
+static void				*init_args(int argc, char **argv)
 {
-	void		*args;
-	char		**champ_files;
-	char		**tmp;
-	int			dump;
-	int			verbose;
-	int			visu;
+	static void			*args;
 
-	dump = -1;
-	verbose = -1;
-	visu = 0;
-	if (argc <= 1)
-		return (1);
-	if (!(args = ft_args_new()))
-		return (1);
-	if (ft_args_add(args, "dump", 'd', 1))
-		return (1);
-	if (ft_args_add(args, "verbose", 'v', 1))
-		return (1);
-	if (ft_args_add(args, "visu", 'n', 0))
-		return (1);
-	if (ft_args_parse(args, argc, argv))
-		return (1);
-	if (!(champ_files = ft_args_default(args)))
-		return (1);
+	if (!args)
+	{
+		if (argc <= 1)
+			return (NULL);
+		if (!(args = ft_args_new()))
+			return (NULL);
+		if (ft_args_add(args, "dump", 'd', 1))
+			return (NULL);
+		if (ft_args_add(args, "verbose", 'v', 1))
+			return (NULL);
+		if (ft_args_add(args, "ncurse", 'n', 0))
+			return (NULL);
+		if (ft_args_parse(args, argc, argv))
+			return (NULL);
+	}
+	return (args);
+}
+
+static void				fill_params(void *args, t_params *params)
+{
+	char				**tmp;
+
+	if (!(params->champs_files = ft_args_default(args)))
+		exit(1);
+	params->players = ft_chartablen(params->champs_files);
 	if (ft_args_get(args, "dump"))
 	{
 		if (!(tmp = ft_args_data(args, "dump")))
-			return (1);
-		dump = ft_atoi(*tmp);
+			exit(1);
+		params->dump = ft_atoi(*tmp);
 		ft_chartabfree(tmp);
 	}
 	if (ft_args_get(args, "verbose"))
 	{
 		if (!(tmp = ft_args_data(args, "verbose")))
-			return (1);
-		verbose = ft_atoi(*tmp);
+			exit(1);
+		params->verbose = ft_atoi(*tmp);
 		ft_chartabfree(tmp);
 	}
-	if (ft_args_get(args, "visu"))
+	if (ft_args_get(args, "ncurse"))
+		params->ncurse = 1;
+}
+
+t_params				get_params(void)
+{
+	static void			*args;
+	static t_params		params;
+
+	if (!args)
 	{
-		if (!(tmp = ft_args_data(args, "visu")))
-			return (1);
-		visu = 1;
-		ft_chartabfree(tmp);
+		args = init_args(0, NULL);
+		params.dump = -1;
+		params.verbose = -1;
+		params.ncurse = 0;
+		fill_params(args, &params);
+		free(args);
 	}
-	run_corewar(champ_files, dump, verbose, visu);
+	return (params);
+}
+
+int				main(int argc, char **argv)
+{
+	if (!init_args(argc, argv))
+		return (1);
+	run_corewar();
 	return (0);
 }

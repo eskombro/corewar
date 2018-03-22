@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/21 02:56:21 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:13:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@
 
 #include <unistd.h>
 #include <ncurses.h>
+
+/*
+** Corewar parameters
+*/
+typedef struct		s_params
+{
+	char			**champs_files;
+	int				players;
+	int				dump;
+	int				verbose;
+	int				ncurse;
+}					t_params;
+
+t_params			get_params(void);
 
 /*
 ** Champions importation
@@ -40,8 +54,7 @@ void				write_champ(t_champ *champ);
 /*
 ** Loop
 */
-void				run_loop(t_champ *champs, int players_count, int dump,
-		int verbose, int visu);
+void				run_loop(t_champ *champs);
 
 void				spawn_process(t_proc *process);
 

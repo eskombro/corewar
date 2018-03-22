@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/21 03:44:08 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:22:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void					spawn_process(t_proc *process)
 ** Runs cycle for a single process. Returns 0 if OK, 1 if process crashes or
 ** did not report as alive, and -1 in case of error.
 */
-static int				run_process_cycle(t_proc *process, int verb, int visu)
+static int				run_process_cycle(t_proc *process, t_params *params)
 {
 	if (!process)
 		return (-1);
@@ -122,10 +122,10 @@ static int				run_process_cycle(t_proc *process, int verb, int visu)
 			fill_instr(process);
 		if (process->current_task->run_instr)
 		{
-			if (verb >= 0)
+			if (params->verbose >= 0)
 				verbose(process);
 			process->current_task->run_instr(process);
-			visu ? update_arena_visu(process) : 0;
+			params->ncurse ? update_arena_visu(process) : 0;
 				// ft_printf("  Carry: %d\n", process->carry);
 			// debug_reg(process);
 //			print_arena();
@@ -171,21 +171,22 @@ void					check_lives(void)
 	}
 }
 
-void					run_loop(t_champ *champs, int players_count, int dump,
-		int verbose, int visu)
+void					run_loop(t_champ *champs)
 {
 	t_logic				*logic;
 	t_llist				*tmp;
 	t_llist				*tmp2;
+	t_params			params;
 	int					i;
 
 	logic = get_logic();
-	logic->players_count = players_count;
+	params = get_params();
+	logic->players_count = params.players;
 	logic->champs = champs;
 	i = -1;
-	while (++i < players_count)
+	while (++i < params.players)
 		spawn_process(load_process(champs + i, 0, NULL));
-	while (logic->queue && (dump < 0 || logic->cycles <= dump))
+	while (logic->queue && (params.dump < 0 || logic->cycles <= params.dump))
 	{
 		logic->cycles++;
 		// ft_printf("It is now cycle %d\n", logic->cycles);
@@ -193,16 +194,16 @@ void					run_loop(t_champ *champs, int players_count, int dump,
 		while (tmp)
 		{
 			tmp2 = tmp->next;
-			if (run_process_cycle((t_proc *)tmp->data, verbose, visu))
+			if (run_process_cycle((t_proc *)tmp->data, &params))
 				kill_process((t_proc *)tmp->data);
 			tmp = tmp2;
 		}
 		check_lives();
-		visu ? print_screen(logic) : 0;
+		params.ncurse ? print_screen(logic) : 0;
 		logic->cycles_left--;
 	}
 	endwin();
-	if (dump >= 0)
+	if (params.dump >= 0)
 		print_arena_dump();
 	else if (logic->last_live)
 		ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,

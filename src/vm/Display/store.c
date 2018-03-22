@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:27:00 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/20 23:11:21 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:36:22 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void		print_sti(t_proc *proc)
 	int i;
 	int j;
 
-	i = get_parameter_result(proc->current_task->par[2], proc, 1) % IDX_MOD;
-	j = get_parameter_result(proc->current_task->par[1], proc, 1) % IDX_MOD;
+	i = get_parameter_result(proc->current_task->par[2], proc, 1);
+	j = get_parameter_result(proc->current_task->par[1], proc, 1);
 	ft_printf("P%5d | ", proc->id + 1);
 	print_instr(proc->current_task->opcode);
 	ft_printf(" r%d %d %d\n", proc->current_task->par[0].value, j ,
 			i);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
 			j, i, i + j, (i + j) % IDX_MOD +
-			(((proc->pc % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
+			(((proc->pc + proc->owner->spawn % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
 }

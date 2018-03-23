@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 23:40:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:08:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ t_instr_def				get_instr_def(int opcode)
 { I_ZJMP, 1, { T_D2 }, 20, 0, &zjmp },
 { I_LDI, 3, { T_RG | T_ID | T_D2, T_RG | T_D2, T_RG }, 25, OCP, &ldi },
 { I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_RG | T_D2 }, 25, OCP, &sti },
-{ I_FORK, 1, { T_D2 }, 800, 0, &sfork }};
+{ I_FORK, 1, { T_D2 }, 800, 0, &sfork },
+{ I_LLD, 2, { T_ID | T_D4, T_RG }, 10, OCP, &lld },
+{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, 50, OCP, &lldi },
+{ I_LFORK, 1, { T_D2 }, 1000, 0, &lfork },
+{ I_AFF, 1, { T_RG }, 2, OCP, &aff }};
 
 	return (defs[opcode < 0 || opcode > 16 ? 0 : opcode]);
 }

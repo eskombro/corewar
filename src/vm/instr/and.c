@@ -6,16 +6,16 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 22:12:41 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/15 21:45:21 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/23 22:55:34 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		and(void *or_proc)
+void				and(void *or_proc)
 {
-	t_proc	*proc;
-	t_instr	*instr;
+	t_proc			*proc;
+	t_instr			*instr;
 	unsigned long	res;
 
 	proc = (t_proc*)or_proc;

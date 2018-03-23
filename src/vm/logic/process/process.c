@@ -6,13 +6,14 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 22:40:50 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:40:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../logic.h"
 
-t_proc					*load_process(t_champ *owner, t_addr addr, t_proc *parent)
+t_proc					*load_process(t_champ *owner, t_addr addr,
+							t_proc *parent)
 {
 	t_proc				*process;
 	int					i;
@@ -42,7 +43,7 @@ void					spawn_process(t_proc *process)
 	static int			id;
 	t_llist				*new;
 
-	queue =&(get_logic()->queue);
+	queue = &(get_logic()->queue);
 	if (!queue)
 		return ;
 	process->id = id++;

@@ -6,13 +6,13 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/22 17:18:34 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:26:38 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void				run_corewar()
+static void				run_corewar(void)
 {
 	t_champ				*champions;
 	int					i;
@@ -94,7 +94,7 @@ t_params				get_params(void)
 	return (params);
 }
 
-int				main(int argc, char **argv)
+int						main(int argc, char **argv)
 {
 	if (!init_args(argc, argv))
 		return (1);

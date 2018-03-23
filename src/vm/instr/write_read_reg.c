@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 21:52:27 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/19 21:35:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 22:56:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_value				read_reg(t_reg reg)
 	return (value);
 }
 
-t_value				get_parameter_result(t_par par, t_proc *process, int restricted)
+t_value				get_parameter_result(t_par par, t_proc *process,
+						int restricted)
 {
 	t_value			result;
 	unsigned char	*read;
@@ -50,7 +51,8 @@ t_value				get_parameter_result(t_par par, t_proc *process, int restricted)
 		result = read_reg(process->reg[par.value - 1]);
 	else if (par.type == T_ID)
 	{
-		read = read_memory(process->pc + process->owner->spawn, (short)par.value, REG_SIZE, restricted);
+		read = read_memory(process->pc + process->owner->spawn,
+			(short)par.value, REG_SIZE, restricted);
 		i = -1;
 		while (++i < REG_SIZE)
 		{

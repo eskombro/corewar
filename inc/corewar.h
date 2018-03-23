@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 19:09:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:38:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,12 @@
 # include "types.h"
 # include "instructions.h"
 
-#include <unistd.h>
-#include <ncurses.h>
+# include <unistd.h>
+# include <ncurses.h>
 
 /*
 ** Corewar parameters
 */
-typedef struct		s_params
-{
-	char			**champs_files;
-	int				players;
-	int				dump;
-	int				verbose;
-	int				ncurse;
-}					t_params;
-
 t_params			get_params(void);
 
 /*
@@ -47,7 +38,6 @@ unsigned char		*get_arena(void);
 void				write_memory(t_addr pc, t_addr address, t_par par);
 unsigned char		*read_memory(t_addr pc, t_addr address, int size, int mod);
 void				print_memory(t_addr address, int size);
-void				print_arena(void);
 void				print_arena_dump(void);
 void				write_champ(t_champ *champ);
 
@@ -91,7 +81,7 @@ void				debug_process_crash(t_proc *proc);
 /*
 ** visu_ncurses
 */
-uchar				*get_arena_visu(void);
+t_uchar				*get_arena_visu(void);
 void				update_arena_visu(t_proc *process);
 void				print_screen(t_logic *logic);
 

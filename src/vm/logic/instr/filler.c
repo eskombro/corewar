@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:35:46 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 22:41:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:39:54 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void			default_types(t_instr_def def, t_instr *instr)
 		init_par(instr->par + i, def.par_type[i]);
 }
 
-static int			read_ocp(t_proc *process, t_instr_def def,
+static void			read_ocp(t_proc *process, t_instr_def def,
 						t_instr *instr)
 {
-	uchar			*buf;
+	t_uchar			*buf;
 	int				i;
 
 	buf = read_memory(process->pc + process->owner->spawn,
@@ -57,10 +57,9 @@ static int			read_ocp(t_proc *process, t_instr_def def,
 			init_par(instr->par + i, (def.par_type[i] & T_D2) ? T_D2 : T_D4);
 	}
 	free(buf);
-	return (0);
 }
 
-static t_value		result_from_mem(unsigned int size, uchar *mem)
+static t_value		result_from_mem(unsigned int size, t_uchar *mem)
 {
 	t_value			result;
 	unsigned int	i;
@@ -76,18 +75,16 @@ static t_value		result_from_mem(unsigned int size, uchar *mem)
 	return (result);
 }
 
-int					fill_parameters(t_proc *process, t_instr_def def, t_instr *instr)
+int					fill_parameters(t_proc *process, t_instr_def def,
+						t_instr *instr)
 {
-	uchar			*buf;
+	t_uchar			*buf;
 	int				i;
 	int				code;
 
 	code = 0;
-	if (def.flags & F_OCP)
-	{
-		if (read_ocp(process, def, instr))
-			code = 2;
-	}
+	if (def.flags & OCP)
+		read_ocp(process, def, instr);
 	else
 		default_types(def, instr);
 	i = -1;

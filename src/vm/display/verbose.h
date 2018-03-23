@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   verbose.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 21:46:04 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/17 23:43:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:24:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VERBOSE_H
 # define VERBOSE_H
 
-#include "corewar.h"
+# include "corewar.h"
 
 void		print_live(t_proc *or_proc);
 void		print_ld(t_proc *proc);
@@ -33,5 +33,4 @@ void		print_lfork(t_proc *proc);
 void		print_aff(t_proc *proc);
 void		print_norm_line(t_proc *proc, int nb_param, int restr);
 void		print_instr(int code);
-
 #endif

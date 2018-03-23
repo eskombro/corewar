@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 18:01:49 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 19:06:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:39:11 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void			debug_instr(int cycle, t_instr *instr, t_proc *proc)
 	int			i;
 	char		*type;
 
-	ft_printf("\nExec 0x%.2x at cycle %d by process %d at pc %d (spawn is %d)\n", instr->opcode,
+	ft_printf("\nExec 0x%.2x at cycle %d by process %d at pc %d \
+(spawn is %d)\n", instr->opcode,
 		cycle, proc->id, proc->pc, proc->owner->spawn);
 	i = -1;
 	while (++i < 3)
@@ -31,7 +32,8 @@ void			debug_instr(int cycle, t_instr *instr, t_proc *proc)
 				type = "DIRECT";
 			if (instr->par[i].type == T_ID)
 				type = "INDEX";
-			ft_printf("    P%d: TYPE=%s, SIZE=%d, VALUE=%ld\n", i + 1, type, instr->par[i].size, instr->par[i].value);
+			ft_printf("    P%d: TYPE=%s, SIZE=%d, VALUE=%ld\n", i + 1,
+			type, instr->par[i].size, instr->par[i].value);
 		}
 	}
 }
@@ -57,7 +59,7 @@ void			debug_live_report(t_proc *process, t_champ *champ)
 
 void			debug_process_crash(t_proc *proc)
 {
-	uchar		*buf;
+	t_uchar		*buf;
 
 	buf = read_memory(proc->pc + proc->owner->spawn, 0, 1, 0);
 	ft_printf("\n%rgbProcess %d crashed at pc %d: 0x%02x%0rgb\n",

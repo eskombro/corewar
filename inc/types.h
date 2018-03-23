@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 19:09:53 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:38:34 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,16 @@
 # define S_D2 2
 # define S_D4 4
 
-typedef unsigned char			uchar;
+typedef struct					s_params
+{
+	char						**champs_files;
+	int							players;
+	int							dump;
+	int							verbose;
+	int							ncurse;
+}								t_params;
+
+typedef unsigned char			t_uchar;
 
 typedef char					t_reg[REG_SIZE];
 
@@ -65,8 +74,7 @@ typedef struct					s_instr
 # define T_D4 0x04
 # define T_ID 0x08
 
-# define F_OCP 0x01
-# define F_ADDR 0x02
+# define OCP 0x01
 
 typedef struct					s_instr_def
 {
@@ -91,14 +99,14 @@ typedef struct					s_proc
 
 typedef struct					s_logic
 {
-	t_champ						*last_live;
-	int							cycles_to_die;
-	int							cycles_left;
+	t_params					params;
 	t_champ						*champs;
-	int							players_count;
 	t_llist						*queue;
 	int							cycles;
+	int							cycles_to_die;
+	int							cycles_left;
 	int							lives;
+	t_champ						*last_live;
 }								t_logic;
 
 #endif

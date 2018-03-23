@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:03:05 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/22 21:36:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/23 22:49:41 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void		print_ldi(t_proc *proc)
 	ft_printf(" %d %d r%d\n", j, i, proc->current_task->par[2].value);
 	ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
 			j, i, i + j, (i + j) % IDX_MOD +
-			(((proc->pc + proc->owner->spawn % MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
-
+			(((proc->pc + proc->owner->spawn % MEM_SIZE) + MEM_SIZE)
+				% MEM_SIZE));
 }
 
 void		print_lld(t_proc *proc)
@@ -50,6 +50,6 @@ void		print_lldi(t_proc *proc)
 	ft_printf(" %d %d r%d\n", j, i, proc->current_task->par[2].value);
 	ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
 			j, i, i + j, (i + j) % MEM_SIZE +
-			(((proc->pc + proc->owner->spawn %MEM_SIZE) + MEM_SIZE) % MEM_SIZE));
-
+			(((proc->pc + proc->owner->spawn % MEM_SIZE) + MEM_SIZE)
+				% MEM_SIZE));
 }

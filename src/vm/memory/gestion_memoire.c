@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/18 19:16:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:39:23 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 **	Returns a pointer to the arena, which is allocated in static.
 */
 
-uchar				*get_arena(void)
+t_uchar				*get_arena(void)
 {
-	static uchar	arena[MEM_SIZE];
+	static t_uchar	arena[MEM_SIZE];
 
 	return (arena);
 }
@@ -33,7 +33,7 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 {
 	int				i;
 	unsigned int	ct;
-	uchar			*arena;
+	t_uchar			*arena;
 
 	arena = get_arena();
 	ct = 0;
@@ -41,7 +41,7 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 	while (i < MEM_SIZE)
 		i += MEM_SIZE;
 	while (ct < par.size)
-		arena[i-- % MEM_SIZE] = (uchar)((par.value >> (8 * (ct++))) & 0xFF);
+		arena[i-- % MEM_SIZE] = (t_uchar)((par.value >> (8 * (ct++))) & 0xFF);
 }
 
 /*
@@ -50,14 +50,14 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 **	DONT FORGET TO FREE after read_memory;
 */
 
-uchar				*read_memory(t_addr pc, t_addr address, int size, int mod)
+t_uchar				*read_memory(t_addr pc, t_addr address, int size, int mod)
 {
-	uchar			*arena;
-	uchar			*reg;
+	t_uchar			*arena;
+	t_uchar			*reg;
 	int				i;
 
 	arena = get_arena();
-	if (!(reg = (uchar *)ft_memalloc(sizeof(uchar) * (size + 1))))
+	if (!(reg = (t_uchar *)ft_memalloc(sizeof(t_uchar) * (size + 1))))
 		return (NULL);
 	reg[size] = 0;
 	i = -1;
@@ -76,7 +76,7 @@ uchar				*read_memory(t_addr pc, t_addr address, int size, int mod)
 
 void				print_memory(t_addr address, int size)
 {
-	uchar			*arena;
+	t_uchar			*arena;
 	int				i;
 
 	arena = get_arena();
@@ -92,61 +92,4 @@ void				print_memory(t_addr address, int size)
 		size--;
 	}
 	ft_putchar('\n');
-}
-
-/*
-**	print_arena:
-**	Writes the arena content in stdout.
-*/
-
-void				print_arena(void)
-{
-	uchar			*arena;
-	int				i;
-	int				last;
-
-	i = -1;
-	arena = get_arena();
-	while (++i < MEM_SIZE)
-	{
-		if (i % 64 == 0)
-		{
-			last = -1;
-			ft_printf("%0rgb%4d ", i);
-		}
-		if (arena[i] != 0 && last != 1)
-		{
-			ft_printf("%rgb", 0x00CC99);
-			last = 1;
-		}
-		else if (arena[i] == 0 && last != 0)
-		{
-			ft_printf("%rgb", 0x0000CC);
-			last = 0;
-		}
-		ft_printf("%.2x ", arena[i]);
-		i % 64 == 63 ? ft_putchar('\n') : 0;
-	}
-	ft_printf("%0rgb");
-}
-
-/*
-**	print_arena:
-**	Writes the arena content in stdout.
-*/
-
-void				print_arena_dump(void)
-{
-	uchar			*arena;
-	int				i;
-
-	i = -1;
-	arena = get_arena();
-	while (++i < MEM_SIZE)
-	{
-		if (i % 64 == 0)
-			ft_printf("0x%04x : ", i);
-		ft_printf("%.2x ", arena[i]);
-		i % 64 == 63 ? ft_putchar('\n') : 0;
-	}
 }

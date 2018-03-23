@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:11:41 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/19 22:20:30 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 23:40:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	load_indirect(void *proc, int restricted)
 	t_proc		*p1;
 	t_addr		address;
 	char		*reg;
-	uchar		*ustr;
+	t_uchar		*ustr;
 	int			i;
 
 	p1 = (t_proc *)proc;
@@ -25,7 +25,8 @@ static void	load_indirect(void *proc, int restricted)
 	reg = p1->reg[p1->current_task->par[2].value - 1];
 	address = get_parameter_result(p1->current_task->par[0], p1, restricted);
 	address += get_parameter_result(p1->current_task->par[1], p1, restricted);
-	ustr = read_memory(p1->pc + p1->owner->spawn, address, REG_SIZE, restricted);
+	ustr = read_memory(p1->pc + p1->owner->spawn, address, REG_SIZE,
+		restricted);
 	while (++i < REG_SIZE)
 		reg[i] = ustr[i];
 	p1->carry = (read_reg(reg) == 0 ? 1 : 0);

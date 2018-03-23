@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/22 21:18:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 19:09:53 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct					s_logic
 	int							players_count;
 	t_llist						*queue;
 	int							cycles;
-	int							valid_lives;
+	int							lives;
 }								t_logic;
 
 #endif

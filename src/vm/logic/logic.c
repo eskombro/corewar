@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 18:03:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 19:12:29 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void				kill_process(t_proc *process)
 	t_llist				**queue;
 	t_llist				*list;
 
-	if (process->id == 35)
-		ft_printf("Process %d | %d alive | Died at cycle %d\n", process->id + 1, process->alive, get_logic()->cycles);
 	queue = &(get_logic()->queue);
 	if (!queue)
 		return ;
@@ -73,17 +71,12 @@ void					report_live(t_proc *process, int player)
 	logic = get_logic();
 	i = -1;
 	while (++i < logic->players_count)
-	{
 		if (logic->champs[i].id == player)
 		{
 			logic->champs[i].lives++;
 			logic->last_live = logic->champs + i;
-			//debug_live_report(process, logic->champs + i);
 		}
-	}
-	// if (process->id == 35)
-		// ft_printf("Reported live at cycle %d\n", logic->cycles);
-	logic->valid_lives++;
+	logic->lives++;
 	process->alive = 1;
 }
 
@@ -113,15 +106,10 @@ static int				run_process_cycle(t_proc *process, t_params *params)
 		return (-1);
 	if (!process->current_task && !(process->current_task =
 			load_instr(process)))
-	{
-//		debug_process_crash(process);
 		return (1);
-	}
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
-		// if (process->current_task->opcode)
-			// debug_instr(get_logic()->cycles, process->current_task, process);
 		if (process->current_task->opcode)
 			fill_instr(process);
 		if (process->current_task->run_instr)
@@ -130,9 +118,6 @@ static int				run_process_cycle(t_proc *process, t_params *params)
 				verbose(process);
 			process->current_task->run_instr(process);
 			params->ncurse ? update_arena_visu(process) : 0;
-				// ft_printf("  Carry: %d\n", process->carry);
-			// debug_reg(process);
-//			print_arena();
 		}
 		if (!(process->current_task->opcode == I_ZJMP && process->carry == 1))
 			process->pc += process->current_task->mem_size;
@@ -153,7 +138,6 @@ void					check_lives(void)
 	logic = get_logic();
 	if (logic->cycles_left <= 0)
 	{
-		//ft_printf("\t\t\t\tChecked lives at cycle %d\n", logic->cycles);
 		tmp = logic->queue;
 		while (tmp)
 		{
@@ -165,13 +149,12 @@ void					check_lives(void)
 			tmp = tmp2;
 		}
 		nodecrement_checks++;
-		if (logic->valid_lives >= NBR_LIVE || nodecrement_checks >= MAX_CHECKS)
+		if (logic->lives >= NBR_LIVE || nodecrement_checks >= MAX_CHECKS)
 		{
 			nodecrement_checks = 0;
 			logic->cycles_to_die -= CYCLE_DELTA;
-			//ft_printf("\t\t\t\t\t\t\t\tCycle to die is now %d at cycle %d (lives %d)\n", logic->cycles_to_die, logic->cycles, logic->valid_lives);
 		}
-		logic->valid_lives = 0;
+		logic->lives = 0;
 		logic->cycles_left = logic->cycles_to_die;
 	}
 }
@@ -194,7 +177,6 @@ void					run_loop(t_champ *champs)
 	while (logic->queue && (params.dump < 0 || logic->cycles <= params.dump))
 	{
 		logic->cycles++;
-		// ft_printf("It is now cycle %d\n", logic->cycles);
 		tmp = logic->queue;
 		while (tmp)
 		{

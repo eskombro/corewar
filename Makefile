@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/21 01:41:41 by sjimenez         ###   ########.fr        #
+#    Updated: 2018/03/23 19:07:39 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,10 @@ CC = clang
 # TARGET 1
 TARGET_1 = corewar
 SRC_1 = vm/main.c \
-	vm/get_champ.c \
 	vm/debug.c \
-	vm/get_spawn.c \
+	\
+	vm/champ/get_champ.c \
+	vm/champ/get_spawn.c \
 	\
 	vm/memory/gestion_memoire.c \
 	vm/memory/write_champ.c \
@@ -45,12 +46,12 @@ SRC_1 = vm/main.c \
 	vm/instr/zjmp.c \
 	vm/instr/write_read_reg.c \
 	\
-	vm/Display/verbose.c \
-	vm/Display/load.c \
-	vm/Display/spe_instr.c \
-	vm/Display/store.c \
-	vm/Display/bin_op.c \
-	vm/visu_ncurses/visual.c
+	vm/display/verbose.c \
+	vm/display/load.c \
+	vm/display/spe_instr.c \
+	vm/display/store.c \
+	vm/display/bin_op.c \
+	vm/ncurse/visual.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \

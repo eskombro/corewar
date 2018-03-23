@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:22:02 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:25:07 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void				run_process_cycle(t_proc *process)
 
 static int				run_cycle(void)
 {
+	static int			next_active_cycle = -1;
 	t_logic				*logic;
 	t_llist				*tmp;
 	t_llist				*tmp2;
@@ -70,16 +71,21 @@ static int				run_cycle(void)
 	logic = get_logic();
 	tmp = logic->queue;
 	run = 0;
-	while (tmp)
-	{
-		tmp2 = tmp->next;
-		if (!((t_proc *)tmp->data)->dead)
+	if (next_active_cycle <= logic->cycles)
+		while (tmp)
 		{
-			run = 1;
-			run_process_cycle((t_proc *)tmp->data);
+			tmp2 = tmp->next;
+			if (!((t_proc *)tmp->data)->dead)
+			{
+				run = 1;
+				run_process_cycle((t_proc *)tmp->data);
+				if (((t_proc *)tmp->data)->current_task)
+					next_active_cycle = ft_nbrmin(
+						((t_proc *)tmp->data)->current_task->run_cycle,
+						next_active_cycle);
+			}
+			tmp = tmp2;
 		}
-		tmp = tmp2;
-	}
 	check_lives();
 	logic->params.ncurse ? print_screen(logic) : 0;
 	logic->cycles_left--;

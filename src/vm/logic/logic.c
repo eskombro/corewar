@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:47:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:55:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,20 @@ static int				run_cycle(void)
 			}
 			tmp = tmp2;
 		}
-	check_lives();
-	logic->params.ncurse ? print_screen(logic) : 0;
-	logic->cycles_left--;
 	return (run);
+}
+
+static void				end_game(void)
+{
+	t_logic				*logic;
+
+	logic = get_logic();
+	endwin();
+	if (logic->params.dump >= 0)
+		print_arena_dump();
+	else if (logic->last_live)
+		ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,
+			logic->last_live->id, logic->cycles);
 }
 
 void					run_loop(t_champ *champs)
@@ -108,13 +118,11 @@ void					run_loop(t_champ *champs)
 	{
 		if (!run_cycle())
 			break ;
+		check_lives();
+		logic->params.ncurse ? print_screen(logic) : 0;
+		logic->cycles_left--;
 		logic->cycles++;
 	}
 	ft_llist_del(&(logic->queue), &del_process);
-	endwin();
-	if (logic->params.dump >= 0)
-		print_arena_dump();
-	else if (logic->last_live)
-		ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,
-			logic->last_live->id, logic->cycles);
+	end_game();
 }

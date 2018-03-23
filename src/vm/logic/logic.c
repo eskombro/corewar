@@ -6,13 +6,13 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 19:12:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 22:45:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "./logic.h"
 
-static t_logic			*get_logic(void)
+t_logic					*get_logic(void)
 {
 	static int			set;
 	static t_logic		logic;
@@ -24,76 +24,6 @@ static t_logic			*get_logic(void)
 		logic.cycles_left = CYCLE_TO_DIE;
 	}
 	return  (&logic);
-}
-
-static void				del_instr(void *data)
-{
-	t_instr				*instr;
-
-	instr = (t_instr *)data;
-	free(instr);
-}
-
-static void				del_process(void *data)
-{
-	t_proc				*proc;
-
-	proc = (t_proc *)data;
-	del_instr(proc->current_task);
-	free(proc);
-}
-
-static void				kill_process(t_proc *process)
-{
-	t_llist				**queue;
-	t_llist				*list;
-
-	queue = &(get_logic()->queue);
-	if (!queue)
-		return ;
-	list = *queue;
-	while (list)
-	{
-		if (list->data == process)
-		{
-			ft_llist_rem(queue, list, &del_process);
-			return ;
-		}
-		list = list->next;
-	}
-}
-
-void					report_live(t_proc *process, int player)
-{
-	t_logic				*logic;
-	int					i;
-
-	logic = get_logic();
-	i = -1;
-	while (++i < logic->players_count)
-		if (logic->champs[i].id == player)
-		{
-			logic->champs[i].lives++;
-			logic->last_live = logic->champs + i;
-		}
-	logic->lives++;
-	process->alive = 1;
-}
-
-void					spawn_process(t_proc *process)
-{
-	t_llist				**queue;
-	static int			id;
-	t_llist				*new;
-
-	queue =&(get_logic()->queue);
-	if (!queue)
-		return ;
-	process->id = id++;
-//	ft_printf("Process %d, at pc %d\n",process->id + 1, process->pc);
-	if (!(new = ft_llist_new(process)))
-		exit(1);
-	ft_llist_front(queue, new);
 }
 
 /*
@@ -126,37 +56,6 @@ static int				run_process_cycle(t_proc *process, t_params *params)
 		process->current_task = NULL;
 	}
 	return (0);
-}
-
-void					check_lives(void)
-{
-	static int			nodecrement_checks;
-	t_logic				*logic;
-	t_llist				*tmp;
-	t_llist				*tmp2;
-
-	logic = get_logic();
-	if (logic->cycles_left <= 0)
-	{
-		tmp = logic->queue;
-		while (tmp)
-		{
-			tmp2 = tmp->next;
-			if (!((t_proc *)tmp->data)->alive)
-				kill_process((t_proc *)tmp->data);
-			else
-				((t_proc *)tmp->data)->alive = 0;
-			tmp = tmp2;
-		}
-		nodecrement_checks++;
-		if (logic->lives >= NBR_LIVE || nodecrement_checks >= MAX_CHECKS)
-		{
-			nodecrement_checks = 0;
-			logic->cycles_to_die -= CYCLE_DELTA;
-		}
-		logic->lives = 0;
-		logic->cycles_left = logic->cycles_to_die;
-	}
 }
 
 void					run_loop(t_champ *champs)

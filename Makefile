@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/23 19:07:39 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/23 22:44:13 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,10 @@ SRC_1 = vm/main.c \
 	vm/memory/write_champ.c \
 	\
 	vm/logic/logic.c \
-	vm/logic/instructions.c \
-	vm/logic/process.c \
+	vm/logic/lives.c \
+	vm/logic/instr/filler.c \
+	vm/logic/instr/instructions.c \
+	vm/logic/process/process.c \
 	\
 	vm/instr/add.c \
 	vm/instr/aff.c \

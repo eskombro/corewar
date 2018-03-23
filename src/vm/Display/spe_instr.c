@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 22:14:11 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/20 23:14:14 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:37:57 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void		print_fork(t_proc *proc)
 {
 	ft_printf("P%5d | ", proc->id + 1);
 	ft_printf("fork %d (%d)\n", (short)proc->current_task->par[0].value,
-			((short)proc->current_task->par[0].value % IDX_MOD) + proc->pc);
+			(((short)proc->current_task->par[0].value % IDX_MOD) + proc->pc + proc->owner->spawn) % MEM_SIZE);
 }
 
 void		print_lfork(t_proc *proc)
 {
 	ft_printf("P%5d | ", proc->id + 1);
 	ft_printf("lfork %d (%d)\n", (short)proc->current_task->par[0].value,
-			(short)proc->current_task->par[0].value + proc->pc);
+			(short)proc->current_task->par[0].value + proc->pc + proc->owner->spawn % MEM_SIZE);
 }
 
 void		print_zjmp(t_proc *proc)

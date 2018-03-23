@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:10:48 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:21:01 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,11 @@ t_instr					*load_instr(t_proc *process)
 	buf = read_memory(process->pc + process->owner->spawn, 0, 1, 0);
 	def = get_instr_def((int)*buf);
 	free(buf);
-	if (!def.opcode && CRASH_ON_ERROR)
-		return (NULL);
 	if (!(instr = (t_instr *)ft_memalloc(sizeof(t_instr))))
-		return (NULL);
+		exit(1);
 	instr->mem_size = 1;
 	instr->opcode = def.opcode;
-	instr->wait_cycles = def.cycles;
+	instr->run_cycle = def.cycles;
 	instr->run_instr = def.run_instr;
 	return (instr);
 }

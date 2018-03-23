@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:15:52 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:17:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct					s_par
 typedef struct					s_instr
 {
 	unsigned int				mem_size;
-	int							wait_cycles;
+	int							run_cycle;
 	char						opcode;
 	t_par						par[3];
 	void						(*run_instr)(void *process);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:16:38 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:22:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,24 @@ t_logic					*get_logic(void)
 
 static void				run_process_cycle(t_proc *process)
 {
-	if (!process->current_task && !(process->current_task =
-			load_instr(process)))
-		exit(1);
-	process->current_task->wait_cycles--;
-	if (process->current_task->wait_cycles <= 0)
+	t_logic				*logic;
+
+	logic = get_logic();
+	if (!process->current_task)
+	{
+		process->current_task = load_instr(process);
+		process->current_task->run_cycle += logic->cycles - 1;
+	}
+	if (process->current_task->run_cycle <= logic->cycles)
 	{
 		if (process->current_task->opcode)
 			fill_instr(process);
 		if (process->current_task->run_instr)
 		{
-			if (get_logic()->params.verbose >= 0)
+			if (logic->params.verbose >= 0)
 				verbose(process);
 			process->current_task->run_instr(process);
-			get_logic()->params.ncurse ? update_arena_visu(process) : 0;
+			logic->params.ncurse ? update_arena_visu(process) : 0;
 		}
 		if (!(process->current_task->opcode == I_ZJMP && process->carry == 1))
 			process->pc += process->current_task->mem_size;

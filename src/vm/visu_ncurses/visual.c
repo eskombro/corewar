@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 19:43:36 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/22 23:46:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 17:45:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void		print_screen(t_logic *logic)
 	int				delay;
 
 	initscr();
-	delay = NCURSE_DELAY;
+	delay = logic->cycles <= 22600 ? 1 : NCURSE_DELAY;
 	arena = get_arena();
 	arena_visu = get_arena_visu();
 	!init++ ? initialize_arena_visu(logic, arena_visu) : 0;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 16:52:56 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 18:02:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int			read_ocp(t_proc *process, t_instr_def def,
 		else if (((*buf) & 0x03) == MT_ID)
 			init_par(instr->par + i, T_ID);
 		else if (((*buf) & 0x03) == MT_DT)
-			init_par(instr->par + i, (def.par_type[i] & T_D4) ? T_D4 : T_D2);
+			init_par(instr->par + i, (def.par_type[i] & T_D2) ? T_D2 : T_D4);
 	}
 	free(buf);
 	return (0);

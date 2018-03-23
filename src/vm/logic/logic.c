@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/22 21:16:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/23 18:03:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void				kill_process(t_proc *process)
 	t_llist				**queue;
 	t_llist				*list;
 
+	if (process->id == 35)
+		ft_printf("Process %d | %d alive | Died at cycle %d\n", process->id + 1, process->alive, get_logic()->cycles);
 	queue = &(get_logic()->queue);
 	if (!queue)
 		return ;
@@ -79,6 +81,8 @@ void					report_live(t_proc *process, int player)
 			//debug_live_report(process, logic->champs + i);
 		}
 	}
+	// if (process->id == 35)
+		// ft_printf("Reported live at cycle %d\n", logic->cycles);
 	logic->valid_lives++;
 	process->alive = 1;
 }
@@ -149,6 +153,7 @@ void					check_lives(void)
 	logic = get_logic();
 	if (logic->cycles_left <= 0)
 	{
+		//ft_printf("\t\t\t\tChecked lives at cycle %d\n", logic->cycles);
 		tmp = logic->queue;
 		while (tmp)
 		{
@@ -164,7 +169,7 @@ void					check_lives(void)
 		{
 			nodecrement_checks = 0;
 			logic->cycles_to_die -= CYCLE_DELTA;
-			// ft_printf("CYCLES DECREM %d at cycle %d (lives %d)\n", logic->cycles_to_die, logic->cycles, logic->valid_lives);
+			//ft_printf("\t\t\t\t\t\t\t\tCycle to die is now %d at cycle %d (lives %d)\n", logic->cycles_to_die, logic->cycles, logic->valid_lives);
 		}
 		logic->valid_lives = 0;
 		logic->cycles_left = logic->cycles_to_die;

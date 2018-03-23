@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:06:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:16:38 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ t_logic					*get_logic(void)
 ** did not report as alive, and -1 in case of error.
 */
 
-static int				run_process_cycle(t_proc *process)
+static void				run_process_cycle(t_proc *process)
 {
-	if (!process)
-		return (-1);
 	if (!process->current_task && !(process->current_task =
 			load_instr(process)))
-		return (1);
+		exit(1);
 	process->current_task->wait_cycles--;
 	if (process->current_task->wait_cycles <= 0)
 	{
@@ -56,27 +54,32 @@ static int				run_process_cycle(t_proc *process)
 		del_instr(process->current_task);
 		process->current_task = NULL;
 	}
-	return (0);
 }
 
-static void				run_cycle(void)
+static int				run_cycle(void)
 {
 	t_logic				*logic;
 	t_llist				*tmp;
 	t_llist				*tmp2;
+	int					run;
 
 	logic = get_logic();
 	tmp = logic->queue;
+	run = 0;
 	while (tmp)
 	{
 		tmp2 = tmp->next;
-		if (run_process_cycle((t_proc *)tmp->data))
-			kill_process((t_proc *)tmp->data);
+		if (!((t_proc *)tmp->data)->dead)
+		{
+			run = 1;
+			run_process_cycle((t_proc *)tmp->data);
+		}
 		tmp = tmp2;
 	}
 	check_lives();
 	logic->params.ncurse ? print_screen(logic) : 0;
 	logic->cycles_left--;
+	return (run);
 }
 
 void					run_loop(t_champ *champs)
@@ -93,9 +96,11 @@ void					run_loop(t_champ *champs)
 	while (logic->queue && (logic->params.dump < 0 ||
 		logic->cycles <= logic->params.dump))
 	{
+		if (!run_cycle())
+			break ;
 		logic->cycles++;
-		run_cycle();
 	}
+	ft_llist_del(&(logic->queue), &del_process);
 	endwin();
 	if (logic->params.dump >= 0)
 		print_arena_dump();

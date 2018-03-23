@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 23:38:34 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:15:52 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct					s_proc
 {
 	int							id;
 	int							alive;
+	int							dead;
 	t_champ						*owner;
 	t_addr						pc;
 	int							carry;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 23:40:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:11:10 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,5 @@ void					del_process(void *data)
 
 void					kill_process(t_proc *process)
 {
-	t_llist				**queue;
-	t_llist				*list;
-
-	queue = &(get_logic()->queue);
-	if (!queue)
-		return ;
-	list = *queue;
-	while (list)
-	{
-		if (list->data == process)
-		{
-			ft_llist_rem(queue, list, &del_process);
-			return ;
-		}
-		list = list->next;
-	}
+	process->dead = 1;
 }

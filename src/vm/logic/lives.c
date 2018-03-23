@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:42:55 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 23:23:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/24 00:12:44 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,13 @@ void					check_lives(void)
 		while (tmp)
 		{
 			tmp2 = tmp->next;
-			if (!((t_proc *)tmp->data)->alive)
-				kill_process((t_proc *)tmp->data);
-			else
-				((t_proc *)tmp->data)->alive = 0;
+			if (!((t_proc *)tmp->data)->dead)
+			{
+				if (!((t_proc *)tmp->data)->alive)
+					kill_process((t_proc *)tmp->data);
+				else
+					((t_proc *)tmp->data)->alive = 0;
+			}
 			tmp = tmp2;
 		}
 		decrement_cycles_to_die();

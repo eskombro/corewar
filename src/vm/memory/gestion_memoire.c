@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/23 23:39:23 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/26 23:58:43 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ t_uchar				*get_arena(void)
 **	Wites the string passed as par.value in the specified address
 */
 
-void				write_memory(t_addr pc, t_addr address, t_par par)
+void				write_memory(t_proc *process, t_addr pc, t_addr address,
+						t_par par)
 {
-	int				i;
+	t_addr			i;
 	unsigned int	ct;
 	t_uchar			*arena;
 
@@ -40,6 +41,7 @@ void				write_memory(t_addr pc, t_addr address, t_par par)
 	i = par.size - 1 + pc + (address % IDX_MOD);
 	while (i < MEM_SIZE)
 		i += MEM_SIZE;
+	call_memory_write(process, i);
 	while (ct < par.size)
 		arena[i-- % MEM_SIZE] = (t_uchar)((par.value >> (8 * (ct++))) & 0xFF);
 }

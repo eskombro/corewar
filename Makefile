@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/23 23:36:55 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/27 00:08:34 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,13 @@ SRC_1 = vm/main.c \
 	\
 	vm/ncurse/arena_visu.c \
 	vm/ncurse/display.c \
-	vm/ncurse/visual.c
+	vm/ncurse/visual.c \
+	\
+	vm/callers/process_callers.c \
+	vm/callers/memory_callers.c \
+	vm/callers/logic_callers.c \
+	vm/callers/instr_callers.c \
+	vm/callers/champ_callers.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \

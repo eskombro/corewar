@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 23:00:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:11:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/26 23:06:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void					spawn_process(t_proc *process)
 	if (!(new = ft_llist_new(process)))
 		exit(1);
 	ft_llist_front(queue, new);
+	call_process_spawn(process);
 }
 
 void					del_process(void *data)
@@ -64,4 +65,5 @@ void					del_process(void *data)
 void					kill_process(t_proc *process)
 {
 	process->dead = 1;
+	call_process_death(process);
 }

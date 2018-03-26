@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 23:47:38 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/18 19:12:27 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/26 23:57:52 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void				st(void *proc)
 		par.type = T_D4;
 		par.size = S_D4;
 		par.value = value;
-		write_memory(p1->pc + p1->owner->spawn,
+		write_memory(p1, p1->pc + p1->owner->spawn,
 			(short)p1->current_task->par[1].value, par);
 	}
 }

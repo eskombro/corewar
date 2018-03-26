@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:42:55 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:12:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/27 00:03:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void					report_live(t_proc *process, int player)
 		}
 	logic->lives++;
 	process->alive = 1;
+	call_live_report(process, player);
 }
 
 static void				decrement_cycles_to_die(void)

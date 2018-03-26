@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 19:28:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/23 22:36:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/27 00:09:52 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 # define LOGIC_H
 
 # include "corewar.h"
-
-/*
-** Logic getter
-*/
-t_logic					*get_logic();
 
 /*
 ** Process

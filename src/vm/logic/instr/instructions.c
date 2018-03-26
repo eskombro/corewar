@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/24 00:40:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/26 23:16:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void					fill_instr(t_proc *process)
 	instr = process->current_task;
 	def = get_instr_def(instr->opcode);
 	if (fill_parameters(process, def, instr))
-	{
 		instr->run_instr = NULL;
-	}
 }
 
 t_instr					*load_instr(t_proc *process)

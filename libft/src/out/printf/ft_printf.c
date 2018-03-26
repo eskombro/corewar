@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 15:28:14 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/03 02:14:05 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/26 18:16:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int		handle_arg(va_list *arg, const char **str, char **buf)
 	return (0);
 }
 
-int				ft_printf_valist(const char *str, va_list *args)
+int				ft_printf_valist(int fd, const char *str, va_list *args)
 {
 	char		buffer[FT_PRINTF_BUFF_SIZE];
 	char		*bufptr;
@@ -73,7 +73,8 @@ int				ft_printf_valist(const char *str, va_list *args)
 		else
 			*(bufptr++) = *(str++);
 	}
-	write(1, buffer, (int)(bufptr - buffer));
+	if (write(fd, buffer, (int)(bufptr - buffer)) < 0)
+		return (-1);
 	return ((int)(bufptr - buffer));
 }
 

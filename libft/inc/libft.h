@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/10 22:38:53 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/26 18:18:30 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <stdarg.h>
 
 int					ft_printf(const char *str, ...);
-int					ft_printf_valist(const char *str, va_list *args);
-int					ft_printf_buf(char *buffer, const char *str, ...);
+int					ft_dprintf(int fd, const char *str, ...);
+int					ft_printf_valist(int fd, const char *str, va_list *args);
+int					ft_bprintf(char *buffer, const char *str, ...);
 int					ft_printf_buf_valist(char *buffer, const char *str,
 						va_list *args);
 

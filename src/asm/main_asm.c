@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/24 23:34:20 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/31 01:48:16 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,45 @@ static int	open_champ(char *path, t_bin_champ *champ)
 
 int			get_champ(char *champ_path)
 {
+	int fd;
+	char *mod;
+
 	t_bin_champ champs;
 	if (!open_champ(champ_path, &champs))
 		return (0);
-	get_all_instr(&champs);
+	mod = ft_strrchr(champ_path, '.');
+	mod[1] = 's';
+	mod[2] = '\0';
+	if ((fd = open(champ_path, O_RDWR | O_CREAT, 0644)) < 0)
+		return (0);
+	get_all_instr(&champs, fd);
+	close(fd);
 	return (1);
 }
 
 int main(int argc, char *argv[])
 {
-	get_champ(argv[1]);
+	int i;
+	int fd;
+
+	i = 1;
+	while (argv[i])
+	{
+		if ((fd = open(argv[i], O_RDONLY)) >= 0)
+		{
+			if (ft_strequ(".cor", ft_strrchr(argv[i], '.')) &&
+					ft_strlen(ft_strrchr(argv[i], '.')) == 4)
+				get_champ(argv[i]);
+			else if (ft_strequ(".s", ft_strrchr(argv[i], '.')) &&
+					ft_strlen(ft_strrchr(argv[i], '.')) == 2)
+				convert_champ(argv[i]);
+			else
+				error_msg_instr(6, i);
+		}
+		else
+			error_msg_instr(5, i);
+		close(fd);
+		i++;
+	}
 	return (0);
 }
-

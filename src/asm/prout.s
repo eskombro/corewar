@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:24:46 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/30 03:58:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/26 19:03:26 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ int		check_labels(t_par par[3], int size, t_instr_list *instr,
 			if ((ret = check_list(instr, par[i].value + current->pos)))
 			{
 				par[i].type |= T_LB;
-				par[i].label = ret;
+				par[i].labeled = ret;
 			}
 		}
 		i++;
@@ -265,7 +265,7 @@ void	print_instr_list(t_instr_list *instr, int fd)
 			if (instr->par[i].type & T_RG)
 				ft_dprintf(fd, "r");
 			if (instr->par[i].type & T_LB)
-				ft_dprintf(fd, ":label_%d", *instr->par[i].label);
+				ft_dprintf(fd, ":label_%d", *instr->par[i].labeled);
 			else
 				ft_dprintf(fd, "%d", instr->par[i].value);
 			i++;

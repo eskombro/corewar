@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/26 18:20:23 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/31 18:53:12 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void				*init_args(int argc, char **argv)
 			return (NULL);
 		if (ft_args_add(args, "ncurse", 'n', 0))
 			return (NULL);
+		if (ft_args_add(args, "commands", 'c', 0))
+			return (NULL);
 		if (ft_args_parse(args, argc, argv))
 			return (NULL);
 	}
@@ -75,6 +77,8 @@ static void				fill_params(void *args, t_params *params)
 	}
 	if (ft_args_get(args, "ncurse"))
 		params->ncurse = 1;
+	if (ft_args_get(args, "commands"))
+		params->command_io = 1;
 }
 
 t_params				get_params(void)
@@ -88,6 +92,7 @@ t_params				get_params(void)
 		params.dump = -1;
 		params.verbose = -1;
 		params.ncurse = 0;
+		params.command_io = 0;
 		fill_params(args, &params);
 		free(args);
 	}

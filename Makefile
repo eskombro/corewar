@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/27 00:08:34 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/31 19:29:50 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,10 @@ SRC_1 = vm/main.c \
 	vm/callers/memory_callers.c \
 	vm/callers/logic_callers.c \
 	vm/callers/instr_callers.c \
-	vm/callers/champ_callers.c
+	vm/callers/champ_callers.c \
+	\
+	vm/commands/commands.c \
+	vm/commands/command_writers.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
@@ -76,7 +79,23 @@ LFLAGS_1 = $(DEBUG_FLAGS) \
 	-lft \
 	-lncurses
 
-all: prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1)
+# TARGET 2
+TARGET_2 = show_corewar
+SRC_2 = visu/main.c
+
+OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
+CFLAGS_2 = $(DEBUG_FLAGS) \
+	-I$(LIBS_PATH)/include \
+	-Iinc/visu \
+	-Iinc \
+	-Ilib/inc
+LFLAGS_2 = $(DEBUG_FLAGS) \
+	-L$(LIBS_PATH)/lib \
+	-Llib \
+	-lft \
+
+all: prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1) \
+	prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2)
 	@echo > /dev/null
 
 $(TARGET_1): $(OBJ_1)
@@ -96,13 +115,32 @@ postbuild.$(TARGET_1):
 $(OBJ_1): ./obj/%.o: %.c
 	$(call compile, $(CFLAGS_1))
 
+$(TARGET_2): $(OBJ_2)
+	$(call link, $(LFLAGS_2))
+
+prebuild.$(TARGET_2):
+	@mkdir -p lib
+	@mkdir -p lib/inc
+	@$(MAKE) -C libft
+	$(call dylib_install,./libft/lib/libft.dylib)
+	$(call dylib_include_install,./libft/inc)
+	$(call bgn_msg,$(TARGET_2))
+
+postbuild.$(TARGET_2):
+	$(call $(END_MSG),$(TARGET_2))
+
+$(OBJ_2): ./obj/%.o: %.c
+	$(call compile, $(CFLAGS_2))
+
 clean:
 	@$(MAKE) -C libft clean
 	$(call clean,$(TARGET_1),$(OBJ_1))
+	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
 	@$(MAKE) -C libft fclean
 	$(call fclean,$(TARGET_1),$(OBJ_1))
+	$(call fclean,$(TARGET_2),$(OBJ_2))
 
 libclean:
 	@$(MAKE) -C libft libclean

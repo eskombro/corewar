@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/27 00:08:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/31 18:46:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ static void				end_game(void)
 		print_arena_dump();
 	else if (logic->last_live)
 	{
-		ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,
-			logic->last_live->id, logic->cycles);
+		if (!logic->params.command_io)
+			ft_printf("Player %s (%d) won at cycle %d.\n", logic->last_live->name,
+				logic->last_live->id, logic->cycles);
 		call_champ_win(logic->last_live);
 	}
 }

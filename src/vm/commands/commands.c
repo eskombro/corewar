@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instr_callers.c                                    :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/26 22:04:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/31 18:38:52 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/03/31 16:46:25 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/03/31 18:52:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				call_instr_start(t_proc *process)
+//TODO: Command reader
+void				start_command_reader()
 {
-	process = 0;
+
 }
 
-void				call_instr_exec(t_proc *process)
+static t_command	*read_command(void)
 {
-	t_logic			*logic;
+	return (NULL);
+}
 
-	logic = get_logic();
-	if (logic->params.verbose >= 0)
-		verbose(process);
+void				send_command(t_command command)
+{
+	if (command.size < 0)
+		command.size = 0;
+	else if (command.size > MAX_COMMAND_DATA_SIZE)
+		command.size = MAX_COMMAND_DATA_SIZE;
+	write(1, &command.type, 1);
+	write(1, &command.size, 1);
+	write(1, command.data, (int)command.size);
 }

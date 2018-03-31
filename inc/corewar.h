@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/27 00:09:56 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/31 19:32:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include "instructions.h"
 
 # include <unistd.h>
+# include <fcntl.h>
 # include <ncurses.h>
 
 /*
 ** Logic getter
 */
-t_logic					*get_logic();
+t_logic				*get_logic();
 
 /*
 ** Corewar parameters
@@ -90,6 +91,26 @@ void				debug_process_crash(t_proc *proc);
 t_uchar				*get_arena_visu(void);
 void				update_arena_visu(t_proc *process);
 void				print_screen(t_logic *logic);
+
+/*
+** Commands
+*/
+# define			COMMAND_CHAMP_SPAWN 0x00;
+# define			COMMAND_CHAMP_WINS 0x01;
+# define			COMMAND_INSTR_INIT 0x10;
+# define			COMMAND_INSTR_EXEC 0x11;
+# define			COMMAND_LOGIC_CYCLE 0x20;
+# define			COMMAND_LOGIC_LIVE 0x21;
+# define			COMMAND_MEM_WRITE 0x30;
+# define			COMMAND_PROC_SPAWN 0x30;
+# define			COMMAND_PROC_MOVE 0x30;
+# define			COMMAND_PROC_DEATH 0x30;
+
+void				start_command_reader();
+void				send_command(t_command command);
+
+int					write_short(unsigned char *buf, short val);
+int					write_str(unsigned char *buf, char const *val);
 
 /*
 ** Callers

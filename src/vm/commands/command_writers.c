@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instr_callers.c                                    :+:      :+:    :+:   */
+/*   command_writers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/26 22:04:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/31 18:38:52 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/03/31 19:27:58 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/03/31 19:34:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				call_instr_start(t_proc *process)
+int				write_short(unsigned char *buf, short val)
 {
-	process = 0;
+	buf[0] = ((val >> 8) & 0xFF);
+	buf[1] = (val) & 0xFF;
+	return (2);
 }
 
-void				call_instr_exec(t_proc *process)
+int				write_str(unsigned char *buf, char const *val)
 {
-	t_logic			*logic;
-
-	logic = get_logic();
-	if (logic->params.verbose >= 0)
-		verbose(process);
+	ft_memcpy(buf, val, ft_strlen(val));
+	return (ft_strlen(val));
 }

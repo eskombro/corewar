@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/31 01:40:57 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/31 03:29:40 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct					s_instr_list
 	struct s_instr_list			*next;
 }								t_instr_list;
 
+int								error_param(char cse, t_expr *expr, int nb);
+int								error_instr(char cse, int line, char *instr);
 void							write_champ(t_expr *list, char *champ, int fd);
 long							ft_long_atoi(char *str);
 int								error_msg_asm(char cse, int nb);

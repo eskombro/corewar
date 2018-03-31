@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:47:03 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/31 02:09:07 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/03/31 17:57:58 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		get_name_len(char *name)
 	int i;
 
 	i = 0;
-	while (name[i] != DIRECT_CHAR && name[i] != LABEL_CHAR && name[i] != SEPARATOR_CHAR && name[i] != REG_CHAR)
+	while (name[i] != DIRECT_CHAR && name[i] != LABEL_CHAR && name[i] !=
+			SEPARATOR_CHAR && name[i] != REG_CHAR && !ft_isdigit(name[i]) && name[i] != '-')
 		i++;
 	return (i);
 }
@@ -171,23 +172,23 @@ int			test_params(char *tmp, int i)
 	if (*tmp == LABEL_CHAR)
 	{
 		if (!(tmp = jump_label(tmp)))
-			return (0);
+			return (error_instr(8, 0, NULL));
 		if (!*tmp)
 			return (i);
 		else
 			return(test_params(tmp, i + 1));
 	}
-	while (*tmp && ft_isdigit(*tmp))
+	while (*tmp && (ft_isdigit(*tmp) || *tmp == '-'))
 		tmp++;
-	if (*tmp && *tmp != SEPARATOR_CHAR)
-		return (0);
+	if (*tmp && *tmp != SEPARATOR_CHAR && *tmp != '-')
+		return (error_instr(6, 0, tmp));
 	else if (*tmp && *tmp == SEPARATOR_CHAR)
 	{
 		tmp++;
 		if (*tmp)
 			i = test_params(tmp, i + 1);
 		else
-			return (0);
+			return (error_instr(7, 0, NULL));
 	}
 	return (i);
 }
@@ -200,12 +201,12 @@ int			test_instr(t_expr *expr, t_instr_type *type)
 		return (0);
 	tmp = expr->expr;
 	tmp += ft_strlen(type->name);
-	if (!ft_isdigit(*tmp) && *tmp != LABEL_CHAR && *tmp != REG_CHAR && *tmp != DIRECT_CHAR)
-		return (0);
+	if (!ft_isdigit(*tmp) && *tmp != LABEL_CHAR && *tmp != REG_CHAR && *tmp != DIRECT_CHAR && *tmp != '-')
+		return (error_instr(2, expr->line, expr->expr));
 	if (occur_count(tmp, SEPARATOR_CHAR) != type->par_nbr - 1)
-		return (0);
+		return (error_instr(3, expr->line, expr->expr));
 	if (test_params(tmp, 0) + 1 != type->par_nbr)
-		return (0);
+		return (error_instr(4, expr->line, expr->expr));
 	expr->type |= INSTR;
 	return (1);
 }
@@ -264,7 +265,7 @@ char		*get_label_addr(t_expr *list, char *tmp, t_par *par)
 	return (tmp);
 }
 
-int			get_next_instr(char **src, t_par *par, t_expr *list)
+int			get_next_instr(char **src, t_par *par, t_expr *list, t_expr *expr)
 {
 	char *tmp;
 	int value;
@@ -281,11 +282,12 @@ int			get_next_instr(char **src, t_par *par, t_expr *list)
 	if (*tmp == LABEL_CHAR)
 	{
 		*src = get_label_addr(list, tmp, par);
-		return (*src ? 1 : 0);
+		return (*src ? 1 : error_param(2, expr, 0));
 	}
-	if (*tmp && !ft_isdigit(*tmp))
-		return (0);
-	par->value = ft_long_atoi(tmp);
+	if (!(par->value = ft_long_atoi(tmp)) && *tmp != '0')
+		return (error_param(3, expr, 0));
+	if (par->type & T_RG && (par->value <= 0 || par->value > REG_NUMBER))
+		return (error_param(4, expr, 0));
 	while (*tmp && *tmp != SEPARATOR_CHAR)
 		tmp++;
 	if (*tmp == SEPARATOR_CHAR)
@@ -340,7 +342,7 @@ int			check_instr(t_expr *expr, t_expr *list, t_instr_type *type)
 	while (*tmp)
 	{
 		i++;
-		if ((ft_isdigit(*tmp) || *tmp == LABEL_CHAR) && type->par_type[i] & T_ID)
+		if ((ft_isdigit(*tmp) || *tmp == LABEL_CHAR || *tmp == '-') && type->par_type[i] & T_ID)
 			instr->par[i].type |= T_ID;
 		else if (*tmp == DIRECT_CHAR && (type->par_type[i] & T_D4))
 			instr->par[i].type |= T_D4;
@@ -349,11 +351,11 @@ int			check_instr(t_expr *expr, t_expr *list, t_instr_type *type)
 		else if (*tmp == 'r' && (type->par_type[i] & T_RG))
 			instr->par[i].type |= T_RG;
 		else
-			return (0);
+			return (error_param(1, expr, i));
 		instr->ocp = type->flags;
 		instr->op = type->opcode;
 		instr->par_nbr = type->par_nbr;
-		if (!(get_next_instr(&tmp, &instr->par[i], list)))
+		if (!(get_next_instr(&tmp, &instr->par[i], list, expr)))
 			return (0);
 	}
 	calc_size(expr);
@@ -377,6 +379,7 @@ int			parse_expr(t_expr *current, t_expr **list)
 		current->instr->addr = addr;
 		current->addr = addr;
 		addr += current->instr->mem_size;
+		return (1);
 	}
 	else if (test_label(current))
 	{
@@ -384,7 +387,7 @@ int			parse_expr(t_expr *current, t_expr **list)
 		handle_duplicate(current, *list);
 	}
 	else
-		return (0);
+		return (error_instr(5, current->line, current->expr));
 	return (1);
 }
 
@@ -481,12 +484,13 @@ int			parse_instr(char *champ, int lines, char *src, t_expr **list)
 {
 	t_expr *expr;
 	t_expr *begin;
+	int		cse;
 
 	champ = trim_champ(champ, &expr, &lines);
 	begin = expr;
 	*list = expr;
 	if (!champ)
-		return (0);
+		return ((int)error_instr(1, 0, NULL));
 	while (expr)
 	{
 		if (ft_strchr(expr->expr, '\n'))
@@ -528,6 +532,8 @@ int			parse_champ(char *champ, t_expr **expr)
 		return (error_msg_asm(7, 0));
 	tmp++;
 	tmp = (char*)parse_comment(tmp);
+	if (!tmp)
+		return (0);
 	while (*tmp && (*tmp == ' ' || *tmp == '\t'))
 		tmp++;
 	if (*tmp != '\n')
@@ -575,7 +581,8 @@ int convert_champ(char *champ_path)
 
 	if (!read_champ(champ_path, &raw))
 		return (0);
-	parse_champ(raw, &expr_list);
+	if (!parse_champ(raw, &expr_list))
+		return (0);
 	*ft_strchr(champ_path, '.') = '\0';
 	mod = ft_strnew(ft_strlen(champ_path + 4));
 	mod = ft_strcpy(mod, champ_path);

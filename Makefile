@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/27 00:08:34 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/01 00:22:48 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,12 @@ SRC_1 = vm/main.c \
 	vm/callers/memory_callers.c \
 	vm/callers/logic_callers.c \
 	vm/callers/instr_callers.c \
-	vm/callers/champ_callers.c
+	vm/callers/champ_callers.c \
+	vm/champ/convert.c \
+	\
+	asm/parser.c \
+	asm/tools.c \
+	asm/asm.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \

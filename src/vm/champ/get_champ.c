@@ -6,82 +6,87 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/20 23:16:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/31 20:46:39 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "corewar.h"
+#include "asm.h"
 
-static int	get_champ(long size, int fd, t_champ *champ)
+static int	get_bin_champ(int size, int fd, t_champ *champ)
 {
 	char	*champion;
-	char	buf[4];
+	char	buf[INT_SIZE];
 	int		ret;
-	int		*empty;
 
-	champion = (char *)malloc(sizeof(char) * size);
-	read(fd, buf, 4);
-	empty = (int*)buf;
-	champ->size = (int)size;
+	if (!(champion = (char *)malloc(sizeof(char) * (size + 1))))
+		exit(1);
+	if ((read(fd, buf, INT_SIZE)) <= 0)
+		return (error_msg(3));
+	if (*(int*)buf)
+		return (error_msg(7));
+	champ->size = size;
 	ret = read(fd, champion, size);
+	if (ret <= 0)
+		return (error_msg(3));
 	champ->champion = champion;
-	if (ret != size || *empty != 0)
-		return (0);
-	if ((ret = read(fd, buf, 4)))
-		return (0);
+	champ->champion[size] = '\0';
+	if (ret < size)
+		return (error_msg(8));
+	ret = read(fd, buf, INT_SIZE);
+	if (ret < 0)
+		return (error_msg(3));
+	if (ret > 0)
+		return (error_msg(9));
 	return (1);
-}
-
-static long	convert_endian(long num)
-{
-	long swapped;
-
-	swapped = ((num >> 56) & 0xff) |
-		((num >> 40) & 0xff00) |
-		((num >> 24) & 0xff0000) |
-		((num >> 8) & 0xff000000) |
-		((num << 8) & 0xff00000000) |
-		((num << 24) & 0xff0000000000) |
-		((num << 40) & 0xff000000000000) |
-		((num << 56) & 0xff00000000000000);
-	return (swapped);
 }
 
 static long	get_com(int fd, t_champ *champ)
 {
-	char	buf[2049];
-	char	buf2[8];
-	long	*champ_size;
+	char	buf[COMMENT_LENGTH + 1];
+	char	buf_int[INT_SIZE];
+	int		champ_size;
 
-	read(fd, buf2, 8);
-	read(fd, buf, 2048);
-	buf[2048] = '\0';
-	champ_size = (long*)buf2;
-	*champ_size = convert_endian(*champ_size);
+	if ((read(fd, buf_int, INT_SIZE)) <= 0)
+		return (error_msg(3));
+	if (*(int*)buf_int)
+		return (error_msg(5));
+	if ((read(fd, buf_int, INT_SIZE)) <= 0)
+		return (error_msg(3));
+	if ((read(fd, buf, COMMENT_LENGTH)) <= 0)
+		return (error_msg(3));
+	buf[COMMENT_LENGTH] = '\0';
+	champ_size = convert_int_endian(*(int*)buf_int);
 	champ->comment = ft_strdup(buf);
-	if (*champ_size > CHAMP_MAX_SIZE || !get_champ(*champ_size, fd, champ))
+	if (champ_size > CHAMP_MAX_SIZE)
+		return (error_msg(6));
+	if (!get_bin_champ(champ_size, fd, champ))
 		return (0);
-	return (*champ_size);
+	return (champ_size);
 }
 
 static int	open_champ(char *path, t_champ *champ)
 {
-	char	buf[4];
-	char	buf2[128];
+	char	buf[INT_SIZE];
+	char	buf2[PROG_NAME_LENGTH + 1];
 	int		fd;
-	int		*parse;
+	int		parse;
 
 	if (!(fd = open(path, O_RDONLY)))
-		return (0);
+		return (error_msg(1));
+	if (is_asm(path))
+		return (convert_to_hex(path, champ));
 	if (fd < 0)
-		return (0);
-	read(fd, buf, 4);
-	parse = (int*)buf;
-	if (*parse != -209458688)
-		return (0);
-	read(fd, buf2, 128);
+		return (error_msg(2));
+	if ((read(fd, buf, INT_SIZE)) <= 0)
+		return (error_msg(3));
+	parse = convert_int_endian(*(int*)buf);
+	if (parse != COREWAR_EXEC_MAGIC)
+		return (error_msg(4));
+	if ((read(fd, buf2, PROG_NAME_LENGTH)) <= 0)
+		return (error_msg(3));
+	buf2[PROG_NAME_LENGTH] = '\0';
 	champ->name = ft_strdup(buf2);
 	if (!get_com(fd, champ))
 		return (0);

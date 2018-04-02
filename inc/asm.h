@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 17:58:03 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/02 02:38:33 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct					s_expr
 	char						type;
 	int							addr;
 	int							line;
+	char						alloc;
 	struct s_expr				*next;
 	struct s_instr				*instr;
 }								t_expr;
@@ -120,6 +121,7 @@ typedef struct					s_instr_list
 	struct s_instr_list			*next;
 }								t_instr_list;
 
+int								print_champ_path(char *path, char *origin);
 long							parse_comment(char *tmp);
 long							parse_name(char *tmp);
 int								parse_expr(t_expr *current, t_expr **list, t_addr *addr);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/31 19:21:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/04 23:52:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,5 @@ typedef struct					s_logic
 	int							lives;
 	t_champ						*last_live;
 }								t_logic;
-
-# define MAX_COMMAND_DATA_SIZE 256
-
-typedef struct					s_command
-{
-	unsigned char				type;
-	unsigned char				size;
-	unsigned char				data[MAX_COMMAND_DATA_SIZE];
-}								t_command;
 
 #endif

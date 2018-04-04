@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/31 18:46:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/05 01:17:25 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void					run_loop(t_champ *champs)
 	while (logic->queue && (logic->params.dump < 0 ||
 		logic->cycles <= logic->params.dump))
 	{
-		call_new_cycle(logic->cycles);
+		call_new_cycle(logic);
 		if (!run_cycle())
 			break ;
 		check_lives();

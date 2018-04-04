@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 23:18:16 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/19 21:44:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/03 00:21:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void		aff(void *or_proc)
 		proc->carry = 1;
 	else
 		proc->carry = 0;
-	ft_putchar((char)i);
+	if (!get_params().command_io)
+		ft_putchar((char)i);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/31 19:01:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/05 00:02:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,19 @@ void			run_corewar(char **argv)
 void			read_loop(void)
 {
 	t_command	command;
-	char		c;
-	int			i;
+	t_uchar		c[2];
+	int			ret;
 
-	while (read(0, &c, 1) > 0)
+	while ((ret = read(0, c, 1)) > 0)
 	{
-		command.type = c;
-		read(0, &c, 1);
-		command.size = c;
-		read(0, command.data, command.size);
-		ft_dprintf(2, "Received command\n");
-		ft_dprintf(2, "\tType: 0x%.2x\n", command.type);
-		ft_dprintf(2, "\tSize: %d\n", command.size);
-		ft_dprintf(2, "\tContent: [ ");
-		i = -1;
-		while (++i < command.size)
-			ft_dprintf(2, "%.2x ", command.data[i]);
-		ft_dprintf(2, "]\n\n");
+		command.type = c[0];
+		ret = read(0, c, 2);
+		if (ret != 2)
+			break ;
+		command.size = read_short(c);
+		ret = read(0, command.data, command.size);
+		if (ret != command.size)
+			break ;
 	}
 }
 

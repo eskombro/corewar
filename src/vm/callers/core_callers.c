@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
+/*   core_callers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/31 16:46:25 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/02 00:39:02 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/04/02 00:42:36 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/04/05 01:15:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands.h"
+#include "corewar.h"
 
-void				send_command(t_command command)
+void				call_core_begin(void)
 {
-	unsigned char	buf[2];
+	t_command		command;
 
-	if (command.size < 0)
-		command.size = 0;
-	else if (command.size > MAX_COMMAND_DATA_SIZE)
-		command.size = MAX_COMMAND_DATA_SIZE;
-	write(1, &command.type, 1);
-	write_short(buf, command.size);
-	write(1, buf, 2);
-	write(1, command.data, (int)command.size);
+	bzero(&command, sizeof(t_command));
+	command.type = COMMAND_CORE_BEGIN;
+	command.size += write_int(command.data + command.size, MEM_SIZE);
+	send_command(command);
+}
+
+void				call_core_end(void)
+{
+	t_command		command;
+
+	ft_bzero(&command, sizeof(t_command));
+	command.type = COMMAND_CORE_END;
+	send_command(command);
 }

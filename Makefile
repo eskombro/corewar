@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/31 19:29:50 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/02 00:45:19 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,14 +64,17 @@ SRC_1 = vm/main.c \
 	vm/callers/logic_callers.c \
 	vm/callers/instr_callers.c \
 	vm/callers/champ_callers.c \
+	vm/callers/core_callers.c \
 	\
 	vm/commands/commands.c \
-	vm/commands/command_writers.c
+	vm/commands/command_writers.c \
+	vm/commands/command_readers.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \
 	-Iinc \
+	-Iinc/common \
 	-Ilib/inc
 LFLAGS_1 = $(DEBUG_FLAGS) \
 	-L$(LIBS_PATH)/lib \
@@ -81,12 +84,16 @@ LFLAGS_1 = $(DEBUG_FLAGS) \
 
 # TARGET 2
 TARGET_2 = show_corewar
-SRC_2 = visu/main.c
-
+SRC_2 = visu/main.c \
+	\
+	visu/commands/commands.c \
+	visu/commands/command_writers.c \
+	visu/commands/command_readers.c
 OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
 CFLAGS_2 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \
 	-Iinc/visu \
+	-Iinc/common \
 	-Iinc \
 	-Ilib/inc
 LFLAGS_2 = $(DEBUG_FLAGS) \

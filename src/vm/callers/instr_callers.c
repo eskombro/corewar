@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 22:04:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 01:28:09 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/05 06:25:10 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void				call_instr_start(t_proc *process)
 {
 	t_command		command;
 
-	bzero(&command, sizeof(t_command));
+	ft_bzero(&command, sizeof(t_command));
 	command.type = COMMAND_INSTR_INIT;
 	command.size += write_int(command.data + command.size, process->id);
 	command.size += write_int(command.data + command.size,
@@ -29,7 +29,7 @@ void				call_instr_exec(t_proc *process)
 	t_command		command;
 	int				i;
 
-	bzero(&command, sizeof(t_command));
+	ft_bzero(&command, sizeof(t_command));
 	command.type = COMMAND_INSTR_EXEC;
 	command.size += write_int(command.data + command.size, process->id);
 	command.size += write_char(command.data + command.size,

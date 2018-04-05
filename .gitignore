@@ -2,6 +2,8 @@ test.cor
 
 # Targets
 corewar
+show_corewar
+show_corewar_ncurse
 asm
 lib/
 libft/lib

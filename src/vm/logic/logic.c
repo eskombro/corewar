@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 01:17:25 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/05 02:02:08 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void					run_loop(t_champ *champs)
 	i = -1;
 	while (++i < logic->params.players)
 	{
-		spawn_process(load_process(champs + i, 0, NULL));
 		call_champ_spawn(champs + i);
+		spawn_process(load_process(champs + i, 0, NULL));
 	}
 	while (logic->queue && (logic->params.dump < 0 ||
 		logic->cycles <= logic->params.dump))

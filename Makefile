@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/02 00:45:19 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/05 02:09:18 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,10 +99,31 @@ CFLAGS_2 = $(DEBUG_FLAGS) \
 LFLAGS_2 = $(DEBUG_FLAGS) \
 	-L$(LIBS_PATH)/lib \
 	-Llib \
+	-lft
+
+# TARGET 3
+TARGET_3 = show_corewar_ncurse
+SRC_3 = nvisu/main.c \
+	\
+	nvisu/commands/commands.c \
+	nvisu/commands/command_writers.c \
+	nvisu/commands/command_readers.c
+OBJ_3 = $(addprefix obj/src/,$(SRC_3:.c=.o))
+CFLAGS_3 = $(DEBUG_FLAGS) \
+	-I$(LIBS_PATH)/include \
+	-Iinc/nvisu \
+	-Iinc/common \
+	-Iinc \
+	-Ilib/inc
+LFLAGS_3 = $(DEBUG_FLAGS) \
+	-L$(LIBS_PATH)/lib \
+	-Llib \
 	-lft \
+	-lncurses
 
 all: prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1) \
-	prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2)
+	prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2) \
+	prebuild.$(TARGET_3) $(TARGET_3) postbuild.$(TARGET_3)
 	@echo > /dev/null
 
 $(TARGET_1): $(OBJ_1)
@@ -139,15 +160,34 @@ postbuild.$(TARGET_2):
 $(OBJ_2): ./obj/%.o: %.c
 	$(call compile, $(CFLAGS_2))
 
+$(TARGET_3): $(OBJ_3)
+	$(call link, $(LFLAGS_3))
+
+prebuild.$(TARGET_3):
+	@mkdir -p lib
+	@mkdir -p lib/inc
+	@$(MAKE) -C libft
+	$(call dylib_install,./libft/lib/libft.dylib)
+	$(call dylib_include_install,./libft/inc)
+	$(call bgn_msg,$(TARGET_3))
+
+postbuild.$(TARGET_3):
+	$(call $(END_MSG),$(TARGET_3))
+
+$(OBJ_3): ./obj/%.o: %.c
+	$(call compile, $(CFLAGS_3))
+
 clean:
 	@$(MAKE) -C libft clean
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
+	$(call clean,$(TARGET_3),$(OBJ_3))
 
 fclean:
 	@$(MAKE) -C libft fclean
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
+	$(call fclean,$(TARGET_3),$(OBJ_3))
 
 libclean:
 	@$(MAKE) -C libft libclean
@@ -157,4 +197,5 @@ re: fclean all
 
 .PHONY: all clean fclean \
 	prebuild.$(TARGET_1) postbuild.$(TARGET_1) \
-	prebuild.$(TARGET_2) postbuild.$(TARGET_2)
+	prebuild.$(TARGET_2) postbuild.$(TARGET_2) \
+	prebuild.$(TARGET_3) postbuild.$(TARGET_3)

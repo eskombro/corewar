@@ -6,19 +6,16 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 16:46:25 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 02:04:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/02 00:38:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commands.h"
-#include "corewar.h"
 
 void				send_command(t_command command)
 {
 	unsigned char	buf[2];
 
-	if (!(get_logic()->params.command_io))
-		return ;
 	if (command.size < 0)
 		command.size = 0;
 	else if (command.size > MAX_COMMAND_DATA_SIZE)

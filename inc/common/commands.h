@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 20:15:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 01:27:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/05 01:45:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <unistd.h>
 
-# define MAX_COMMAND_DATA_SIZE 256
+# define MAX_COMMAND_DATA_SIZE 4096
 
 typedef struct					s_command
 {
@@ -44,6 +44,7 @@ int					write_int(unsigned char *buf, int val);
 int					write_char(unsigned char *buf, char val);
 int					write_short(unsigned char *buf, short val);
 int					write_str(unsigned char *buf, char const *val);
+int					write_buf(unsigned char *buf, char const *val, int size);
 
 short				read_short(unsigned char *buf);
 int					read_int(unsigned char *buf);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 19:27:58 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/02 18:47:35 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/05 01:38:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int				write_str(unsigned char *buf, char const *val)
 {
 	ft_memcpy(buf, val, ft_strlen(val));
 	return (ft_strlen(val));
+}
+
+int				write_buf(unsigned char *buf, char const *val, int size)
+{
+	ft_memcpy(buf, val, size);
+	return (size);
 }

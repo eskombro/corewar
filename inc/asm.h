@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/02 02:38:33 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/07 01:37:08 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define HEX			"0123456789abcdef"
+# define HEX_UP			"0123456789ABCDEF"
 # define SEPARATOR_CHAR			','
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
@@ -93,6 +95,7 @@ typedef struct					s_par
 	char						type;
 	unsigned int				size;
 	int							value;
+	int							add_val;
 	int							*label;
 }								t_par;
 
@@ -121,6 +124,8 @@ typedef struct					s_instr_list
 	struct s_instr_list			*next;
 }								t_instr_list;
 
+int								noccur_count(char *str, char c, char d);
+t_instr_type					get_instr_type(char *name);
 int								print_champ_path(char *path, char *origin);
 long							parse_comment(char *tmp);
 long							parse_name(char *tmp);

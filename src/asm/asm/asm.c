@@ -6,13 +6,13 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:47:03 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/02 02:37:36 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/05 00:11:07 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/asm.h"
 
-static t_instr_type	get_instr_type(char *name)
+t_instr_type		get_instr_type(char *name)
 {
 	int						i;
 	static	t_instr_type	defs[17] = {

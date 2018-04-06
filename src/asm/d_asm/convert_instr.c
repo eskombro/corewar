@@ -6,13 +6,13 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:24:46 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 01:32:55 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/06 01:08:43 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/asm.h"
 
-static t_instr_type	get_instr_type(int opcode)
+static t_instr_type	tget_instr_type(int opcode)
 {
 	static t_instr_type	defs[17] = {
 { NULL, 0, 0, { 0, 0, 0 }, 0},
@@ -42,7 +42,7 @@ static int			get_instr(char *bin_instr, t_instr_list *instr, int nbr)
 {
 	t_instr_type type;
 
-	type = get_instr_type((unsigned char)*bin_instr);
+	type = tget_instr_type((unsigned char)*bin_instr);
 	if (!type.opcode)
 		return (error_msg_instr(1, nbr));
 	if (!(bin_instr[1]) && type.flags)
@@ -66,7 +66,7 @@ static void			fill_param(t_instr_list *instr, char *bin_instr)
 	int				i;
 	t_instr_type	type;
 
-	type = get_instr_type(instr->opcode);
+	type = tget_instr_type(instr->opcode);
 	i = type.par_nbr - 1;
 	bin_instr++;
 	if (type.flags)

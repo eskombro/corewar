@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 18:03:52 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 18:04:27 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/07 00:57:19 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ static char		*jump_label(char *tmp)
 	tmp++;
 	while (*tmp && ft_strchr(LABEL_CHARS, *tmp))
 		tmp++;
-	if (*tmp && *tmp != SEPARATOR_CHAR)
+	if (*tmp && *tmp != SEPARATOR_CHAR && *tmp != '-' && *tmp != '+')
 		return (0);
-	if (*tmp && *tmp == SEPARATOR_CHAR)
+	else if (*tmp)
+		tmp++;
+	while (ft_isdigit(*tmp))
 		tmp++;
 	return (tmp);
 }
@@ -37,7 +39,7 @@ static int		test_params(char *tmp, int i)
 		else
 			return (test_params(tmp, i + 1));
 	}
-	while (*tmp && (ft_isdigit(*tmp) || *tmp == '-'))
+	while (*tmp && (ft_isdigit(*tmp) || *tmp == '-' || *tmp == 'x'))
 		tmp++;
 	if (*tmp && *tmp != SEPARATOR_CHAR && *tmp != '-')
 		return (error_instr(6, 0, tmp));

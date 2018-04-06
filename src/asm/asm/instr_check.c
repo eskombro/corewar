@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:46:18 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/02 04:34:41 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/07 01:17:49 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,64 @@ t_expr			*push_new_elem(int size, char **tmp, t_expr *origin, int jump)
 	return (expr);
 }
 
+int				trim_param(char **instr)
+{
+	char *tmp;
+
+	tmp = *instr;
+	while (*tmp && (*tmp == ' ' || *tmp == '\t'))
+		tmp++;
+	if (*tmp == '\n' || !*tmp || *tmp == COMMENT_CHAR)
+		return (0);
+	if (*tmp == SEPARATOR_CHAR)
+		tmp++;
+	while (*tmp && (*tmp == ' ' || *tmp == '\t'))
+		tmp++;
+	if (*tmp && *tmp != DIRECT_CHAR && *tmp != LABEL_CHAR && !ft_isdigit(*tmp)
+			&& *tmp != REG_CHAR && *tmp != '-')
+		return (0);
+	if (*tmp == DIRECT_CHAR || *tmp == REG_CHAR)
+		tmp++;
+	if (*tmp == LABEL_CHAR)
+	{
+		while (*tmp && *tmp != '\n' && *tmp != SEPARATOR_CHAR && *tmp != COMMENT_CHAR)
+			tmp++;
+		*instr = tmp;
+		return (1);
+	}
+	while (*tmp && (ft_isdigit(*tmp) || *tmp == '-'))
+			tmp++;
+	*instr = tmp;
+	return (1);
+}
+
+int				is_instr(char *instr)
+{
+	int i;
+	t_instr_type type;
+
+	i = 0;
+	if (ft_strlen(instr) == 1)
+		return (0);
+	instr++;
+	if (*instr == '\n' || *instr == COMMENT_CHAR)
+		return (1);
+	while (*instr && (*instr == ' ' || *instr == '\t'))
+		instr++;
+	type = get_instr_type(instr);
+	if (!type.name)
+		return (0);
+	if (noccur_count(instr, SEPARATOR_CHAR, '\n') != type.par_nbr - 1)
+		return (0);
+	if (ft_strlen(instr) > ft_strlen(type.name))
+		instr += ft_strlen(type.name);
+	while (trim_param(&instr))
+		i++;
+	if (i != type.par_nbr)
+		return (0);
+	return (1);
+}
+
 static void		handle_label_instr(t_expr **exp, char **tmp, int lines, int jump)
 {
 	char *tp2;
@@ -36,7 +94,7 @@ static void		handle_label_instr(t_expr **exp, char **tmp, int lines, int jump)
 		tp2++;
 	if (!*tp2 || *tp2 == '\n' || *tp2 == ' ' || *tp2 == '\t')
 		return ;
-	else if (*tp2 == LABEL_CHAR && tp2 != *tmp && *(tp2 - 1) != DIRECT_CHAR)
+	else if (*tp2 == LABEL_CHAR && tp2 != *tmp && is_instr(tp2))
 	{
 		tp2++;
 		if (*tp2 && *tp2 != '\n')
@@ -129,13 +187,14 @@ int				parse_instr(char *champ, int lines, t_expr **list)
 	champ = trim_champ(champ, &expr, &lines);
 	begin = expr;
 	*list = expr;
+	addr = 0;
 	if (!champ)
 		return ((int)error_instr(1, 0, NULL));
 	while (expr)
 	{
 		if (ft_strchr(expr->expr, '\n'))
 			*ft_strchr(expr->expr, '\n') = '\0';
-		if (ft_strlen(expr->expr))
+		if (ft_strlen(expr->expr) && !ft_strequ(expr->expr, ".extend"))
 			if (!parse_expr(expr, &begin, &addr))
 				return (0);
 		expr = expr->next;

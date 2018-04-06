@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:36:54 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 22:46:12 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/07 01:27:49 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void		get_label_value(t_expr *expr)
 			while (i < expr->instr->par_nbr)
 			{
 				if (expr->instr->par[i].type & T_LB)
+				{
 					expr->instr->par[i].value = *expr->instr->par[i].label -
-						expr->addr;
+						expr->addr + expr->instr->par[i].add_val;
+				}
 				i++;
 			}
 		}
@@ -84,12 +86,19 @@ static int	cmp_label_to_expr(t_expr *current, char *cmp)
 
 	tmp = cmp;
 	tmp++;
-	while (*tmp && *tmp != SEPARATOR_CHAR)
+	while (*tmp && *tmp != SEPARATOR_CHAR && *tmp != '-' && *tmp != '+')
 		tmp++;
 	if (!ft_strnequ(current->expr, cmp + 1, tmp - cmp - 1))
 		return (0);
 	else
 		return (1);
+}
+
+long			get_op_value(char *tmp)
+{
+	while (*tmp && *tmp != '-' && *tmp != '+' && *tmp != SEPARATOR_CHAR)
+		tmp++;
+	return (ft_long_atoi(tmp));
 }
 
 char		*get_label_addr(t_expr *list, char *tmp, t_par *par)
@@ -109,6 +118,8 @@ char		*get_label_addr(t_expr *list, char *tmp, t_par *par)
 	{
 		par->type |= T_LB;
 		par->label = &list->addr;
+		if (ft_strchr(tmp, '+') || ft_strchr(tmp, '-'))
+			par->add_val = get_op_value(tmp);
 	}
 	while (*tmp && *tmp != SEPARATOR_CHAR)
 		tmp++;

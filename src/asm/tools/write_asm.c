@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 02:06:44 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 01:23:01 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/06 22:29:06 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void		write_body(char *name, char *comment, int fd, int champ_size)
 	write_int(COREWAR_EXEC_MAGIC, fd, 4);
 	write_mem_str(name, PROG_NAME_LENGTH, fd);
 	write_int(0, fd, 4);
-	write_int(champ_size - 1, fd, 4);
+	write_int(champ_size , fd, 4);
 	write_mem_str(comment, COMMENT_LENGTH, fd);
 	write_int(0, fd, 4);
 }
@@ -84,17 +84,18 @@ void			write_champ(t_expr *list, char *champ, int fd)
 	int		last;
 
 	begin = list;
+	last = 0;
 	while (list->next && list)
 	{
 		if (list->type == INSTR && list->instr)
-			last = list->instr->mem_size;
+			last = list->addr + list->instr->mem_size;
 		list = list->next;
 	}
 	if (list->type == INSTR)
-		last = list->instr->mem_size;
+		last += list->instr->mem_size;
 	champ = get_name(&name, champ);
 	comment = get_comment(champ);
-	write_body(name, comment, fd, list->addr + last);
+	write_body(name, comment, fd, last);
 	while (begin)
 	{
 		if (begin->type == INSTR)

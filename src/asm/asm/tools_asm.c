@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:29:40 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/02 00:35:14 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/05 00:09:51 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int			get_name_len(char *name)
 	i = 0;
 	while (name[i] && name[i] != DIRECT_CHAR && name[i] != LABEL_CHAR &&
 			name[i] != SEPARATOR_CHAR && name[i] != REG_CHAR &&
-			!ft_isdigit(name[i]) && name[i] != '-')
+			!ft_isdigit(name[i]) && name[i] != '-' && name[i] != ' ' &&
+			name[i] != '\t' && name[i] != '\n')
 		i++;
 	return (i);
 }

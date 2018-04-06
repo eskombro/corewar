@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/01 00:22:48 by bacrozat         ###   ########.fr        #
+#    Updated: 2018/04/02 19:40:31 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,9 +66,10 @@ SRC_1 = vm/main.c \
 	vm/callers/champ_callers.c \
 	vm/champ/convert.c \
 	\
-	asm/parser.c \
-	asm/tools.c \
-	asm/asm.c
+	asm/tools/parser.c \
+	asm/tools/tools.c \
+	asm/asm/*.c \
+	asm/d_asm/*.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \

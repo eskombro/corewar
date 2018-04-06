@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 01:27:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/06 22:29:23 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ static long	get_com(int fd, t_bin_champ *champ)
 	buf[COMMENT_LENGTH] = '\0';
 	champ_size = convert_int_endian(*(int*)buf_int);
 	champ->comment = ft_strdup(buf);
-	if (champ_size > CHAMP_MAX_SIZE)
-		return (error_msg(6));
 	if (!get_bin_champ(champ_size, fd, champ))
 		return (0);
 	return (champ_size);
@@ -96,7 +94,7 @@ int			get_champ(char *champ_path)
 	t_bin_champ	champs;
 
 	if (!open_champ(champ_path, &champs))
-		return (0);
+		return (print_champ_path(ft_strrchr(champ_path, '/'), champ_path));
 	mod = ft_strrchr(champ_path, '.');
 	mod[1] = 's';
 	mod[2] = '\0';

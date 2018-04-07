@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 03:18:35 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/07 01:26:11 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,44 +69,24 @@ void			run_corewar(char **argv)
 		child(to_vm, from_vm, argv);
 }
 
-void			debug_command(t_command command)
+static void		init_visu(t_visu *visu)
 {
-	int			i;
-
-	ft_dprintf(2, "[COMMAND] Packet of type 0x%2.2x and size %3d \
-octets contains [ ",
-		command.type, command.size);
-	i = -1;
-	while (++i < command.size)
-		ft_dprintf(2, "%02.2x ", command.data[i]);
-	ft_dprintf(2, "]\n");
-}
-
-void			read_loop(void)
-{
-	t_command	command;
-	t_uchar		c[2];
-	int			ret;
-
-	while ((ret = read(0, c, 1)) > 0)
-	{
-		command.type = c[0];
-		ret = read(0, c, 2);
-		if (ret != 2)
-			break ;
-		command.size = read_short(c);
-		ret = read(0, command.data, command.size);
-		if (ret != command.size)
-			break ;
-		debug_command(command);
-	}
+	ft_bzero(visu, sizeof(t_visu));
+	visu->run = 1;
+	pthread_mutex_init(&(visu->run_mutex), NULL);
 }
 
 int				main(int argc, char **argv)
 {
+	pthread_t	read_thread;
+	t_visu		visu;
+
+	init_visu(&visu);
 	if (argc < 2)
 		return (0);
 	run_corewar(argv);
-	read_loop();
+	read_thread = run_read(&visu);
+	run_visu(&visu);
+	pthread_join(read_thread, NULL);
 	return (0);
 }

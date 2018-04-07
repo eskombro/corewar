@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/05 02:09:18 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/07 01:10:37 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,20 @@ LFLAGS_1 = $(DEBUG_FLAGS) \
 # TARGET 2
 TARGET_2 = show_corewar
 SRC_2 = visu/main.c \
+	visu/visu.c \
+	visu/error.c \
+	visu/debug.c \
+	\
+	visu/gui/gui.c \
+	visu/gui/colors.c \
+	visu/gui/scene/main/main_scene.c \
+	visu/gui/scene/main/main_components.c \
+	\
+	visu/event/events.c \
+	visu/event/key/key_event.c \
+	visu/event/command/command_event.c \
+	\
+	visu/reader/reader.c \
 	\
 	visu/commands/commands.c \
 	visu/commands/command_writers.c \
@@ -92,6 +106,7 @@ SRC_2 = visu/main.c \
 OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
 CFLAGS_2 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \
+	-I$(LIBS_PATH)/include/freetype2 \
 	-Iinc/visu \
 	-Iinc/common \
 	-Iinc \
@@ -99,7 +114,11 @@ CFLAGS_2 = $(DEBUG_FLAGS) \
 LFLAGS_2 = $(DEBUG_FLAGS) \
 	-L$(LIBS_PATH)/lib \
 	-Llib \
-	-lft
+	-lft \
+	-lSDL2 \
+	-lsimplegui \
+	-lfreetype \
+	-framework OpenGL
 
 # TARGET 3
 TARGET_3 = show_corewar_ncurse
@@ -150,6 +169,10 @@ prebuild.$(TARGET_2):
 	@mkdir -p lib
 	@mkdir -p lib/inc
 	@$(MAKE) -C libft
+	@$(MAKE) -C simple-gui
+	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
+	$(call dylib_include_install,./simple-gui/lib/inc)
+	$(call dylib_include_install,./simple-gui/inc)
 	$(call dylib_install,./libft/lib/libft.dylib)
 	$(call dylib_include_install,./libft/inc)
 	$(call bgn_msg,$(TARGET_2))
@@ -179,18 +202,21 @@ $(OBJ_3): ./obj/%.o: %.c
 
 clean:
 	@$(MAKE) -C libft clean
+	@$(MAKE) -C simple-gui clean
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
 	$(call clean,$(TARGET_3),$(OBJ_3))
 
 fclean:
 	@$(MAKE) -C libft fclean
+	@$(MAKE) -C simple-gui fclean
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
 	$(call fclean,$(TARGET_3),$(OBJ_3))
 
 libclean:
 	@$(MAKE) -C libft libclean
+	@$(MAKE) -C simple-gui libclean
 	@rm -rf ./lib
 
 re: fclean all

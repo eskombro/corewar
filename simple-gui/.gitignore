@@ -1,6 +1,6 @@
 #Libs
-SDL2/
-freetype-2.9/
+#SDL2/
+#freetype-2.9/
 
 # Prerequisites
 *.d

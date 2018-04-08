@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 02:02:08 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/07 04:35:51 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void					run_loop(t_champ *champs)
 	int					i;
 
 	logic = get_logic();
-	logic->params = get_params();
 	logic->champs = champs;
 	i = -1;
 	while (++i < logic->params.players)

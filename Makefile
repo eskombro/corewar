@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/07 01:10:37 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/08 00:22:02 by sjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,10 +123,11 @@ LFLAGS_2 = $(DEBUG_FLAGS) \
 # TARGET 3
 TARGET_3 = show_corewar_ncurse
 SRC_3 = nvisu/main.c \
+		nvisu/communication_corewar.c \
 	\
 	nvisu/commands/commands.c \
 	nvisu/commands/command_writers.c \
-	nvisu/commands/command_readers.c
+	nvisu/commands/command_readers.c 
 OBJ_3 = $(addprefix obj/src/,$(SRC_3:.c=.o))
 CFLAGS_3 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \

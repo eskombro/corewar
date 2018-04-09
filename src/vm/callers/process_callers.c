@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:53:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 06:25:34 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/08 23:42:49 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void				call_process_spawn(t_proc *process)
 	ft_bzero(&command, sizeof(t_command));
 	command.type = COMMAND_PROC_SPAWN;
 	command.size += write_int(command.data + command.size, process->id);
+	command.size += write_int(command.data + command.size, process->owner->id);
 	command.size += write_int(command.data + command.size, process->pc);
 	send_command(command);
 }

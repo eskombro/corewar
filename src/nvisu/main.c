@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/08 06:42:28 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/09 04:15:21 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			display_arena(t_visu *v)
 
 
 	y = -1;
-	v->start_y = 12;
+	v->start_y = 14;
 	v->start_x = (COLS - (MEM_TAB_LENGTH * 3)) / 2;
 	while (++y < (v->m_size / MEM_TAB_LENGTH))
 	{
@@ -55,9 +55,12 @@ void 			print_champ(t_uchar *champ, int champ_size, t_command *command)
 	y = -1;
 	x = 0;
 	name_size = read_short(command->data + 4);
+	get_visu()->champs[get_visu()->champ_nb]->spawn = read_int(command->data + 6 + name_size);
 	spawn_y = get_visu()->start_y + ((read_int(command->data + 6 + name_size)) / MEM_TAB_LENGTH);
 	spawn_x = get_visu()->start_x + ((read_int(command->data + 6 + name_size)) % MEM_TAB_LENGTH);
-	attron(COLOR_PAIR(get_visu()->champ_nb + 10));
+	get_visu()->champs[get_visu()->champ_nb]->spawn_y = spawn_y;
+	get_visu()->champs[get_visu()->champ_nb]->spawn_x = spawn_x;
+	attron(COLOR_PAIR(get_visu()->champ_nb + 12));
 	while (x + (++y * MEM_TAB_LENGTH) < champ_size)
 	{
 		x = -1;
@@ -97,10 +100,80 @@ void			handle_champ_spawn(t_command *command)
 		exit(1);
 	ft_memcpy(champ, command->data + 6 + name_size + 8, read_int(command->data + 6 + name_size + 4));
 	print_champ(champ, champ_size, command);
-	attron(COLOR_PAIR(2));
 	free(champ);
 	get_visu()->champ_nb++;
 	attron(COLOR_PAIR(1));
+}
+
+void			display_proc_pc(t_v_proc *proc)
+{
+	int			i;
+	int			pos_x;
+	int			pos_y;
+	char		chstr[3];
+	int			col;
+
+	i = 0;
+	while (get_visu()->champs[i]->id != proc->owner_id)
+		i++;
+	pos_y = get_visu()->start_y + ((((proc->owner->spawn + proc->pc) % get_visu()->m_size) / MEM_TAB_LENGTH));
+	pos_x = get_visu()->start_x + (3 * (((proc->owner->spawn + proc->pc) % get_visu()->m_size) % MEM_TAB_LENGTH));
+	chstr[0] = mvinch(pos_y, pos_x) & A_CHARTEXT;
+	chstr[1] = mvinch(pos_y, pos_x + 1) & A_CHARTEXT;
+	chstr[2] = 0;
+	col = ((mvinch(pos_y, pos_x) & A_COLOR) % 255);
+	if (col == 1 || (col >= 12 && col <= 15))
+		col += 10;
+	else if (col == 11 || (col >= 22 && col <= 25))
+			col -= 10;
+	attron(COLOR_PAIR(col));
+	move(pos_y, pos_x);
+	printw(chstr);
+}
+
+void			handle_proc_spawn(t_command *command)
+{
+	t_v_proc	*proc;
+	t_v_proc	*tmp;
+	int			i;
+
+	i = 0;
+	if (!(get_visu()->procs))
+		if (!(get_visu()->procs = (t_v_proc**)ft_memalloc(sizeof(t_v_proc*) * (PROC_TAB_SIZE + 1))))
+			exit(1);
+	if (!((proc = (t_v_proc*)ft_memalloc(sizeof(t_v_proc)))))
+		exit (1);
+	proc->id = read_int(command->data);
+	proc->owner_id = read_int(command->data + 4);
+	while (get_visu()->champs[i]->id != proc->owner_id)
+		i++;
+	proc->owner = get_visu()->champs[i];
+	proc->pc = 0;
+	if (!(get_visu()->procs[proc->id % PROC_TAB_SIZE]))
+		get_visu()->procs[proc->id % PROC_TAB_SIZE] = proc;
+	else
+	{
+		tmp = 	get_visu()->procs[proc->id % PROC_TAB_SIZE];
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = proc;
+	}
+	display_proc_pc(proc);
+}
+
+void			handle_proc_move(t_command *command)
+{
+	int			id;
+	t_v_proc	*proc;
+
+	proc = NULL;
+	id = read_int(command->data);
+	proc = get_visu()->procs[id % PROC_TAB_SIZE];
+	while (proc->id != id && proc->next)
+		proc = proc->next;
+	display_proc_pc(proc);
+	proc->pc = read_int(command->data + 4);
+	display_proc_pc(proc);
 }
 
 void			handle_command(t_command *command)
@@ -115,6 +188,40 @@ void			handle_command(t_command *command)
 	}
 	else if (command->type == COMMAND_CHAMP_SPAWN)
 		handle_champ_spawn(command);
+	else if (command->type == COMMAND_CHAMP_SPAWN)
+		handle_champ_spawn(command);
+	else if (command->type == COMMAND_PROC_SPAWN)
+		handle_proc_spawn(command);
+	else if (command->type == COMMAND_PROC_MOVE)
+		handle_proc_move(command);
+}
+
+void			display_leaderboard(void)
+{
+	t_visu		*v;
+	int			i;
+	int			y;
+
+	i = -1;
+	v = get_visu();
+	y = v->start_y;
+	while (++i < v->champ_nb)
+	{
+		attron(COLOR_PAIR(i + 32));
+		move(y++, v->start_x - 45);
+		printw("*--------------------------------------*");
+		move(y++, v->start_x - 45);
+		printw("|                                      |");
+		move(y++, v->start_x - 45);
+		printw("|\tPlayer %-24d |", v->champs[i]->id);
+		move(y++, v->start_x - 45);
+		printw("|\t%-31.31s |", v->champs[i]->name);
+		move(y++, v->start_x - 45);
+		printw("|                                      |");
+		move(y++, v->start_x - 45);
+		printw("*--------------------------------------*");
+		y++;
+	}
 }
 
 void			read_loop(void)
@@ -134,9 +241,12 @@ void			read_loop(void)
 		ret = read(0, command.data, command.size);
 		if (ret != command.size)
 			break ;
-		//debug_command(command);
+		debug_command(command);
 		handle_command(&command);
+		display_leaderboard();
+		move (0, 0);
 		refresh();
+		usleep(5000);
 	}
 	endwin();
 	ft_strdel((char**)&get_visu()->mem);
@@ -153,54 +263,86 @@ void			initialize_ncurses(void)
 {
 	initscr();
 	start_color();
-
-	init_pair(1, 235, COLOR_BLACK);
-	init_pair(20, 242, COLOR_BLACK);
-	init_pair(10, COLOR_RED, COLOR_BLACK);
-	init_pair(11, 34, COLOR_BLACK);
-	init_pair(12, 214, COLOR_BLACK);
-	init_pair(13, 91, COLOR_BLACK);
+	/*move (0,0);
+	int i;
+	i = 0;
+	while (i < 255)
+	{
+		init_pair(i, i, COLOR_BLACK);
+		attron(COLOR_PAIR(i));
+		printw("%.3d", i++);
+	}*/
+	init_pair(1, 235, 232);
+	init_pair(11, 235, 242);
+	init_pair(12, 1, 232);
+	init_pair(13, 34, 232);
+	init_pair(14, 214, 232);
+	init_pair(15, 91, 232);
+	init_pair(22, 1, 242);
+	init_pair(23, 34, 242);
+	init_pair(24, 214, 242);
+	init_pair(25, 91, 242);
+	init_pair(32, 232, 1);
+	init_pair(33, 232, 34);
+	init_pair(34, 232, 214);
+	init_pair(35, 232, 91);
 }
 
-void			print_header2(int y, int x)
+void			print_header2(int y, int x, int i)
 {
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i -= 2));
 	printw(" 888        888     888 888   d88P 8888888");
 	printw("    888 d888b 888     d88P 888 888   d88P ");
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i--));
 	printw(" 888        888     888 8888888P   888    ");
 	printw("    888d88888b888    d88P  888 8888888P   ");
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i--));
 	printw(" 888    888 888     888 888 T88b   888    ");
 	printw("    88888P Y88888   d88P   888 888 T88b   ");
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i--));
 	printw(" Y88b  d88P Y88b. .d88P 888  T88b  888    ");
 	printw("    8888P   Y8888  d8888888888 888  T88b  ");
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i--));
 	printw("   Y8888P     Y88888P   888   T88b 8888888");
 	printw("888 888P     Y888 d88P     888 888   T88b ");
+	attron(COLOR_PAIR(1));
 }
 
 void			print_header(void)
 {
 	int		y;
 	int		x;
+	int		i;
 
-	attron(COLOR_PAIR(20));
-
-	y = 0;
+	y = 3;
+	i = 246;
 	x = (COLS - 83) / 2;
 	move(y++, x);
-	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i--));
 	printw("  .d8888b.   .d88888b.  8888888b.  8888888");
 	printw("888 888       888        d8888 8888888b.  ");
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i -= 2));
 	printw(" d88P  Y88b d88P   Y88b 888   Y88b 888    ");
 	printw("    888   o   888       d88888 888   Y88b ");
 	move(y++, x);
+	init_pair(i, i, COLOR_BLACK);
+	attron(COLOR_PAIR(i -= 2));
 	printw(" 888    888 888     888 888    888 888    ");
 	printw("    888  d8b  888      d88P888 888    888 ");
-	print_header2(y, x);
+	print_header2(y, x, i);
 }
 
 int				main(int argc, char **argv)

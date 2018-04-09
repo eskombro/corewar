@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/08 04:16:14 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/09 03:43:49 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,25 @@
 # include <ncurses.h>
 
 # define	MEM_TAB_LENGTH 64
+# define	PROC_TAB_SIZE 100
 
 typedef struct			s_v_champ
 {
 	int					id;
 	char				*name;
+	int					spawn;
+	int					spawn_x;
+	int					spawn_y;
 }						t_v_champ;
+
+typedef struct			s_v_proc
+{
+	int					id;
+	struct s_v_champ	*owner;
+	int					owner_id;
+	int					pc;
+	struct s_v_proc		*next;
+}						t_v_proc;
 
 typedef struct			s_visu
 {
@@ -37,6 +50,7 @@ typedef struct			s_visu
 	int					m_size;
 	int					champ_nb;
 	t_v_champ			**champs;
+	t_v_proc			**procs;
 }						t_visu;
 
 void					parent(int *to_vm, int *from_vm);

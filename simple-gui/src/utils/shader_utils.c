@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 18:30:10 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 04:30:51 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:15:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static GLuint	vertex_shader(char const *file)
 	char		*tmp;
 	GLuint		vs;
 	int			fd;
-	char		buff[4096];
+	char		buff[4097];
 
 	if (!(vertex_shader = ft_strnew(0)))
 		return (0);
 	fd = open(file, O_RDONLY);
-	ft_bzero(buff, 4096);
+	ft_bzero(buff, 4097);
 	while (read(fd, buff, 4096) > 0)
 	{
 		tmp = ft_strjoin(vertex_shader, buff);
@@ -46,12 +46,12 @@ static GLuint	fragment_shader(char const *file)
 	char		*tmp;
 	GLuint		fs;
 	int			fd;
-	char		buff[4096];
+	char		buff[4097];
 
 	if (!(fragment_shader = ft_strnew(0)))
 		return (0);
 	fd = open(file, O_RDONLY);
-	ft_bzero(buff, 4096);
+	ft_bzero(buff, 4097);
 	while (read(fd, buff, 4096) > 0)
 	{
 		tmp = ft_strjoin(fragment_shader, buff);

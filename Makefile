@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/07 01:10:37 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/12 17:53:11 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,16 +97,29 @@ SRC_2 = visu/main.c \
 	visu/event/events.c \
 	visu/event/key/key_event.c \
 	visu/event/command/command_event.c \
+	visu/event/command/handlers/begin.c \
+	visu/event/command/handlers/write.c \
+	visu/event/command/handlers/champ.c \
+	visu/event/command/handlers/proc.c \
 	\
 	visu/reader/reader.c \
 	\
 	visu/commands/commands.c \
 	visu/commands/command_writers.c \
-	visu/commands/command_readers.c
+	visu/commands/command_readers.c \
+	\
+	visu/components/display/display.c \
+	visu/components/display/display_setters.c \
+	visu/components/display/display_draw.c \
+	visu/components/display/display_event.c \
+	\
+	visu/pngtex/pngtex.c
+
 OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
 CFLAGS_2 = $(DEBUG_FLAGS) \
 	-I$(LIBS_PATH)/include \
 	-I$(LIBS_PATH)/include/freetype2 \
+	-I$(HOME)/.brew/include \
 	-Iinc/visu \
 	-Iinc/common \
 	-Iinc \
@@ -114,10 +127,12 @@ CFLAGS_2 = $(DEBUG_FLAGS) \
 LFLAGS_2 = $(DEBUG_FLAGS) \
 	-L$(LIBS_PATH)/lib \
 	-Llib \
+	-L$(HOME)/.brew/lib \
 	-lft \
 	-lSDL2 \
 	-lsimplegui \
 	-lfreetype \
+	-lpng \
 	-framework OpenGL
 
 # TARGET 3

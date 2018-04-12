@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 01:07:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/07 01:14:33 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:12:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int					read_command(void)
 		ret = read(0, command.data, command.size);
 		if (ret != command.size)
 			return (-1);
-		//debug_command(command);
+		// debug_command(command);
 		send_command_event(&command);
+		if (command.type == COMMAND_CORE_END)
+			return (-1);
 	}
 	else
 		return (-1);
@@ -63,7 +65,7 @@ static void			*start_read(void *arg)
 		clock_gettime(CLOCK_MONOTONIC_RAW, &current_time);
 		delta = (current_time.tv_sec - last_time.tv_sec) * 1000000000 +
 				current_time.tv_nsec - last_time.tv_nsec;
-		if (delta > 1000000000 / FRAME_PER_SECOND)
+		if (delta > 1000000000 / (unsigned long)visu->tps)
 		{
 			if ((ret = read_command()) == -1)
 				break;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 21:23:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/06 21:57:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:52:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,15 @@
 
 # include "visualizer.h"
 
-void			handle_command_event(SDL_UserEvent e);
-void			handle_key_event(SDL_KeyboardEvent e);
+void			handle_command_event(t_visu *visu, SDL_UserEvent e);
+void			handle_key_event(t_visu *visu, SDL_KeyboardEvent e);
+
+/*
+** Commands
+*/
+void			handle_core_begin(t_visu *visu, t_command *command);
+void			handle_mem_write(t_visu *visu, t_command *command);
+void			handle_champ_spawn(t_visu *visu, t_command *command);
+void			handle_proc_spawn(t_visu *visu, t_command *command);
 
 #endif

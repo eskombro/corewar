@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/07 01:26:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:16:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void		init_visu(t_visu *visu)
 {
 	ft_bzero(visu, sizeof(t_visu));
 	visu->run = 1;
+	visu->mem.new_data = 1;
+	visu->tps = CYCLES_PER_SECOND;
 	pthread_mutex_init(&(visu->run_mutex), NULL);
 }
 

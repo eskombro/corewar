@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 19:30:40 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/06 20:10:24 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:27:09 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,20 @@ void			main_update_colors(t_visu *visu, t_main_scene *main)
 	sg_set_rectangle_icolor(main->top_frame, visu->gui.colors->background);
 	sg_set_rectangle_ocolor(main->top_frame, visu->gui.colors->main_text);
 	sg_set_label_color(main->title_label, visu->gui.colors->main_text);
-	// sg_set_label_color(main->p1_label, show->gui.colors->display_o);
-	// sg_set_label_color(main->p2_label, show->gui.colors->display_x);
-	// sg_set_label_color(main->vs_label, show->gui.colors->main_text);
-	// sg_set_label_color(main->p1_score_label, show->gui.colors->display_o);
-	// sg_set_label_color(main->p2_score_label, show->gui.colors->display_x);
-	// sg_set_label_color(main->madeby_label, show->gui.colors->main_text);
-	// show_set_display_ocolor(main->display_frame, show->gui.colors->display_o);
-	// show_set_display_xcolor(main->display_frame, show->gui.colors->display_x);
-	// show_set_display_ecolor(main->display_frame,
-	// 	show->gui.colors->display_edge);
-	// show_set_display_gcolor(main->display_frame,
-	// 	show->gui.colors->display_grid);
-	// update_button_color(show, main->pause_button);
-	// update_button_color(show, main->next_button);
-	// update_button_color(show, main->prev_button);
-	// update_button_color(show, main->end_button);
-	// update_button_color(show, main->begin_button);
+	sg_set_rectangle_icolor(main->mem_grid.frame, visu->gui.colors->background);
+	sg_set_rectangle_ocolor(main->mem_grid.frame, visu->gui.colors->main_text);
+	set_display_ocolor(main->mem_grid.frame,
+		visu->gui.colors->display_edge);
+	set_display_grid_color(main->mem_grid.frame,
+		visu->gui.colors->display_grid_00);
+	set_display_player_color(1, main->mem_grid.frame,
+		visu->gui.colors->display_p1);
+	set_display_player_color(2, main->mem_grid.frame,
+		visu->gui.colors->display_p2);
+	set_display_player_color(3, main->mem_grid.frame,
+		visu->gui.colors->display_p3);
+	set_display_player_color(4, main->mem_grid.frame,
+		visu->gui.colors->display_p4);
 }
 
 void			init_main_scene(t_visu *visu, t_main_scene *main)
@@ -41,6 +38,7 @@ void			init_main_scene(t_visu *visu, t_main_scene *main)
 	if (!(main->ptr = sg_new_scene(visu->window)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	frames(visu, main);
+	display(visu, main);
 	labels(visu, main);
 	main_update_colors(visu, main);
 }

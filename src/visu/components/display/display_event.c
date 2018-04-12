@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   display_event.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/01 06:44:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/11 16:36:50 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/02/20 04:26:56 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/04/09 17:56:37 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "visualizer.h"
+#include "./display.h"
 
-void				error(int errcode, char const *const errmsg, char *errtype,
-						int errexit)
+void		display_event(void *component, t_component_data *data,
+				SDL_Event e)
 {
-	ft_dprintf(2, "%s (ERRCODE=%d, ERRMSG=\"%s\")\n", errtype, errcode, errmsg);
-	if (errexit)
-	{
-		SDL_Quit();
-		exit(1);
-	}
+	component = 0;
+	data = 0;
+	e.type = 0;
 }

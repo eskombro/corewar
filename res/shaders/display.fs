@@ -1,43 +1,57 @@
 #version 410
 
 #define ANTI_ALIASING 1
-#define FLOOR_SQUARE_SIZE 1
 
-#define VARIATION 0.3
+#define SQUARE_FILLING 0.9
+#define SQUARE_MARGIN 0.1
 
-#define x_char 120
-#define X_char 88
-#define o_char 111
-#define O_char 79
-
-uniform int			render_mode;
+uniform	int			mode;
 
 uniform ivec4		bounds;
-
-uniform vec4		xcolor;
 uniform vec4		ocolor;
-uniform vec4		ecolor;
-uniform vec4		gcolor;
-
+uniform vec4		grid_color;
+uniform vec4		p1;
+uniform vec4		p2;
+uniform vec4		p3;
+uniform vec4		p4;
 uniform int			edge;
 
+uniform sampler2D	hextex;
 uniform usampler2D	map;
+uniform usampler2D	writerMap;
+uniform	int			mapDataSize;
 uniform ivec2		mapSize;
 
 out vec4 			frag_color;
 
-float rand(vec2 co)
+int			getSquareSize()
 {
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+	int		size;
+
+	size = int(floor(float(bounds.z - (edge + 2) * 2) / float(mapSize.x)));
+	size = min(int(floor(float((bounds.w - (edge + 2) * 2)) / float(mapSize.y))), size);
+	return (size);
 }
 
-float		getSquareSize()
+void		clip(ivec4 bounds)
 {
-	float	size;
+	if (int(gl_FragCoord.x) <= bounds.x || int(gl_FragCoord.x) >= bounds.x + bounds.z)
+		discard;
+	if (int(gl_FragCoord.y) <= bounds.y || int(gl_FragCoord.y) >= bounds.y + bounds.w)
+		discard;
+}
 
-	size = float(bounds.z - 1 * 2) / float(mapSize.x);
-	size = min(size, float(bounds.w - 1 * 2) / float(mapSize.y));
-	return (FLOOR_SQUARE_SIZE == 1 ? floor(size) : size);
+ivec4		getNewBounds(ivec4 bounds)
+{
+	ivec4	newBounds;
+	int		size;
+
+	size = getSquareSize();
+	newBounds.z = mapSize.x * size;
+	newBounds.w = mapSize.y * size;
+	newBounds.x = bounds.x + (bounds.z - newBounds.z) / 2;
+	newBounds.y = bounds.y + (bounds.w - newBounds.w) / 2;
+	return (newBounds);
 }
 
 ivec2		getMapCoord(vec2 pos, vec4 newBounds)
@@ -49,76 +63,101 @@ ivec2		getMapCoord(vec2 pos, vec4 newBounds)
 	return (mapCoord);
 }
 
-void		drawBorders(ivec2 mapCoord, vec4 newBounds)
+vec2		getHextexCoord(ivec2 mapCoord, ivec2 absMapCoord, int size)
 {
-	ivec2	under;
-	ivec2	pos;
+	vec2	coord;
+	uint	letter;
+	uint	mapContent;
 
-	pos = ivec2(int(floor(gl_FragCoord.x)), int(floor(gl_FragCoord.y)));
-	under = getMapCoord(vec2(gl_FragCoord.x - 1.0, gl_FragCoord.y - 1.0), newBounds);
-
-	if (pos.x <= int(floor(newBounds.x) - edge) ||
-		pos.y <= int(floor(newBounds.y) - edge) ||
-		pos.x >= int(floor(newBounds.x + newBounds.z) + edge) ||
-		pos.y >= int(floor(newBounds.y + newBounds.w) + edge))
-		discard ;
-	else if ((pos.x <= int(floor(newBounds.x))) ||
-		(pos.y <= int(floor(newBounds.y))) ||
-		(pos.x >= int(floor(newBounds.x + newBounds.z))) ||
-		(pos.y >= int(floor(newBounds.y + newBounds.w))))
+	mapContent = texelFetch(map, mapCoord, 0).r;
+	letter = mapContent / 16;
+	if (gl_FragCoord.x - absMapCoord.x > size / 2)
 	{
-		frag_color = ecolor;
-		return ;
+		letter = mapContent % 16;
+		absMapCoord.x += size / 2;
 	}
-	else if (under.x != mapCoord.x || under.y != mapCoord.y)
-	{
-		/* frag_color = frag_color * (1.0 - gcolor.a) + gcolor * gcolor.a;
-		frag_color.a = 1.0; */
-		frag_color = gcolor;
-		return ;
-	}
-	discard ;
+	coord = vec2(float(int(gl_FragCoord.x) - absMapCoord.x) / float(size) * (1.0 / 8.0) + float(letter) * (1.0 / 16.0),
+		1.0 - float(int(gl_FragCoord.y) - absMapCoord.y) / float(size));
+	return (coord);
 }
 
-vec4		getNewBounds()
+vec4		colorFromUint(uint player)
 {
-	vec4	newBounds;
-	float	squareSize;
+	switch (player)
+	{
+		case 1:
+			return (p1);
+			break;
+		case 2:
+			return (p2);
+			break;
+		case 3:
+			return (p3);
+			break;
+		case 4:
+			return (p4);
+			break;
+		default:
+			return (grid_color);
+	}
+}
 
-	squareSize = getSquareSize();
-	newBounds.z = squareSize * float(mapSize.x);
-	newBounds.w = squareSize * float(mapSize.y);
-	newBounds.x = floor(float(bounds.x) + (float(bounds.z) - newBounds.z) / 2.0);
-	newBounds.y = floor(float(bounds.y) + (float(bounds.w) - newBounds.w) / 2.0);
-	return (newBounds);
+vec4		getColorBack(ivec4 newBounds)
+{
+	vec4	color;
+	vec4	result;
+	ivec2	mapCoord;
+	ivec2	absMapCoord;
+	int		size;
+
+	result = vec4(0.0, 0.0, 0.0, 0.0);
+	color = vec4(1.0, 1.0, 1.0, 1.0);
+	size = getSquareSize();
+	mapCoord = getMapCoord(gl_FragCoord.xy, vec4(newBounds));
+	if (mapCoord.y * mapSize.x + mapCoord.x > mapDataSize)
+		return (result);
+	color = colorFromUint(texelFetch(writerMap, mapCoord, 0).r);
+	color = color / 2.0;
+	/* return (color); */
+	return (vec4(0.0, 0.0, 0.0, 0.0));
+}
+
+vec4		getColor(ivec4 newBounds)
+{
+	vec4	color;
+	vec4	result;
+	ivec2	mapCoord;
+	ivec2	absMapCoord;
+	int		size;
+
+	result = vec4(0.0, 0.0, 0.0, 0.0);
+	color = vec4(1.0, 1.0, 1.0, 1.0);
+	size = getSquareSize();
+	mapCoord = getMapCoord(gl_FragCoord.xy, vec4(newBounds));
+	if (mapCoord.y * mapSize.x + mapCoord.x > mapDataSize)
+		return (result);
+	color = colorFromUint(texelFetch(writerMap, mapCoord, 0).r);
+	absMapCoord.x = newBounds.x + mapCoord.x * size + int(SQUARE_MARGIN * float(size));
+	absMapCoord.y = newBounds.y + (mapSize.y - 1 - mapCoord.y) * size + int(SQUARE_MARGIN * float(size));
+	if (gl_FragCoord.x > absMapCoord.x && gl_FragCoord.x < absMapCoord.x + int(float(size) * SQUARE_FILLING) &&
+		gl_FragCoord.y > absMapCoord.y && gl_FragCoord.y < absMapCoord.y + int(float(size) * SQUARE_FILLING))
+		result = texture(hextex, getHextexCoord(mapCoord, absMapCoord, int(float(size) * SQUARE_FILLING))) * color;
+	return (result);
 }
 
 void		main()
 {
-	ivec2	mapCoord;
-	vec2	mapCoordF;
-	uint	mapContent;
-	vec4	newBounds;
+	ivec4	newBounds;
 
-	newBounds = getNewBounds();
-	mapCoord = getMapCoord(gl_FragCoord.xy, newBounds);
-	if (render_mode == 0)
-	{
-		mapContent = texelFetch(map, mapCoord, 0).r;
-		mapCoordF = vec2(float(mapCoord.x), float(mapCoord.y));
-		if (mapContent == X_char)
-			frag_color = vec4(xcolor.r * (1.0 - rand(mapCoordF) * VARIATION), xcolor.g * (1.0 - rand(mapCoordF) * VARIATION), xcolor.b * (1.0 - rand(mapCoordF) * VARIATION), xcolor.a);
-		else if (mapContent == x_char)
-			frag_color = vec4(xcolor.r + 0.1, xcolor.g + 0.1, xcolor.b + 0.1, xcolor.a);
-		else if (mapContent == O_char)
-			frag_color = vec4(ocolor.r * (1.0 - rand(mapCoordF) * VARIATION), ocolor.g * (1.0 - rand(mapCoordF) * VARIATION), ocolor.b * (1.0 - rand(mapCoordF) * VARIATION), ocolor.a);
-		else if (mapContent == o_char)
-			frag_color = vec4(ocolor.r + 0.1, ocolor.g + 0.1, ocolor.b + 0.1, ocolor.a);
-		else
-			discard;
-	}
-	else if (render_mode == 1)
-	{
-		drawBorders(mapCoord, newBounds);
-	}
+	newBounds = getNewBounds(bounds);
+	clip(newBounds + ivec4(-edge - 2, -edge - 2, (edge + 2) * 2, (edge + 2) * 2));
+	if (edge != 0 && (
+			(int(gl_FragCoord.x) < newBounds.x && int(gl_FragCoord.x) > newBounds.x - edge - 2) ||
+			(int(gl_FragCoord.y) < newBounds.y && int(gl_FragCoord.y) > newBounds.y - edge - 2) ||
+			(int(gl_FragCoord.x) > newBounds.x + newBounds.z && int(gl_FragCoord.x) < newBounds.x + newBounds.z + edge + 2) ||
+			(int(gl_FragCoord.y) > newBounds.y + newBounds.w && int(gl_FragCoord.y) < newBounds.y + newBounds.w + edge + 2)))
+		frag_color = ocolor;
+	else
+		frag_color = mode == 0 ? getColorBack(newBounds) : getColor(newBounds);
+	/* frag_color = vec4(1.0, 0.0, 0.0, 1.0); */
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:39:06 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/07 01:25:43 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/07 16:42:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,20 @@ void				push_user_event(int code, void *data1, void *data2)
 	SDL_PushEvent(&e);
 }
 
-static void			handle_event(SDL_Event e)
+static void			handle_event(t_visu *visu, SDL_Event e)
 {
 	if (e.type == SDL_KEYDOWN)
-		handle_key_event(e.key);
+		handle_key_event(visu, e.key);
+	if (e.type == SDL_WINDOWEVENT &&
+		e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+	{
+		visu->win_w = (int)e.window.data1;
+		visu->win_h = (int)e.window.data2;
+	}
 	else if (e.type == get_user_event())
 	{
 		if (e.user.code == COREWAR_EVENT_COMMAND)
-			handle_command_event(e.user);
+			handle_command_event(visu, e.user);
 	}
 }
 
@@ -55,7 +61,7 @@ int					run_events(t_visu *visu)
 		if (e.type == SDL_QUIT)
 			return (1);
 		scene = -1;
-		handle_event(e);
+		handle_event(visu, e);
 		while (++scene < COREWAR_SCENES_AMOUNT)
 		{
 			if (!visu->gui.scenes[scene].ptr)

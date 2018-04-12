@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/02 18:40:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/07 15:29:30 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void				run_corewar(void)
 	t_params			params;
 
 	params = get_params();
+	get_logic()->params = params;
 	if (!(champions = get_all_champ(params.champs_files)))
 		exit(1);
 	calc_spawn(params.players, champions);

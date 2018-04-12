@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/09 04:15:21 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/12 23:56:39 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void			display_arena(t_visu *v)
 	int				x;
 	int				y;
 
-
 	y = -1;
 	v->start_y = 14;
 	v->start_x = (COLS - (MEM_TAB_LENGTH * 3)) / 2;
@@ -42,6 +41,62 @@ void			display_arena(t_visu *v)
 		printw("\n");
 	}
 	v->mem_tab_height = y;
+}
+
+void			display_leaderboard(void)
+{
+	t_visu		*v;
+	int			i;
+	int			y;
+
+	i = -1;
+	v = get_visu();
+	y = v->start_y;
+	while (++i < v->champ_nb)
+	{
+		attron(COLOR_PAIR(i + 32));
+		move(y++, v->start_x - 45);
+		printw("*--------------------------------------*");
+		move(y++, v->start_x - 45);
+		printw("|                                      |");
+		move(y++, v->start_x - 45);
+		printw("|\tPlayer %-24d |", v->champs[i]->id);
+		move(y++, v->start_x - 45);
+		printw("|\t%-31.31s |", v->champs[i]->name);
+		move(y++, v->start_x - 45);
+		printw("|\tLifes: %-24d |", v->champs[i]->lifes);
+		move(y++, v->start_x - 45);
+		printw("|                                      |");
+		move(y++, v->start_x - 45);
+		printw("*--------------------------------------*");
+		y++;
+	}
+}
+
+void			display_stats(void)
+{
+	t_visu		*v;
+	int			i;
+	int			y;
+
+	i = -1;
+	v = get_visu();
+	y = v->start_y;
+	attron(COLOR_PAIR(33));
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("*--------------------------------------*");
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("|\tCycles: % 13d             |", v->stats->cycles);
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("|\tCycles to die: %6d             |", v->stats->cycles_to_die);
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("|\tCycles left: %8d             |", v->stats->cycles_left);
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("|                                      |");
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("|                                      |");
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("*--------------------------------------*");
 }
 
 void 			print_champ(t_uchar *champ, int champ_size, t_command *command)
@@ -105,6 +160,21 @@ void			handle_champ_spawn(t_command *command)
 	attron(COLOR_PAIR(1));
 }
 
+int			display_proc_pc_calc(int col, int pc_rel_spawn)
+{
+	if (col == 1 || (col >= 12 && col <= 15))
+	{
+		if (get_visu()->mem_proc[pc_rel_spawn % get_visu()->m_size] == 1)
+			col += 10;
+	}
+	else if (col == 11 || (col >= 22 && col <= 25))
+	{
+		if (get_visu()->mem_proc[pc_rel_spawn % get_visu()->m_size] == 0)
+			col -= 10;
+	}
+	return (col);
+}
+
 void			display_proc_pc(t_v_proc *proc)
 {
 	int			i;
@@ -112,20 +182,23 @@ void			display_proc_pc(t_v_proc *proc)
 	int			pos_y;
 	char		chstr[3];
 	int			col;
+	int			pc_rel_spawn;
 
 	i = 0;
 	while (get_visu()->champs[i]->id != proc->owner_id)
 		i++;
-	pos_y = get_visu()->start_y + ((((proc->owner->spawn + proc->pc) % get_visu()->m_size) / MEM_TAB_LENGTH));
-	pos_x = get_visu()->start_x + (3 * (((proc->owner->spawn + proc->pc) % get_visu()->m_size) % MEM_TAB_LENGTH));
+	pc_rel_spawn = proc->pc + proc->owner->spawn;
+	while (pc_rel_spawn < 0)
+		pc_rel_spawn += get_visu()->m_size;
+	pos_y = get_visu()->start_y + (((pc_rel_spawn
+		% get_visu()->m_size) / MEM_TAB_LENGTH));
+	pos_x = get_visu()->start_x + (3 * ((pc_rel_spawn
+		% get_visu()->m_size) % MEM_TAB_LENGTH));
 	chstr[0] = mvinch(pos_y, pos_x) & A_CHARTEXT;
 	chstr[1] = mvinch(pos_y, pos_x + 1) & A_CHARTEXT;
 	chstr[2] = 0;
 	col = ((mvinch(pos_y, pos_x) & A_COLOR) % 255);
-	if (col == 1 || (col >= 12 && col <= 15))
-		col += 10;
-	else if (col == 11 || (col >= 22 && col <= 25))
-			col -= 10;
+	col = display_proc_pc_calc(col, pc_rel_spawn);
 	attron(COLOR_PAIR(col));
 	move(pos_y, pos_x);
 	printw(chstr);
@@ -148,7 +221,8 @@ void			handle_proc_spawn(t_command *command)
 	while (get_visu()->champs[i]->id != proc->owner_id)
 		i++;
 	proc->owner = get_visu()->champs[i];
-	proc->pc = 0;
+	proc->pc = read_int(command->data + 8);
+	get_visu()->mem_proc[(proc->owner->spawn + proc->pc) % get_visu()->m_size]++;
 	if (!(get_visu()->procs[proc->id % PROC_TAB_SIZE]))
 		get_visu()->procs[proc->id % PROC_TAB_SIZE] = proc;
 	else
@@ -165,15 +239,120 @@ void			handle_proc_move(t_command *command)
 {
 	int			id;
 	t_v_proc	*proc;
+	int			pc_rel_spawn;
 
 	proc = NULL;
 	id = read_int(command->data);
 	proc = get_visu()->procs[id % PROC_TAB_SIZE];
 	while (proc->id != id && proc->next)
 		proc = proc->next;
+	pc_rel_spawn = proc->pc + proc->owner->spawn;
+	while (pc_rel_spawn < 0)
+		pc_rel_spawn += get_visu()->m_size;
+	get_visu()->mem_proc[pc_rel_spawn % get_visu()->m_size]--;
 	display_proc_pc(proc);
 	proc->pc = read_int(command->data + 4);
+	pc_rel_spawn = proc->pc + proc->owner->spawn;
+	while (pc_rel_spawn < 0)
+		pc_rel_spawn += get_visu()->m_size;
+	get_visu()->mem_proc[pc_rel_spawn % get_visu()->m_size]++;
 	display_proc_pc(proc);
+	//ft_dprintf(3, "proc: %d || old-pc: %d  --- new-pc: %d\n", proc->id, proc->pc, read_int(command->data + 4));
+}
+
+void			handle_proc_death(t_command *command)
+{
+	t_v_proc	*proc;
+	t_v_proc	*prev;
+	// t_v_proc	*tmp;
+	int			id;
+	int			pc_rel_spawn;
+
+	id = read_int(command->data);
+	proc = get_visu()->procs[id % PROC_TAB_SIZE];
+	prev = NULL;
+	while (proc)
+	{
+		if (proc->id == id)
+		{
+			pc_rel_spawn = proc->pc + proc->owner->spawn;
+			while (pc_rel_spawn < 0)
+				pc_rel_spawn += get_visu()->m_size;
+			get_visu()->mem_proc[pc_rel_spawn % get_visu()->m_size]--;
+			display_proc_pc(proc);
+			if (prev == NULL)
+				get_visu()->procs[id % PROC_TAB_SIZE] = proc->next;
+			else
+				prev->next = proc->next;
+		}
+		prev = proc;
+		proc = proc->next;
+	}
+}
+
+int			find_proc_owner_nb(int proc_id)
+{
+	int			nb;
+	t_v_proc	*proc;
+
+	nb = 0;
+	proc = get_visu()->procs[proc_id % PROC_TAB_SIZE];
+	while (proc->id != proc_id)
+		proc = proc->next;
+	while (get_visu()->champs[nb] != proc->owner)
+		nb++;
+	return (nb);
+}
+
+void			handle_mem_write(t_command *command)
+{
+	int			final_address;
+	int			value;
+	int			pos_y;
+	int			pos_x;
+	int			i;
+
+	i = -1;
+	final_address = read_int(command->data + 4);
+	while (final_address < 0)
+		final_address += get_visu()->m_size;
+	value = read_int(command->data + 8);
+	attron(COLOR_PAIR(find_proc_owner_nb(read_int(command->data)) + 12));
+	while (++i < 4)
+	{
+		pos_y = get_visu()->start_y + (((final_address % get_visu()->m_size)
+			/ MEM_TAB_LENGTH));
+		pos_x = get_visu()->start_x + (3 * ((final_address % get_visu()->m_size)
+			% MEM_TAB_LENGTH));
+		mvprintw(pos_y, pos_x, "%2.2x ", ((value & (0xFF000000)) >> 24));
+		value <<= 8;
+		final_address++;
+	}
+}
+
+void			handle_logic_cycle(t_command *command)
+{
+	get_visu()->stats->cycles = read_int(command->data);
+	get_visu()->stats->cycles_to_die = read_int(command->data + 4);
+	get_visu()->stats->cycles_left = read_int(command->data + 8);
+	display_leaderboard();
+}
+
+void			handle_core_end()
+{
+	char		str[2];
+	move(0,0);
+	read(0, str, 1);
+}
+
+void			handle_logic_life(t_command *command)
+{
+	int		proc_id;
+	int		champ_nb;
+
+	proc_id = read_int(command->data);
+	champ_nb = find_proc_owner_nb(proc_id);
+	get_visu()->champs[champ_nb]->lifes++;
 }
 
 void			handle_command(t_command *command)
@@ -182,46 +361,28 @@ void			handle_command(t_command *command)
 	{
 		get_visu()->m_size = read_int(command->data);
 		if (!get_visu()->mem)
-			if (!(get_visu()->mem = (t_uchar *)ft_memalloc(sizeof(t_uchar) * (get_visu()->m_size))))
-				exit(1);
+			if (!(get_visu()->mem = (t_uchar *)ft_memalloc(sizeof(t_uchar) * (get_visu()->m_size)))
+				|| !(get_visu()->mem_proc = (int *)ft_memalloc(sizeof(int) * (get_visu()->m_size)))
+				|| !(get_visu()->stats = (t_v_stats*)ft_memalloc(sizeof(t_v_stats))))
+					exit(1);
 		display_arena(get_visu());
 	}
-	else if (command->type == COMMAND_CHAMP_SPAWN)
-		handle_champ_spawn(command);
 	else if (command->type == COMMAND_CHAMP_SPAWN)
 		handle_champ_spawn(command);
 	else if (command->type == COMMAND_PROC_SPAWN)
 		handle_proc_spawn(command);
 	else if (command->type == COMMAND_PROC_MOVE)
 		handle_proc_move(command);
-}
-
-void			display_leaderboard(void)
-{
-	t_visu		*v;
-	int			i;
-	int			y;
-
-	i = -1;
-	v = get_visu();
-	y = v->start_y;
-	while (++i < v->champ_nb)
-	{
-		attron(COLOR_PAIR(i + 32));
-		move(y++, v->start_x - 45);
-		printw("*--------------------------------------*");
-		move(y++, v->start_x - 45);
-		printw("|                                      |");
-		move(y++, v->start_x - 45);
-		printw("|\tPlayer %-24d |", v->champs[i]->id);
-		move(y++, v->start_x - 45);
-		printw("|\t%-31.31s |", v->champs[i]->name);
-		move(y++, v->start_x - 45);
-		printw("|                                      |");
-		move(y++, v->start_x - 45);
-		printw("*--------------------------------------*");
-		y++;
-	}
+	else if (command->type == COMMAND_PROC_DEATH)
+		handle_proc_death(command);
+	else if (command->type == COMMAND_MEM_WRITE)
+		handle_mem_write(command);
+	else if (command->type == COMMAND_LOGIC_CYCLE)
+		handle_logic_cycle(command);
+	else if (command->type == COMMAND_CORE_END)
+		handle_core_end();
+	else if (command->type == COMMAND_LOGIC_LIVE)
+		handle_logic_life(command);
 }
 
 void			read_loop(void)
@@ -241,17 +402,18 @@ void			read_loop(void)
 		ret = read(0, command.data, command.size);
 		if (ret != command.size)
 			break ;
-		debug_command(command);
+		//debug_command(command);
 		handle_command(&command);
 		display_leaderboard();
-		move (0, 0);
+		display_stats();
+		//move (0, 0);
 		refresh();
-		usleep(5000);
+		usleep(1000);
 	}
 	endwin();
 	ft_strdel((char**)&get_visu()->mem);
 	i = 0;
-	while (get_visu()->champs[i])
+	while (i < get_visu()->champ_nb)
 	{
 		free(get_visu()->champs[i]->name);
 		free(get_visu()->champs[i++]);
@@ -273,19 +435,20 @@ void			initialize_ncurses(void)
 		printw("%.3d", i++);
 	}*/
 	init_pair(1, 235, 232);
+	init_pair(2, 235, 235);
 	init_pair(11, 235, 242);
-	init_pair(12, 1, 232);
-	init_pair(13, 34, 232);
-	init_pair(14, 214, 232);
-	init_pair(15, 91, 232);
-	init_pair(22, 1, 242);
-	init_pair(23, 34, 242);
-	init_pair(24, 214, 242);
-	init_pair(25, 91, 242);
-	init_pair(32, 232, 1);
-	init_pair(33, 232, 34);
-	init_pair(34, 232, 214);
-	init_pair(35, 232, 91);
+	init_pair(12, 214, 232);
+	init_pair(13, 91, 232);
+	init_pair(14, 1, 232);
+	init_pair(15, 34, 232);
+	init_pair(22, 214, 242);
+	init_pair(23, 91, 242);
+	init_pair(24, 1, 242);
+	init_pair(25, 34, 242);
+	init_pair(32, 232, 214);
+	init_pair(33, 232, 91);
+	init_pair(34, 232, 1);
+	init_pair(35, 232, 34);
 }
 
 void			print_header2(int y, int x, int i)

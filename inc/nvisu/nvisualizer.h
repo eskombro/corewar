@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/09 03:43:49 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/12 23:40:19 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct			s_v_champ
 	int					spawn;
 	int					spawn_x;
 	int					spawn_y;
+	int					lifes;
 }						t_v_champ;
 
 typedef struct			s_v_proc
@@ -41,9 +42,17 @@ typedef struct			s_v_proc
 	struct s_v_proc		*next;
 }						t_v_proc;
 
+typedef struct			s_v_stats
+{
+	int					cycles;
+	int					cycles_to_die;
+	int					cycles_left;
+}						t_v_stats;
+
 typedef struct			s_visu
 {
 	t_uchar				*mem;
+	int					*mem_proc;
 	int					mem_tab_height;
 	int					start_x;
 	int					start_y;
@@ -51,12 +60,12 @@ typedef struct			s_visu
 	int					champ_nb;
 	t_v_champ			**champs;
 	t_v_proc			**procs;
+	struct s_v_stats	*stats;
 }						t_visu;
 
 void					parent(int *to_vm, int *from_vm);
 void					child(int *to_vm, int *from_vm, char **argv);
 void					run_corewar(char **argv);
 void					debug_command(t_command command);
-
 
 #endif

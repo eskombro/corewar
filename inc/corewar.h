@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/05 01:16:57 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/10 02:23:16 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void				call_process_spawn(t_proc *process);
 void				call_process_move(t_proc *process);
 void				call_process_death(t_proc *process);
 
-void				call_memory_write(t_proc *writer, t_addr final_address);
+void				call_memory_write(t_proc *writer, t_addr final_address,
+						int value);
 
 void				call_instr_start(t_proc *process);
 void				call_instr_exec(t_proc *process);

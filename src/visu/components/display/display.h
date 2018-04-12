@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 04:22:16 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 19:47:51 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 21:53:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct			s_display
 	int					*win_h;
 	int					*win_w;
 	t_mem				*mem;
+	t_gamedata			*game;
 	int					edge;
 	GLuint				map;
 	GLuint				front_map;

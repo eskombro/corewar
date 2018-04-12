@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 21:35:20 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 22:16:18 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct		s_data
 {
 	char			content;
 	char			writer;
+	int				write_cycle;
 }					t_data;
 
 typedef struct		s_mem
@@ -160,6 +161,8 @@ typedef struct		s_player
 }					t_player;
 
 #define PROCESS_ARRAY_SIZE 10000
+
+#define WRITE_ANIM_DUR 250
 
 typedef struct		s_gamedata
 {

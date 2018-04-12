@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 21:31:53 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 22:06:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void		update_mem_raw(t_display *display)
 	int			i;
 	int			j;
 	t_color		tmp;
+	float		f;
 
 	if (!display->mem->raw_content && !(display->mem->raw_content =
 		(unsigned char *)ft_memalloc(
@@ -123,9 +124,12 @@ static void		update_mem_raw(t_display *display)
 	while (++i < display->mem->size)
 	{
 		tmp = color_from_writer(display->mem->data[i].writer, display);
-		display->mem->raw_front[i * 4] = tmp.r;
-		display->mem->raw_front[i * 4 + 1] = tmp.g;
-		display->mem->raw_front[i * 4 + 2] = tmp.b;
+		f = (display->game->cycle - display->mem->data[i].write_cycle
+			 > WRITE_ANIM_DUR) ? 0.0 : (1.0 - ((float)(display->game->cycle -
+			display->mem->data[i].write_cycle)) / ((float)WRITE_ANIM_DUR));
+		display->mem->raw_front[i * 4] = tmp.r + (1.0 - tmp.r) * f;
+		display->mem->raw_front[i * 4 + 1] = tmp.g + (1.0 - tmp.g) * f;
+		display->mem->raw_front[i * 4 + 2] = tmp.b + (1.0 - tmp.b) * f;
 		display->mem->raw_front[i * 4 + 3] = tmp.a;
 	}
 	if (!display->mem->raw_back && !(display->mem->raw_back =
@@ -190,8 +194,7 @@ void			display_draw(void *component, t_component_data *data,
 	glUseProgram(data->shader_prog);
 	if (data->full_draw)
 		init_draw(data->vao, data, bounds);
-	if (display->mem->new_data)
-		compute_texture(display);
+	compute_texture(display);
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D, display->map);
 	glActiveTexture(GL_TEXTURE0 + 2);

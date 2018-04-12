@@ -2,8 +2,8 @@
 
 #define ANTI_ALIASING 1
 
-#define SQUARE_FILLING 0.9
-#define SQUARE_MARGIN 0.1
+#define SQUARE_FILLING 0.85
+#define SQUARE_MARGIN 0.15
 
 uniform	int			mode;
 
@@ -18,7 +18,8 @@ uniform int			edge;
 
 uniform sampler2D	hextex;
 uniform usampler2D	map;
-uniform usampler2D	writerMap;
+uniform sampler2D	frontMap;
+uniform sampler2D	backMap;
 uniform	int			mapDataSize;
 uniform ivec2		mapSize;
 
@@ -81,27 +82,6 @@ vec2		getHextexCoord(ivec2 mapCoord, ivec2 absMapCoord, int size)
 	return (coord);
 }
 
-vec4		colorFromUint(uint player)
-{
-	switch (player)
-	{
-		case 1:
-			return (p1);
-			break;
-		case 2:
-			return (p2);
-			break;
-		case 3:
-			return (p3);
-			break;
-		case 4:
-			return (p4);
-			break;
-		default:
-			return (grid_color);
-	}
-}
-
 vec4		getColorBack(ivec4 newBounds)
 {
 	vec4	color;
@@ -116,10 +96,8 @@ vec4		getColorBack(ivec4 newBounds)
 	mapCoord = getMapCoord(gl_FragCoord.xy, vec4(newBounds));
 	if (mapCoord.y * mapSize.x + mapCoord.x > mapDataSize)
 		return (result);
-	color = colorFromUint(texelFetch(writerMap, mapCoord, 0).r);
-	color = color / 2.0;
-	/* return (color); */
-	return (vec4(0.0, 0.0, 0.0, 0.0));
+	color = texelFetch(backMap, mapCoord, 0);
+	return (color);
 }
 
 vec4		getColor(ivec4 newBounds)
@@ -136,7 +114,7 @@ vec4		getColor(ivec4 newBounds)
 	mapCoord = getMapCoord(gl_FragCoord.xy, vec4(newBounds));
 	if (mapCoord.y * mapSize.x + mapCoord.x > mapDataSize)
 		return (result);
-	color = colorFromUint(texelFetch(writerMap, mapCoord, 0).r);
+	color = texelFetch(frontMap, mapCoord, 0);
 	absMapCoord.x = newBounds.x + mapCoord.x * size + int(SQUARE_MARGIN * float(size));
 	absMapCoord.y = newBounds.y + (mapSize.y - 1 - mapCoord.y) * size + int(SQUARE_MARGIN * float(size));
 	if (gl_FragCoord.x > absMapCoord.x && gl_FragCoord.x < absMapCoord.x + int(float(size) * SQUARE_FILLING) &&

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 12:41:23 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 18:05:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:14:08 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void				handle_mem_write(t_visu *visu, t_command *command)
 	proc = find_process(visu, read_int(command->data));
 	while (++i < 4)
 	{
-		visu->mem.data[(addr + i) % visu->mem.size] = command->data[8 + i];
-		visu->mem.writer[(addr + i) % visu->mem.size] =
+		visu->mem.data[(addr + i) % visu->mem.size].content = command->data[8 + i];
+		visu->mem.data[(addr + i) % visu->mem.size].writer =
 			proc ? proc->owner_visu_id : 0;
 	}
 	visu->mem.new_data = 1;

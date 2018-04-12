@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 04:22:16 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 16:01:06 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:47:51 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ typedef struct			s_display
 	int					*win_w;
 	t_mem				*mem;
 	int					edge;
-	unsigned char		*map_data;
 	GLuint				map;
-	unsigned char		*writer_data;
-	GLuint				writer_map;
+	GLuint				front_map;
+	GLuint				back_map;
 	t_pngtex			*hextex_data;
 	GLuint				hextex;
 }						t_display;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 18:33:32 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 21:31:53 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void		init_draw(GLuint vao, t_component_data *data, t_rect bounds)
 			error(ERR_MALLOC, ERR_CRITICAL);
 		glGenTextures(1, &(((t_display *)data->data)->map));
 		glGenTextures(1, &(((t_display *)data->data)->hextex));
-		glGenTextures(1, &(((t_display *)data->data)->writer_map));
+		glGenTextures(1, &(((t_display *)data->data)->front_map));
+		glGenTextures(1, &(((t_display *)data->data)->back_map));
 		glActiveTexture(GL_TEXTURE0 + 2);
 		glBindTexture(GL_TEXTURE_2D, display->hextex);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -83,12 +84,70 @@ static void		uniforms(t_component_data *data, t_rect bounds)
 	uniform = glGetUniformLocation(data->shader_prog, "mapSize");
 	glUniform2i(uniform, display->mem->size_2d.w, display->mem->size_2d.h);
 	glUniform1i(glGetUniformLocation(data->shader_prog, "map"), 1);
-	glUniform1i(glGetUniformLocation(data->shader_prog, "writerMap"), 3);
+	glUniform1i(glGetUniformLocation(data->shader_prog, "frontMap"), 3);
+	glUniform1i(glGetUniformLocation(data->shader_prog, "backMap"), 4);
 	glUniform1i(glGetUniformLocation(data->shader_prog, "hextex"), 2);
+}
+
+static t_color	color_from_writer(char writer, t_display *display)
+{
+	if (writer == 1)
+		return (display->p1);
+	if (writer == 2)
+		return (display->p2);
+	if (writer == 3)
+		return (display->p3);
+	if (writer == 4)
+		return (display->p4);
+	return (display->grid_00);
+}
+
+static void		update_mem_raw(t_display *display)
+{
+	int			i;
+	int			j;
+	t_color		tmp;
+
+	if (!display->mem->raw_content && !(display->mem->raw_content =
+		(unsigned char *)ft_memalloc(
+			sizeof(unsigned char) * display->mem->size)))
+		error(ERR_MALLOC, ERR_CRITICAL);
+	i = -1;
+	while (++i < display->mem->size)
+		display->mem->raw_content[i] = display->mem->data[i].content;
+	if (!display->mem->raw_front && !(display->mem->raw_front =
+		(float *)ft_memalloc(
+			sizeof(float) * display->mem->size * 4)))
+		error(ERR_MALLOC, ERR_CRITICAL);
+	i = -1;
+	while (++i < display->mem->size)
+	{
+		tmp = color_from_writer(display->mem->data[i].writer, display);
+		display->mem->raw_front[i * 4] = tmp.r;
+		display->mem->raw_front[i * 4 + 1] = tmp.g;
+		display->mem->raw_front[i * 4 + 2] = tmp.b;
+		display->mem->raw_front[i * 4 + 3] = tmp.a;
+	}
+	if (!display->mem->raw_back && !(display->mem->raw_back =
+		(float *)ft_memalloc(
+			sizeof(float) * display->mem->size * 4)))
+		error(ERR_MALLOC, ERR_CRITICAL);
+	i = -1;
+	while (++i < display->mem->size)
+	{
+		tmp = sg_color(0xff000000);
+		display->mem->raw_back[i * 4] = tmp.r;
+		display->mem->raw_back[i * 4 + 1] = tmp.g;
+		display->mem->raw_back[i * 4 + 2] = tmp.b;
+		display->mem->raw_back[i * 4 + 3] = tmp.a;
+	}
 }
 
 static void		compute_texture(t_display *display)
 {
+	if (!display->mem->data)
+		return ;
+	update_mem_raw(display);
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D, display->map);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -97,16 +156,26 @@ static void		compute_texture(t_display *display)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, display->mem->size_2d.w,
 		display->mem->size_2d.h, 0, GL_RED_INTEGER,
-		GL_UNSIGNED_BYTE, display->mem->data);
+		GL_UNSIGNED_BYTE, display->mem->raw_content);
 	glActiveTexture(GL_TEXTURE0 + 3);
-	glBindTexture(GL_TEXTURE_2D, display->writer_map);
+	glBindTexture(GL_TEXTURE_2D, display->front_map);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, display->mem->size_2d.w,
-		display->mem->size_2d.h, 0, GL_RED_INTEGER,
-		GL_UNSIGNED_BYTE, display->mem->writer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, display->mem->size_2d.w,
+		display->mem->size_2d.h, 0, GL_RGBA,
+		GL_FLOAT, display->mem->raw_front);
+	display->mem->new_data = 0;
+	glActiveTexture(GL_TEXTURE0 + 4);
+	glBindTexture(GL_TEXTURE_2D, display->back_map);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, display->mem->size_2d.w,
+		display->mem->size_2d.h, 0, GL_RGBA,
+		GL_FLOAT, display->mem->raw_back);
 	display->mem->new_data = 0;
 }
 
@@ -128,7 +197,9 @@ void			display_draw(void *component, t_component_data *data,
 	glActiveTexture(GL_TEXTURE0 + 2);
 	glBindTexture(GL_TEXTURE_2D, display->hextex);
 	glActiveTexture(GL_TEXTURE0 + 3);
-	glBindTexture(GL_TEXTURE_2D, display->writer_map);
+	glBindTexture(GL_TEXTURE_2D, display->front_map);
+	glActiveTexture(GL_TEXTURE0 + 4);
+	glBindTexture(GL_TEXTURE_2D, display->back_map);
 	uniforms(data, bounds);
 	glBindVertexArray(data->vao);
 	uniform = glGetUniformLocation(data->shader_prog, "mode");

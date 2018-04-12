@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   begin.c                                            :+:      :+:    :+:   */
+/*   cycle.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/07 15:58:20 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 19:11:11 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/04/12 19:21:13 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/04/12 19:30:09 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../events.h"
 
-void				handle_core_begin(t_visu *visu, t_command *command)
+void				handle_new_cycle(t_visu *visu, t_command *command)
 {
-	if (visu->mem.data)
-		return ;
-	visu->mem.size = read_int(command->data);
-	visu->mem.size_2d.w = MEM_ROW;
-	visu->mem.size_2d.h = visu->mem.size / MEM_ROW +
-		(visu->mem.size % MEM_ROW ? 1 : 0);
-	if (!visu->mem.size)
-		return ;
-	if (!(visu->mem.data = (t_data *)ft_memalloc(
-		sizeof(t_data) * visu->mem.size)))
-		error(ERR_MALLOC, ERR_CRITICAL);
-	visu->mem.new_data = 1;
+	visu->game.cycle = read_int(command->data);
+	visu->game.cycle_to_die = read_int(command->data + 4);
+	visu->game.cycle_left = read_int(command->data + 8);
 }

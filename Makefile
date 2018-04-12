@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/12 17:53:11 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/12 19:22:36 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,7 @@ SRC_2 = visu/main.c \
 	visu/event/command/handlers/write.c \
 	visu/event/command/handlers/champ.c \
 	visu/event/command/handlers/proc.c \
+	visu/event/command/handlers/cycle.c \
 	\
 	visu/reader/reader.c \
 	\

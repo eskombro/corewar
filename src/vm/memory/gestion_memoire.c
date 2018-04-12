@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/12 12:46:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 18:57:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				write_memory(t_proc *process, t_addr pc, t_addr address,
 	i = par.size - 1 + pc + (address % IDX_MOD);
 	while (i < MEM_SIZE)
 		i += MEM_SIZE;
-	call_memory_write(process, i, par.value);
+	call_memory_write(process, i - par.size + 1, par.value);
 	while (ct < par.size)
 		arena[i-- % MEM_SIZE] = (t_uchar)((par.value >> (8 * (ct++))) & 0xFF);
 }

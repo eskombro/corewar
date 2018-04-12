@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 15:34:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 17:56:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:52:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ void				handle_champ_spawn(t_visu *visu, t_command *command)
 	player->name = read_str(command->data + 6, name_len);
 	player->spawn = read_int(command->data + 6 + name_len);
 	champ_len = read_int(command->data + 6 + name_len + 4);
-	player->champ = read_str(command->data + 6 + name_len + 8, champ_len);
+	player->champ = (unsigned char *)read_str(command->data + 6 + name_len + 8, champ_len);
 	i = -1;
 	while (++i < champ_len)
 	{
-		visu->mem.data[(player->spawn + i) % visu->mem.size] = player->champ[i];
-		visu->mem.writer[(player->spawn + i) % visu->mem.size] =
+		visu->mem.data[(player->spawn + i) % visu->mem.size].content =
+			player->champ[i];
+		visu->mem.data[(player->spawn + i) % visu->mem.size].writer =
 			player->visu_id;
 	}
 	visu->mem.new_data = 1;

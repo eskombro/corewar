@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 18:43:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/12 21:35:20 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # define ERR_SDL_DISPLAY 12,"Couldn't get display bounds"
 # define ERR_SDL_EVENT 13,"Couldn't create user event"
 # define ERR_VISU_MEMTEX 20,"Couldnt initialize vm memory texture"
-# define ERR_VISU_BAD_PLAYER 40,"Unknown player writing"
 
 # define ERR_CRITICAL "Error", 1
 # define ERR_WARNING "Warning", 0
@@ -136,8 +135,10 @@ typedef struct		s_mem
 {
 	unsigned int	size;
 	t_size			size_2d;
-	unsigned char	*data;
-	unsigned char	*writer;
+	t_data			*data;
+	unsigned char	*raw_content;
+	float			*raw_front;
+	float			*raw_back;
 	int				new_data;
 }					t_mem;
 
@@ -155,10 +156,17 @@ typedef struct		s_player
 	int				visu_id;
 	char			*name;
 	int				spawn;
-	char			*champ;
+	unsigned char	*champ;
 }					t_player;
 
 #define PROCESS_ARRAY_SIZE 10000
+
+typedef struct		s_gamedata
+{
+	int				cycle;
+	int				cycle_to_die;
+	int				cycle_left;
+}					t_gamedata;
 
 typedef struct		s_visu
 {
@@ -172,6 +180,7 @@ typedef struct		s_visu
 	int				win_h;
 	int				tps;
 	t_mem			mem;
+	t_gamedata		game;
 	t_llist			*players;
 	t_llist			*process[PROCESS_ARRAY_SIZE];
 }					t_visu;

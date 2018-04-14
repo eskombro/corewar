@@ -6,13 +6,13 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:17:40 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 01:27:44 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/14 23:28:02 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/asm.h"
 
-static int		*check_list(t_instr_list *instr, int addr)
+static int		*check_list(t_instr_list *instr, unsigned int addr)
 {
 	static int	label = 0;
 	int			ret;
@@ -37,14 +37,14 @@ static int		*check_list(t_instr_list *instr, int addr)
 	return (instr ? &instr->labels : 0);
 }
 
-static int		check_labels(t_par par[3], int size, t_instr_list *instr,
-		t_instr_list *current)
+static int		check_labels(t_par par[3], unsigned int size, t_instr_list
+		*instr, t_instr_list *current)
 {
 	int i;
 	int *ret;
 
 	i = 0;
-	while (i < current->par_nbr)
+	while (i < (int)current->par_nbr)
 	{
 		if (par[i].value && par[i].value + current->pos < size &&
 				!(par[i].type & T_RG))

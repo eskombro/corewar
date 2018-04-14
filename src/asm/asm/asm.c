@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:47:03 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/08 03:25:50 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/14 22:33:11 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,11 @@ int					convert_champ(char *champ_path, int sig, char **src,
 		return (print_champ_path(ft_strrchr(champ_path, '/'), champ_path));
 	if (!sig)
 	{
-		*ft_strchr(champ_path, '.') = '\0';
-		mod = ft_strnew(ft_strlen(champ_path + 4));
+		*ft_strrchr(champ_path, '.') = '\0';
+		mod = ft_strnew(ft_strlen(champ_path) + 4);
 		mod = ft_strcpy(mod, champ_path);
 		mod = ft_strcat(mod, ".cor");
-		if ((fd = open(mod, O_RDWR | O_CREAT, 0644)) < 0)
+		if ((fd = open(mod, O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
 			return (0);
 		write_champ_bin(expr_list, raw, fd);
 		return (1);

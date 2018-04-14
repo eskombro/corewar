@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/06 22:29:23 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/14 22:33:06 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			get_champ(char *champ_path)
 	mod = ft_strrchr(champ_path, '.');
 	mod[1] = 's';
 	mod[2] = '\0';
-	if ((fd = open(champ_path, O_RDWR | O_CREAT, 0644)) < 0)
+	if ((fd = open(champ_path, O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (0);
 	get_all_instr(&champs, fd);
 	close(fd);

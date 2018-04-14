@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 01:51:58 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/14 20:45:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/14 23:30:01 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ static int		is_instr(char *instr)
 	return (1);
 }
 
-void			handle_label_instr(t_expr **exp, char **tmp, int lines,
-		int jump)
+void			handle_label_instr(t_expr **exp, char **tmp, int jump)
 {
 	char *tp2;
 

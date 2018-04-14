@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:14:04 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/08 03:26:03 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/14 23:29:03 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	print_instr_param(int i, t_instr_list *instr, int fd)
 
 void		print_instr_list(t_instr_list *instr, int fd)
 {
-	t_par	tmp;
 	int		i;
 
 	while (instr)
@@ -39,7 +38,7 @@ void		print_instr_list(t_instr_list *instr, int fd)
 		if (ft_strlen(instr->name) < 4)
 			ft_dprintf(fd, "\t");
 		i = 0;
-		while (i < instr->par_nbr)
+		while (i < (int)instr->par_nbr)
 		{
 			print_instr_param(i, instr, fd);
 			i++;

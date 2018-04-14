@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:46:18 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 02:44:51 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/14 23:31:44 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char		*get_expr(t_expr **list, char *champ, char *tmp, int *lines)
 
 	expr = *list;
 	expr->expr = champ;
-	handle_label_instr(list, &tmp, *lines, 0);
+	handle_label_instr(list, &tmp, 0);
 	while (*tmp)
 	{
 		if (*tmp && (*tmp == COMMENT_CHAR || *tmp == ASM_COMMENT))
@@ -29,7 +29,7 @@ static char		*get_expr(t_expr **list, char *champ, char *tmp, int *lines)
 			*champ++ = *tmp;
 		if (*tmp && *tmp == '\n' && *(tmp + 1))
 		{
-			handle_label_instr(&expr, &tmp, *lines, 1);
+			handle_label_instr(&expr, &tmp, 1);
 			if (!(expr->next = (t_expr*)ft_memalloc(sizeof(t_expr))))
 				exit(1);
 			expr = expr->next;

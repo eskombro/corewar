@@ -32,7 +32,7 @@ INSTALL         := /usr/bin/install -c
 INSTALL_DATA    := ${INSTALL} -m 644
 INSTALL_PROGRAM := ${INSTALL}
 INSTALL_SCRIPT  := ${INSTALL}
-MKINSTALLDIRS   := /Users/hbouillo/wks/corewar/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d
+MKINSTALLDIRS   := /Users/sjimenez/00.Projects42/corewar/n_curses_isole/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d
 
 CLEAN += $(OBJ_BUILD)/freetype-config \
          $(OBJ_BUILD)/freetype2.pc
@@ -50,7 +50,7 @@ DISTCLEAN += $(OBJ_BUILD)/config.cache  \
 
 # Standard installation variables.
 #
-prefix       := /Users/hbouillo/.libs
+prefix       := /Users/sjimenez/.libs
 exec_prefix  := ${prefix}
 libdir       := ${exec_prefix}/lib
 bindir       := ${exec_prefix}/bin
@@ -63,10 +63,10 @@ version_info := 22:0:16
 
 # Variables needed for `freetype-config' and `freetype.pc'.
 #
-PKG_CONFIG         := /Users/hbouillo/.brew/bin/pkg-config
+PKG_CONFIG         := /Users/sjimenez/.brew/bin/pkg-config
 REQUIRES_PRIVATE   := zlib, libpng
 LIBS_PRIVATE       := -lbz2
-LIBSSTATIC_CONFIG  := -lfreetype -lz -lbz2 -L/Users/hbouillo/.brew/Cellar/libpng/1.6.34/lib -lpng16 -lz
+LIBSSTATIC_CONFIG  := -lfreetype -lz -lbz2 -L/Users/sjimenez/.brew/Cellar/libpng/1.6.34/lib -lpng16 -lz
 build_libtool_libs := 
 ft_version         := 22.0.16
 

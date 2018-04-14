@@ -17,7 +17,7 @@ old_library='libfreetype.a'
 inherited_linker_flags=' '
 
 # Libraries that this one depends upon.
-dependency_libs=' -lbz2 -L/Users/hbouillo/.brew/Cellar/libpng/1.6.34/lib -lpng16 -lz'
+dependency_libs=' -lbz2 -L/Users/sjimenez/.brew/Cellar/libpng/1.6.34/lib -lpng16 -lz'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/Users/hbouillo/.libs/lib'
+libdir='/Users/sjimenez/.libs/lib'

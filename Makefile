@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/14 17:52:47 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/14 20:24:14 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,6 +141,7 @@ LFLAGS_2 = $(DEBUG_FLAGS) \
 # TARGET 3
 TARGET_3 = show_corewar_ncurse
 SRC_3 = nvisu/main.c \
+		nvisu/communication_corewar.c \
 	\
 	nvisu/commands/commands.c \
 	nvisu/commands/command_writers.c \

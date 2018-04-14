@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 22:06:47 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/14 19:51:25 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ static void		uniforms(t_component_data *data, t_rect bounds)
 
 static t_color	color_from_writer(char writer, t_display *display)
 {
-	if (writer == 1)
+	if ((writer - 1) % 4 == 0)
 		return (display->p1);
-	if (writer == 2)
+	if ((writer - 1) % 4 == 1)
 		return (display->p2);
-	if (writer == 3)
+	if ((writer - 1) % 4 == 2)
 		return (display->p3);
-	if (writer == 4)
+	if ((writer - 1) % 4 == 3)
 		return (display->p4);
 	return (display->grid_00);
 }
@@ -139,7 +139,8 @@ static void		update_mem_raw(t_display *display)
 	i = -1;
 	while (++i < display->mem->size)
 	{
-		tmp = sg_color(0xff000000);
+		tmp = display->mem->data[i].procs ? display->grid_00 :
+			sg_color(0xff000000);
 		display->mem->raw_back[i * 4] = tmp.r;
 		display->mem->raw_back[i * 4 + 1] = tmp.g;
 		display->mem->raw_back[i * 4 + 2] = tmp.b;

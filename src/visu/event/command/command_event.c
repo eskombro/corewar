@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 21:45:42 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 19:30:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/14 18:21:10 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ void			handle_command_event(t_visu *visu, SDL_UserEvent user)
 		handle_mem_write(visu, command);
 	else if (command->type == COMMAND_CHAMP_SPAWN)
 		handle_champ_spawn(visu, command);
-	else if (command->type == COMMAND_PROC_SPAWN)
-		handle_proc_spawn(visu, command);
 	else if (command->type == COMMAND_LOGIC_CYCLE)
 		handle_new_cycle(visu, command);
+	else if (command->type == COMMAND_PROC_SPAWN)
+		handle_proc_spawn(visu, command);
+	else if (command->type == COMMAND_PROC_MOVE)
+		handle_proc_move(visu, command);
+	else if (command->type == COMMAND_PROC_DEATH)
+		handle_proc_death(visu, command);
 	free(command);
 }

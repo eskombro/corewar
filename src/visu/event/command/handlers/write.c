@@ -6,27 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 12:41:23 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 21:52:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/14 18:09:54 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../events.h"
-
-static t_process	*find_process(t_visu *visu, int proc_id)
-{
-	t_llist			*tmp;
-	t_process		*tmp_process;
-
-	tmp = visu->process[proc_id % PROCESS_ARRAY_SIZE];
-	while (tmp)
-	{
-		tmp_process = (t_process *)tmp->data;
-		if (tmp_process->id == proc_id)
-			return (tmp_process);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
 
 void				handle_mem_write(t_visu *visu, t_command *command)
 {
@@ -37,6 +21,8 @@ void				handle_mem_write(t_visu *visu, t_command *command)
 	if (!visu->mem.data)
 		return ;
 	addr = read_int(command->data + 4);
+	while (addr < 0)
+		addr += visu->mem.size;
 	i = -1;
 	proc = find_process(visu, read_int(command->data));
 	while (++i < 4)

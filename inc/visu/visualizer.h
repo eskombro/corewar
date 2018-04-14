@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 22:16:18 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/14 19:47:09 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define ERR_WARNING "Warning", 0
 
 # define FRAMES_PER_SECOND 60
-# define CYCLES_PER_SECOND 1000
+# define CYCLES_PER_SECOND 200
 
 # define COREWAR_FONT "fonts/TheLightFont.ttf"
 # define VM_MEMTEX "tex/mem_hex.png"
@@ -130,6 +130,7 @@ typedef struct		s_data
 	char			content;
 	char			writer;
 	int				write_cycle;
+	t_llist			*procs;
 }					t_data;
 
 typedef struct		s_mem
@@ -148,6 +149,7 @@ typedef struct		s_process
 	int				id;
 	int				owner_id;
 	int				owner_visu_id;
+	int				owner_spawn;
 	int				pc;
 }					t_process;
 

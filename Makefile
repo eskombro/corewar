@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/14 20:44:36 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/14 20:59:08 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ TARGET_1 = corewar
 SRC_1 = vm/main.c \
 	vm/debug.c \
 	\
+	vm/champ/convert.c \
 	vm/champ/get_champ.c \
 	vm/champ/get_spawn.c \
 	\
@@ -69,9 +70,26 @@ SRC_1 = vm/main.c \
 	vm/commands/commands.c \
 	vm/commands/command_writers.c \
 	vm/commands/command_readers.c \
-	vm/champ/convert.c \
 	\
-	asm/parser.c \
+	asm/asm/asm.c \
+	asm/asm/get_label.c \
+	asm/asm/instr_check.c \
+	asm/asm/parse_head.c \
+	asm/asm/parse_param.c \
+	asm/asm/test_param.c \
+	asm/asm/tools_asm.c \
+	\
+	asm/d_asm/convert_instr.c \
+	asm/d_asm/handle_label.c \
+	asm/d_asm/parse_params.c \
+	asm/d_asm/print_bin.c \
+	\
+	asm/tools/parser.c \
+	asm/tools/print_tools.c \
+	asm/tools/read_param.c \
+	asm/tools/tools_parse.c \
+	asm/tools/tools.c \
+	asm/tools/write_asm.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
@@ -180,8 +198,10 @@ SRC_4 = asm/main_asm.c \
 	\
 	asm/tools/parser.c \
 	asm/tools/print_tools.c \
+	asm/tools/read_param.c \
+	asm/tools/tools_parse.c \
 	asm/tools/tools.c \
-	asm/tools/write_asm.c \
+	asm/tools/write_asm.c
 
 OBJ_4 = $(addprefix obj/src/,$(SRC_4:.c=.o))
 CFLAGS_4 = $(DEBUG_FLAGS) \

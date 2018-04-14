@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 23:40:19 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/14 00:27:41 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct			s_v_champ
 	int					spawn_x;
 	int					spawn_y;
 	int					lifes;
+	int					lifes_round;
 }						t_v_champ;
 
 typedef struct			s_v_proc
@@ -47,6 +48,7 @@ typedef struct			s_v_stats
 	int					cycles;
 	int					cycles_to_die;
 	int					cycles_left;
+	char				last_life[16];
 }						t_v_stats;
 
 typedef struct			s_visu

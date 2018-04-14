@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 23:56:39 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/14 20:05:34 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void			display_leaderboard(void)
 		move(y++, v->start_x - 45);
 		printw("|\t%-31.31s |", v->champs[i]->name);
 		move(y++, v->start_x - 45);
-		printw("|\tLifes: %-24d |", v->champs[i]->lifes);
+		printw("|\tLives this round: %-13d |", v->champs[i]->lifes_round);
+		move(y++, v->start_x - 45);
+		printw("|\tLives: %-24d |", v->champs[i]->lifes);
 		move(y++, v->start_x - 45);
 		printw("|                                      |");
 		move(y++, v->start_x - 45);
@@ -86,11 +88,13 @@ void			display_stats(void)
 	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
 	printw("*--------------------------------------*");
 	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
-	printw("|\tCycles: % 13d             |", v->stats->cycles);
+	printw("|\tCycles:       %- 13d       |", v->stats->cycles);
 	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
-	printw("|\tCycles to die: %6d             |", v->stats->cycles_to_die);
+	printw("|\tCycles to die: %-6d             |", v->stats->cycles_to_die);
 	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
-	printw("|\tCycles left: %8d             |", v->stats->cycles_left);
+	printw("|\tCycles left:   %-8d           |", v->stats->cycles_left);
+	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
+	printw("|\tLast live:     %-18s |", v->stats->last_life);
 	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
 	printw("|                                      |");
 	move(y++, v->start_x + (MEM_TAB_LENGTH * 3) + 5);
@@ -257,14 +261,12 @@ void			handle_proc_move(t_command *command)
 		pc_rel_spawn += get_visu()->m_size;
 	get_visu()->mem_proc[pc_rel_spawn % get_visu()->m_size]++;
 	display_proc_pc(proc);
-	//ft_dprintf(3, "proc: %d || old-pc: %d  --- new-pc: %d\n", proc->id, proc->pc, read_int(command->data + 4));
 }
 
 void			handle_proc_death(t_command *command)
 {
 	t_v_proc	*proc;
 	t_v_proc	*prev;
-	// t_v_proc	*tmp;
 	int			id;
 	int			pc_rel_spawn;
 
@@ -332,9 +334,17 @@ void			handle_mem_write(t_command *command)
 
 void			handle_logic_cycle(t_command *command)
 {
+	int			i;
+
+	i = 0;
 	get_visu()->stats->cycles = read_int(command->data);
 	get_visu()->stats->cycles_to_die = read_int(command->data + 4);
 	get_visu()->stats->cycles_left = read_int(command->data + 8);
+	if (get_visu()->stats->cycles_left == 0)
+	{
+		while (i < get_visu()->champ_nb)
+			get_visu()->champs[i++]->lifes_round = 0;
+	}
 	display_leaderboard();
 }
 
@@ -353,6 +363,9 @@ void			handle_logic_life(t_command *command)
 	proc_id = read_int(command->data);
 	champ_nb = find_proc_owner_nb(proc_id);
 	get_visu()->champs[champ_nb]->lifes++;
+	get_visu()->champs[champ_nb]->lifes_round++;
+	ft_strncpy(get_visu()->stats->last_life, get_visu()->champs[champ_nb]->name, 15);
+	display_stats();
 }
 
 void			handle_command(t_command *command)
@@ -406,9 +419,8 @@ void			read_loop(void)
 		handle_command(&command);
 		display_leaderboard();
 		display_stats();
-		//move (0, 0);
 		refresh();
-		usleep(1000);
+		usleep(600);
 	}
 	endwin();
 	ft_strdel((char**)&get_visu()->mem);

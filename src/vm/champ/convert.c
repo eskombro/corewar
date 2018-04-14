@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 18:42:52 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/31 22:34:53 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/07 01:50:20 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static unsigned char	*write_instr(int value, int size, unsigned char *champ)
 
 static char				*write_to_champ(t_expr *list, int size)
 {
-	unsigned char *champ;
-	char *ret;
-	int j;
+	unsigned char	*champ;
+	char			*ret;
+	int				j;
 
 	j = -1;
 	if (!(champ = (unsigned char*)ft_memalloc(sizeof(char) * (size))))
@@ -56,10 +56,10 @@ static char				*write_to_champ(t_expr *list, int size)
 
 int						convert_to_hex(char *path, t_champ *champ)
 {
-	char *name_com;
-	t_expr *list;
-	t_expr *begin;
-	int last;
+	char	*name_com;
+	t_expr	*list;
+	t_expr	*begin;
+	int		last;
 
 	if (!convert_champ(path, 1, &name_com, &list))
 		return (0);

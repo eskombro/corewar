@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 01:37:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/08 03:27:39 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
-# define HEX			"0123456789abcdef"
-# define HEX_UP			"0123456789ABCDEF"
 # define SEPARATOR_CHAR			','
+# define S_C					','
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
@@ -124,6 +123,10 @@ typedef struct					s_instr_list
 	struct s_instr_list			*next;
 }								t_instr_list;
 
+void							jump_white_spaces(char **src);
+void							handle_label_instr(t_expr **exp, char **tmp,
+		int lines, int jump);
+long							get_op_value(char *tmp);
 int								noccur_count(char *str, char c, char d);
 t_instr_type					get_instr_type(char *name);
 int								print_champ_path(char *path, char *origin);
@@ -159,7 +162,8 @@ char							*get_name(char **name, char *champ);
 int								is_asm(char *path);
 int								error_param(char cse, t_expr *expr, int nb);
 int								error_instr(char cse, int line, char *instr);
-void							write_champ(t_expr *list, char *champ, int fd);
+void							write_champ_bin(t_expr *list, char *champ,
+		int fd);
 long							ft_long_atoi(char *str);
 int								error_msg_asm(char cse, int nb);
 int								convert_champ(char *champ_path, int flag,

@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 02:06:44 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/06 22:29:06 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/08 03:27:19 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ static void		write_body(char *name, char *comment, int fd, int champ_size)
 	write_int(COREWAR_EXEC_MAGIC, fd, 4);
 	write_mem_str(name, PROG_NAME_LENGTH, fd);
 	write_int(0, fd, 4);
-	write_int(champ_size , fd, 4);
+	write_int(champ_size, fd, 4);
 	write_mem_str(comment, COMMENT_LENGTH, fd);
 	write_int(0, fd, 4);
 }
 
-void			write_champ(t_expr *list, char *champ, int fd)
+void			write_champ_bin(t_expr *list, char *champ, int fd)
 {
 	char	*name;
 	char	*comment;

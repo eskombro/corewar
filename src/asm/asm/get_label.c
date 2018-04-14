@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:36:54 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 01:27:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/07 01:56:08 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,6 @@ static int	cmp_label_to_expr(t_expr *current, char *cmp)
 		return (0);
 	else
 		return (1);
-}
-
-long			get_op_value(char *tmp)
-{
-	while (*tmp && *tmp != '-' && *tmp != '+' && *tmp != SEPARATOR_CHAR)
-		tmp++;
-	return (ft_long_atoi(tmp));
 }
 
 char		*get_label_addr(t_expr *list, char *tmp, t_par *par)

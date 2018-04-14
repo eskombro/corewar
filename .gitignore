@@ -1,8 +1,8 @@
 test.cor
 
 # Targets
-corewar
-asm
+./corewar
+./asm
 lib/
 libft/lib
 

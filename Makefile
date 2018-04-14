@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/14 20:24:14 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/14 20:44:36 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,10 @@ SRC_1 = vm/main.c \
 	\
 	vm/commands/commands.c \
 	vm/commands/command_writers.c \
-	vm/commands/command_readers.c
+	vm/commands/command_readers.c \
+	vm/champ/convert.c \
+	\
+	asm/parser.c \
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
@@ -159,9 +162,42 @@ LFLAGS_3 = $(DEBUG_FLAGS) \
 	-lft \
 	-lncurses
 
+TARGET_4 = asm
+SRC_4 = asm/main_asm.c \
+	\
+	asm/asm/asm.c \
+	asm/asm/get_label.c \
+	asm/asm/instr_check.c \
+	asm/asm/parse_head.c \
+	asm/asm/parse_param.c \
+	asm/asm/test_param.c \
+	asm/asm/tools_asm.c \
+	\
+	asm/d_asm/convert_instr.c \
+	asm/d_asm/handle_label.c \
+	asm/d_asm/parse_params.c \
+	asm/d_asm/print_bin.c \
+	\
+	asm/tools/parser.c \
+	asm/tools/print_tools.c \
+	asm/tools/tools.c \
+	asm/tools/write_asm.c \
+
+OBJ_4 = $(addprefix obj/src/,$(SRC_4:.c=.o))
+CFLAGS_4 = $(DEBUG_FLAGS) \
+	-I$(LIBS_PATH)/include \
+	-Iinc \
+	-Iinc/common \
+	-Ilib/inc
+LFLAGS_4 = $(DEBUG_FLAGS) \
+	-L$(LIBS_PATH)/lib \
+	-Llib \
+	-lft
+
 all: prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1) \
 	prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2) \
-	prebuild.$(TARGET_3) $(TARGET_3) postbuild.$(TARGET_3)
+	prebuild.$(TARGET_3) $(TARGET_3) postbuild.$(TARGET_3) \
+	prebuild.$(TARGET_4) $(TARGET_4) postbuild.$(TARGET_4)
 	@echo > /dev/null
 
 $(TARGET_1): $(OBJ_1)
@@ -219,12 +255,30 @@ postbuild.$(TARGET_3):
 $(OBJ_3): ./obj/%.o: %.c
 	$(call compile, $(CFLAGS_3))
 
+$(TARGET_4): $(OBJ_4)
+	$(call link, $(LFLAGS_4))
+
+prebuild.$(TARGET_4):
+	@mkdir -p lib
+	@mkdir -p lib/inc
+	@$(MAKE) -C libft
+	$(call dylib_install,./libft/lib/libft.dylib)
+	$(call dylib_include_install,./libft/inc)
+	$(call bgn_msg,$(TARGET_4))
+
+postbuild.$(TARGET_4):
+	$(call $(END_MSG),$(TARGET_4))
+
+$(OBJ_4): ./obj/%.o: %.c
+	$(call compile, $(CFLAGS_4))
+
 clean:
 	@$(MAKE) -C libft clean
 	@$(MAKE) -C simple-gui clean
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
 	$(call clean,$(TARGET_3),$(OBJ_3))
+	$(call clean,$(TARGET_4),$(OBJ_4))
 
 fclean:
 	@$(MAKE) -C libft fclean
@@ -232,6 +286,7 @@ fclean:
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
 	$(call fclean,$(TARGET_3),$(OBJ_3))
+	$(call fclean,$(TARGET_4),$(OBJ_4))
 
 libclean:
 	@$(MAKE) -C libft libclean
@@ -243,4 +298,5 @@ re: fclean all
 .PHONY: all clean fclean \
 	prebuild.$(TARGET_1) postbuild.$(TARGET_1) \
 	prebuild.$(TARGET_2) postbuild.$(TARGET_2) \
-	prebuild.$(TARGET_3) postbuild.$(TARGET_3)
+	prebuild.$(TARGET_3) postbuild.$(TARGET_3) \
+	prebuild.$(TARGET_4) postbuild.$(TARGET_4)

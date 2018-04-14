@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_champ.c                                        :+:      :+:    :+:   */
+/*   asm_d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/31 20:46:39 by bacrozat         ###   ########.fr       */
+/*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
+/*   Updated: 2018/04/06 22:29:23 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include "asm.h"
+#include "../../inc/asm.h"
 
-static int	get_bin_champ(int size, int fd, t_champ *champ)
+static int	get_bin_champ(int size, int fd, t_bin_champ *champ)
 {
 	char	*champion;
 	char	buf[INT_SIZE];
@@ -42,7 +40,7 @@ static int	get_bin_champ(int size, int fd, t_champ *champ)
 	return (1);
 }
 
-static long	get_com(int fd, t_champ *champ)
+static long	get_com(int fd, t_bin_champ *champ)
 {
 	char	buf[COMMENT_LENGTH + 1];
 	char	buf_int[INT_SIZE];
@@ -59,14 +57,12 @@ static long	get_com(int fd, t_champ *champ)
 	buf[COMMENT_LENGTH] = '\0';
 	champ_size = convert_int_endian(*(int*)buf_int);
 	champ->comment = ft_strdup(buf);
-	if (champ_size > CHAMP_MAX_SIZE)
-		return (error_msg(6));
 	if (!get_bin_champ(champ_size, fd, champ))
 		return (0);
 	return (champ_size);
 }
 
-static int	open_champ(char *path, t_champ *champ)
+static int	open_champ(char *path, t_bin_champ *champ)
 {
 	char	buf[INT_SIZE];
 	char	buf2[PROG_NAME_LENGTH + 1];
@@ -75,8 +71,6 @@ static int	open_champ(char *path, t_champ *champ)
 
 	if (!(fd = open(path, O_RDONLY)))
 		return (error_msg(1));
-	if (is_asm(path))
-		return (convert_to_hex(path, champ));
 	if (fd < 0)
 		return (error_msg(2));
 	if ((read(fd, buf, INT_SIZE)) <= 0)
@@ -93,23 +87,47 @@ static int	open_champ(char *path, t_champ *champ)
 	return (1);
 }
 
-t_champ		*get_all_champ(char **jcvd)
+int			get_champ(char *champ_path)
 {
-	int			i;
-	t_champ		*champs;
+	int			fd;
+	char		*mod;
+	t_bin_champ	champs;
 
-	i = 0;
-	if (!(champs = (t_champ *)ft_memalloc(sizeof(t_champ) *
-					ft_chartablen(jcvd))))
-		return (NULL);
-	while (*jcvd)
+	if (!open_champ(champ_path, &champs))
+		return (print_champ_path(ft_strrchr(champ_path, '/'), champ_path));
+	mod = ft_strrchr(champ_path, '.');
+	mod[1] = 's';
+	mod[2] = '\0';
+	if ((fd = open(champ_path, O_RDWR | O_CREAT, 0644)) < 0)
+		return (0);
+	get_all_instr(&champs, fd);
+	close(fd);
+	return (1);
+}
+
+int			main(int argc, char *argv[])
+{
+	int i;
+	int fd;
+
+	i = 1;
+	while (argv[i])
 	{
-		champs[i].fixed_id = i + 1;
-		champs[i].id = -i - 1;
-		if (!open_champ(*jcvd, champs + i))
-			return (NULL);
+		if ((fd = open(argv[i], O_RDONLY)) >= 0)
+		{
+			if (ft_strequ(".cor", ft_strrchr(argv[i], '.')) &&
+					ft_strlen(ft_strrchr(argv[i], '.')) == 4)
+				get_champ(argv[i]);
+			else if (ft_strequ(".s", ft_strrchr(argv[i], '.')) &&
+					ft_strlen(ft_strrchr(argv[i], '.')) == 2)
+				convert_champ(argv[i], 0, NULL, NULL);
+			else
+				error_msg_instr(6, i);
+		}
+		else
+			error_msg_instr(5, i);
+		close(fd);
 		i++;
-		jcvd++;
 	}
-	return (champs);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 19:51:25 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 16:40:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ static t_color	color_from_writer(char writer, t_display *display)
 static void		update_mem_raw(t_display *display)
 {
 	int			i;
-	int			j;
 	t_color		tmp;
 	float		f;
 
@@ -114,14 +113,14 @@ static void		update_mem_raw(t_display *display)
 			sizeof(unsigned char) * display->mem->size)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	i = -1;
-	while (++i < display->mem->size)
+	while ((unsigned int)++i < display->mem->size)
 		display->mem->raw_content[i] = display->mem->data[i].content;
 	if (!display->mem->raw_front && !(display->mem->raw_front =
 		(float *)ft_memalloc(
 			sizeof(float) * display->mem->size * 4)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	i = -1;
-	while (++i < display->mem->size)
+	while ((unsigned int)++i < display->mem->size)
 	{
 		tmp = color_from_writer(display->mem->data[i].writer, display);
 		f = (display->game->cycle - display->mem->data[i].write_cycle
@@ -137,7 +136,7 @@ static void		update_mem_raw(t_display *display)
 			sizeof(float) * display->mem->size * 4)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	i = -1;
-	while (++i < display->mem->size)
+	while ((unsigned int)++i < display->mem->size)
 	{
 		tmp = display->mem->data[i].procs ? display->grid_00 :
 			sg_color(0xff000000);

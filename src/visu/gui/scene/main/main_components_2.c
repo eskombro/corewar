@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 19:23:59 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:33:50 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 22:46:26 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void					cycles_rate_lbl(t_visu *visu, t_main_scene *main)
 {
 	char				*tmp;
 
+	visu = 0;
 	if (!(main->cycles_rate_lbl = sg_create_label(main->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->cycles_rate_lbl,

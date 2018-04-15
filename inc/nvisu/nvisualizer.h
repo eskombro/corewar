@@ -6,12 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 00:27:41 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/15 03:31:48 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VISUALIZER_H
-# define VISUALIZER_H
+#ifndef NVISUALIZER_H
+# define NVISUALIZER_H
 
 # include "libft.h"
 # include "types.h"
@@ -20,8 +20,8 @@
 # include <unistd.h>
 # include <ncurses.h>
 
-# define	MEM_TAB_LENGTH 64
-# define	PROC_TAB_SIZE 100
+# define MEM_TAB_LENGTH 64
+# define PROC_TAB_SIZE 100
 
 typedef struct			s_v_champ
 {
@@ -65,9 +65,72 @@ typedef struct			s_visu
 	struct s_v_stats	*stats;
 }						t_visu;
 
+/*
+** main.c
+*/
+
+t_visu					*get_visu(void);
+
+/*
+** Communication_corewar.c
+*/
+
 void					parent(int *to_vm, int *from_vm);
 void					child(int *to_vm, int *from_vm, char **argv);
 void					run_corewar(char **argv);
 void					debug_command(t_command command);
+
+/*
+** handle_champ_callers.c
+*/
+
+void					handle_champ_spawn(t_command *command);
+void					handle_champ_wins(t_command *command);
+
+/*
+** handle_core_callers.c
+*/
+
+void					handle_core_begin(t_command *command);
+void					handle_core_end(void);
+
+/*
+** handle_logic_callers.c
+*/
+
+void					handle_logic_cycle(t_command *command);
+void					handle_logic_life(t_command *command);
+
+/*
+** handle_memory_callers.c
+*/
+
+int						find_proc_owner_nb(int proc_id);
+void					handle_mem_write(t_command *command);
+
+/*
+** handle_process_callers.c
+*/
+
+void					handle_proc_spawn(t_command *command);
+void					handle_proc_move(t_command *command);
+void					handle_proc_death(t_command *command);
+
+/*
+** process_display.c
+*/
+
+int						display_proc_pc_calc(int col, int pc_rel_spawn);
+void					display_proc_pc(t_v_proc *proc);
+
+/*
+** print_modules.c
+*/
+
+void					print_header(void);
+void					print_header2(int y, int x, int i);
+void					display_leaderboard(void);
+void					display_stats(void);
+void					print_win_panel(int x, int y, char *str);
 
 #endif

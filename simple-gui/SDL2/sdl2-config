@@ -1,6 +1,6 @@
 #!/bin/sh
 
-prefix=/Users/hbouillo/.libs
+prefix=/Users/bacrozat/.libs
 exec_prefix=${prefix}
 exec_prefix_set=no
 libdir=${exec_prefix}/lib

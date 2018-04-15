@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 16:41:17 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:58:22 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ static int	get_bin_champ(int size, int fd, t_bin_champ *champ)
 	champ->size = size;
 	ret = read(fd, champion, size);
 	if (ret <= 0)
-		return (error_msg(3));
+		return (end_free(champion, NULL, NULL) | error_msg(3));
 	champ->champion = champion;
 	champ->champion[size] = '\0';
 	if (ret < size)
 		return (error_msg(8));
 	ret = read(fd, buf, INT_SIZE);
 	if (ret < 0)
-		return (error_msg(3));
+		return (end_free(champion, NULL, NULL) | error_msg(3));
 	if (ret > 0)
-		return (error_msg(9));
+		return (end_free(champion, NULL, NULL) | error_msg(9));
 	return (1);
 }
 
@@ -58,7 +58,7 @@ static long	get_com(int fd, t_bin_champ *champ)
 	champ_size = convert_int_endian(*(int*)buf_int);
 	champ->comment = ft_strdup(buf);
 	if (!get_bin_champ(champ_size, fd, champ))
-		return (0);
+		return (end_free(champ->comment, NULL, NULL));
 	return (champ_size);
 }
 
@@ -83,7 +83,7 @@ static int	open_champ(char *path, t_bin_champ *champ)
 	buf2[PROG_NAME_LENGTH] = '\0';
 	champ->name = ft_strdup(buf2);
 	if (!get_com(fd, champ))
-		return (0);
+		return (end_free(champ->name, NULL, NULL));
 	return (1);
 }
 
@@ -101,6 +101,9 @@ int			get_champ(char *champ_path)
 	if ((fd = open(champ_path, O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (0);
 	get_all_instr(&champs, fd);
+	free(champs.comment);
+	free(champs.name);
+	free(champs.champion);
 	close(fd);
 	return (1);
 }

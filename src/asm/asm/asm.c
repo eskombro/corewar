@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:47:03 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/14 22:33:11 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:01:19 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int			parse_champ(char *champ, t_expr **expr)
 	while (*tmp && (*tmp == ' ' || *tmp == '\t' || *tmp == '\n'))
 		tmp++;
 	if (!parse_instr(tmp, count_lines(champ, tmp), &list))
-		return (0);
+		return (end_free(NULL, NULL, list));
 	*expr = list;
 	return (1);
 }
@@ -122,6 +122,34 @@ static int			read_champ(char *champ_path, char **src)
 	return (1);
 }
 
+int				end_free(char *name, char *input, t_expr *list)
+{
+	t_expr	*tmp;
+	int		freed;
+
+	freed = 1;
+	if (name)
+		free(name);
+	if (input)
+		free(input);
+	if (list)
+	{
+		while (list)
+		{
+			tmp = list;
+			if (tmp->instr)
+				free(tmp->instr);
+			if (tmp->alloced && tmp->expr)
+				free(tmp->expr);
+			else if (--freed == 0)
+				free(tmp->expr);
+			list = list->next;
+			free(tmp);
+		}
+	}
+	return (0);
+}
+
 int					convert_champ(char *champ_path, int sig, char **src,
 		t_expr **expr)
 {
@@ -131,9 +159,10 @@ int					convert_champ(char *champ_path, int sig, char **src,
 	t_expr	*expr_list;
 
 	if (!read_champ(champ_path, &raw))
-		return (0);
+		return (end_free(raw, NULL, NULL));
 	if (!parse_champ(raw, &expr_list))
-		return (print_champ_path(ft_strrchr(champ_path, '/'), champ_path));
+		return (end_free(NULL, raw, NULL) +
+				print_champ_path(ft_strrchr(champ_path, '/'), champ_path));
 	if (!sig)
 	{
 		*ft_strrchr(champ_path, '.') = '\0';
@@ -143,6 +172,7 @@ int					convert_champ(char *champ_path, int sig, char **src,
 		if ((fd = open(mod, O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
 			return (0);
 		write_champ_bin(expr_list, raw, fd);
+		end_free(mod ,raw, expr_list);
 		return (1);
 	}
 	*src = raw;

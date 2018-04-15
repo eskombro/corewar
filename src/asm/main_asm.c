@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/14 22:33:06 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 16:41:17 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int			main(int argc, char *argv[])
 	int fd;
 
 	i = 1;
+	argc = 0;
 	while (argv[i])
 	{
 		if ((fd = open(argv[i], O_RDONLY)) >= 0)

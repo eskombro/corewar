@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/08 03:27:39 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 15:06:08 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct					s_expr
 	int							addr;
 	int							line;
 	char						alloc;
+	char						alloced;
 	struct s_expr				*next;
 	struct s_instr				*instr;
 }								t_expr;
@@ -125,7 +126,7 @@ typedef struct					s_instr_list
 
 void							jump_white_spaces(char **src);
 void							handle_label_instr(t_expr **exp, char **tmp,
-		int lines, int jump);
+		int jump);
 long							get_op_value(char *tmp);
 int								noccur_count(char *str, char c, char d);
 t_instr_type					get_instr_type(char *name);

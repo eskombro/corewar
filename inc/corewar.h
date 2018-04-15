@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 20:23:58 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 19:30:45 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int					calc_spawn(int players, t_champ *champs);
 /*
 **	Memory
 */
+void				*free_champs(t_champ *champs);
 unsigned char		*get_arena(void);
 void				write_memory(t_proc *process, t_addr pc,
 						t_addr address, t_par par);

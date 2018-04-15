@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/31 20:46:39 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 19:47:43 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static int	get_bin_champ(int size, int fd, t_champ *champ)
 	if (!(champion = (char *)malloc(sizeof(char) * (size + 1))))
 		exit(1);
 	if ((read(fd, buf, INT_SIZE)) <= 0)
-		return (error_msg(3));
+		return (error_msg(3) | end_free(champion, NULL, NULL));
 	if (*(int*)buf)
-		return (error_msg(7));
+		return (error_msg(7) | end_free(champion, NULL, NULL));
 	champ->size = size;
 	ret = read(fd, champion, size);
 	if (ret <= 0)
-		return (error_msg(3));
+		return (error_msg(3) | end_free(champion, NULL, NULL));
 	champ->champion = champion;
 	champ->champion[size] = '\0';
 	if (ret < size)
@@ -100,15 +100,20 @@ t_champ		*get_all_champ(char **jcvd)
 
 	i = 0;
 	if (!(champs = (t_champ *)ft_memalloc(sizeof(t_champ) *
-					ft_chartablen(jcvd))))
+					(ft_chartablen(jcvd) + 1))))
 		return (NULL);
 	while (*jcvd)
 	{
 		champs[i].fixed_id = i + 1;
 		champs[i].id = -i - 1;
 		if (!open_champ(*jcvd, champs + i))
-			return (NULL);
+			return (free_champs(champs));
 		i++;
+		if (i > MAX_CHAMPS)
+		{
+			ft_dprintf(2, "%rgbToo Many Champions%0rgb\n", 0xff0000);
+			return (free_champs(champs));
+		}
 		jcvd++;
 	}
 	return (champs);

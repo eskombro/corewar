@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 15:06:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 19:39:20 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ typedef struct					s_instr_list
 	struct s_instr_list			*next;
 }								t_instr_list;
 
+void							*free_champs(t_champ *champs);
+int								end_free(char *name, char *input, t_expr *list);
 void							jump_white_spaces(char **src);
 void							handle_label_instr(t_expr **exp, char **tmp,
 		int jump);

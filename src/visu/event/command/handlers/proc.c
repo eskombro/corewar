@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 16:37:07 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 18:20:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/14 23:33:28 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void				handle_proc_spawn(t_visu *visu, t_command *command)
 {
 	t_process		*proc;
 	t_player		*player;
-	int				i;
 
 	if (!visu->mem.data)
 		return ;

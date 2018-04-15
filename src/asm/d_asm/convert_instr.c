@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:24:46 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/06 01:08:43 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:12:28 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ static int			fill_instr_list(t_bin_champ *champ, t_instr_list *instr)
 int					get_all_instr(t_bin_champ *champ, int fd)
 {
 	t_instr_list	*instr;
+	t_instr_list	*tmp;
 
 	if (!(instr = ft_memalloc(sizeof(t_instr_list))))
 		exit(1);
@@ -122,5 +123,11 @@ int					get_all_instr(t_bin_champ *champ, int fd)
 	get_labels(instr, champ);
 	print_head(champ, fd);
 	print_instr_list(instr, fd);
+	while (instr)
+	{
+		tmp = instr;
+		instr = instr->next;
+		free(tmp);
+	}
 	return (0);
 }

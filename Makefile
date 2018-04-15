@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/14 20:59:08 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/15 19:26:37 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,25 +71,25 @@ SRC_1 = vm/main.c \
 	vm/commands/command_writers.c \
 	vm/commands/command_readers.c \
 	\
-	asm/asm/asm.c \
-	asm/asm/get_label.c \
-	asm/asm/instr_check.c \
-	asm/asm/parse_head.c \
-	asm/asm/parse_param.c \
-	asm/asm/test_param.c \
-	asm/asm/tools_asm.c \
+	vm/asm/asm/asm.c \
+	vm/asm/asm/get_label.c \
+	vm/asm/asm/instr_check.c \
+	vm/asm/asm/parse_head.c \
+	vm/asm/asm/parse_param.c \
+	vm/asm/asm/test_param.c \
+	vm/asm/asm/tools_asm.c \
 	\
-	asm/d_asm/convert_instr.c \
-	asm/d_asm/handle_label.c \
-	asm/d_asm/parse_params.c \
-	asm/d_asm/print_bin.c \
+	vm/asm/d_asm/convert_instr.c \
+	vm/asm/d_asm/handle_label.c \
+	vm/asm/d_asm/parse_params.c \
+	vm/asm/d_asm/print_bin.c \
 	\
-	asm/tools/parser.c \
-	asm/tools/print_tools.c \
-	asm/tools/read_param.c \
-	asm/tools/tools_parse.c \
-	asm/tools/tools.c \
-	asm/tools/write_asm.c
+	vm/asm/tools/parser.c \
+	vm/asm/tools/print_tools.c \
+	vm/asm/tools/read_param.c \
+	vm/asm/tools/tools_parse.c \
+	vm/asm/tools/tools.c \
+	vm/asm/tools/write_asm.c
 
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
@@ -114,13 +114,14 @@ SRC_2 = visu/main.c \
 	visu/gui/colors.c \
 	visu/gui/scene/main/main_scene.c \
 	visu/gui/scene/main/main_components.c \
+	visu/gui/scene/main/main_components_2.c \
 	\
 	visu/event/events.c \
 	visu/event/key/key_event.c \
 	visu/event/command/command_event.c \
 	visu/event/command/handlers/helper.c \
 	visu/event/command/handlers/proc_helper.c \
-	visu/event/command/handlers/begin.c \
+	visu/event/command/handlers/core.c \
 	visu/event/command/handlers/write.c \
 	visu/event/command/handlers/champ.c \
 	visu/event/command/handlers/proc.c \

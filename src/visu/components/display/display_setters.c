@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 04:26:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 15:33:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:14:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void			set_display_ocolor(void *component, t_color color)
 
 	display = (t_display *)sg_get_component_data(component);
 	display->ocolor = color;
+}
+
+void			set_display_check_color(void *component, t_color color)
+{
+	t_display	*display;
+
+	display = (t_display *)sg_get_component_data(component);
+	display->check = color;
 }
 
 void			set_display_player_color(int n, void *component, t_color color)

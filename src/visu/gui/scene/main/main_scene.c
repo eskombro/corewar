@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 19:30:40 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 15:27:09 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 19:32:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void			main_update_colors(t_visu *visu, t_main_scene *main)
 	sg_set_rectangle_icolor(main->top_frame, visu->gui.colors->background);
 	sg_set_rectangle_ocolor(main->top_frame, visu->gui.colors->main_text);
 	sg_set_label_color(main->title_label, visu->gui.colors->main_text);
+	sg_set_label_color(main->cycles_lbl, visu->gui.colors->main_text);
+	sg_set_label_color(main->cycles, visu->gui.colors->main_text);
+	sg_set_label_color(main->cycles_to_die_lbl, visu->gui.colors->main_text);
+	sg_set_label_color(main->cycles_to_die, visu->gui.colors->main_text);
+	sg_set_label_color(main->cycles_left_lbl, visu->gui.colors->main_text);
+	sg_set_label_color(main->cycles_left, visu->gui.colors->main_text);
 	sg_set_rectangle_icolor(main->mem_grid.frame, visu->gui.colors->background);
 	sg_set_rectangle_ocolor(main->mem_grid.frame, visu->gui.colors->main_text);
 	set_display_ocolor(main->mem_grid.frame,
@@ -31,6 +37,8 @@ void			main_update_colors(t_visu *visu, t_main_scene *main)
 		visu->gui.colors->display_p3);
 	set_display_player_color(4, main->mem_grid.frame,
 		visu->gui.colors->display_p4);
+	set_display_check_color(main->mem_grid.frame,
+		visu->gui.colors->display_check);
 }
 
 void			init_main_scene(t_visu *visu, t_main_scene *main)
@@ -40,5 +48,9 @@ void			init_main_scene(t_visu *visu, t_main_scene *main)
 	frames(visu, main);
 	display(visu, main);
 	labels(visu, main);
+	cycles_lbl(visu, main);
+	cycles_to_die_lbl(visu, main);
+	cycles_left_lbl(visu, main);
+	cycles_rate_lbl(visu, main);
 	main_update_colors(visu, main);
 }

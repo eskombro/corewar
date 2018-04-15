@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 22:06:52 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 21:53:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:13:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_display	*default_display_data(t_visu *visu)
 	display_data->p2 = sg_colorf(1.0, 1.0, 1.0, 1.0);
 	display_data->p3 = sg_colorf(1.0, 1.0, 1.0, 1.0);
 	display_data->p4 = sg_colorf(1.0, 1.0, 1.0, 1.0);
+	display_data->check = sg_colorf(1.0, 1.0, 1.0, 1.0);
 	display_data->win_h = &(visu->win_h);
 	display_data->win_w = &(visu->win_w);
 	display_data->mem = &(visu->mem);

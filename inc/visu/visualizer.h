@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 19:47:09 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 19:45:31 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 
 # define FRAMES_PER_SECOND 60
 # define CYCLES_PER_SECOND 200
+# define CYCLES_PER_SECOND_MAX 1000
 
 # define COREWAR_FONT "fonts/TheLightFont.ttf"
 # define VM_MEMTEX "tex/mem_hex.png"
@@ -69,12 +70,29 @@ typedef struct		s_mem_grid
 # define MAIN_SCENE_CORNER_RADIUS 7
 # define MAIN_SCENE_EDGE 1
 
+typedef struct		s_player_info
+{
+	void			*name;
+	void			*lives;
+}					t_player_info;
+
 typedef struct		s_main_scene
 {
 	void			*ptr;
 	void			*top_frame;
 	void			*title_label;
 	t_mem_grid		mem_grid;
+	t_llist			*p_infos;
+	void			*cycles_lbl;
+	void			*cycles;
+	void			*cycles_to_die_lbl;
+	void			*cycles_to_die;
+	void			*cycles_left_lbl;
+	void			*cycles_left;
+	void			*cycles_rate_lbl;
+	void			*cycles_rate;
+	void			*winner_lbl;
+	void			*winner;
 }					t_main_scene;
 
 typedef struct		s_end_scene
@@ -106,6 +124,7 @@ typedef struct		s_color_set
 	t_color			display_p2;
 	t_color			display_p3;
 	t_color			display_p4;
+	t_color			display_check;
 	t_color			button_hover;
 	t_color			button_pressed;
 }					t_color_set;
@@ -165,17 +184,20 @@ typedef struct		s_player
 #define PROCESS_ARRAY_SIZE 10000
 
 #define WRITE_ANIM_DUR 250
+#define CHECK_ANIM_DUR 250
 
 typedef struct		s_gamedata
 {
 	int				cycle;
 	int				cycle_to_die;
 	int				cycle_left;
+	int				check_cycle;
 }					t_gamedata;
 
 typedef struct		s_visu
 {
 	int				run;
+	int				end;
 	pthread_mutex_t	run_mutex;
 	SDL_Window		*window;
 	SDL_GLContext	context;
@@ -217,5 +239,6 @@ void				set_display_grid_color(void *component, t_color color);
 void				set_display_edge(void *component, int edge);
 void				set_display_player_color(int n, void *component,
 						t_color color);
+void				set_display_check_color(void *component, t_color color);
 
 #endif

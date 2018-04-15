@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 16:40:32 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:27:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,17 @@ static void		update_mem_raw(t_display *display)
 	{
 		tmp = display->mem->data[i].procs ? display->grid_00 :
 			sg_color(0xff000000);
-		display->mem->raw_back[i * 4] = tmp.r;
-		display->mem->raw_back[i * 4 + 1] = tmp.g;
-		display->mem->raw_back[i * 4 + 2] = tmp.b;
-		display->mem->raw_back[i * 4 + 3] = tmp.a;
+		f = (display->game->cycle - display->game->check_cycle
+			 > CHECK_ANIM_DUR) ? 0.0 : (1.0 - ((float)(display->game->cycle -
+			display->game->check_cycle)) / ((float)(CHECK_ANIM_DUR)));
+		display->mem->raw_back[i * 4] = (1.0 - f) * tmp.r +
+			f * display->check.r;
+		display->mem->raw_back[i * 4 + 1] = (1.0 - f) * tmp.g +
+			f * display->check.g;
+		display->mem->raw_back[i * 4 + 2] = (1.0 - f) * tmp.b +
+			f * display->check.b;
+		display->mem->raw_back[i * 4 + 3] = (1.0 - f) * tmp.a +
+			f * display->check.a;
 	}
 }
 

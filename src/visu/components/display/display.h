@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 04:22:16 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 21:53:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:12:58 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct			s_display
 	t_color				p2;
 	t_color				p3;
 	t_color				p4;
+	t_color				check;
 	int					*win_h;
 	int					*win_w;
 	t_mem				*mem;

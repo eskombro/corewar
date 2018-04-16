@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:39:06 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/07 16:42:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:13:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void			handle_event(t_visu *visu, SDL_Event e)
 {
 	if (e.type == SDL_KEYDOWN)
 		handle_key_event(visu, e.key);
-	if (e.type == SDL_WINDOWEVENT &&
+	else if (e.type == SDL_WINDOWEVENT &&
 		e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 	{
 		visu->win_w = (int)e.window.data1;

@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/16 22:33:34 by bacrozat         ###   ########.fr        #
+#    Updated: 2018/04/17 00:07:56 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -266,6 +266,10 @@ prebuild.$(TARGET_2):
 	$(call dylib_include_install,./simple-gui/inc)
 	$(call dylib_install,./libft/lib/libft.dylib)
 	$(call dylib_include_install,./libft/inc)
+ifeq ("$(wildcard $(LIBS_PATH)/lib/libpng.dylib)","")
+	$(call lib_configure_make_install,libpng-1.6.34)
+	@install_name_tool -id "$(LIBS_PATH)/lib/libpng.dylib" "$(LIBS_PATH)/lib/libpng.dylib"
+endif
 	$(call bgn_msg,$(TARGET_2))
 
 postbuild.$(TARGET_2):
@@ -327,6 +331,7 @@ fclean:
 libclean:
 	@$(MAKE) -C libft libclean
 	@$(MAKE) -C simple-gui libclean
+	@rm -f $(LIBS_PATH)/lib/libpng.dylib
 	@rm -rf ./lib
 
 re: fclean all

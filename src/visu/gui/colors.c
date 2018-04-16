@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:18:49 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 18:30:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:06:33 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static t_color_set		*get_color_set(int set)
 void					set_color_set(t_visu *visu, int set)
 {
 	visu->gui.colors = get_color_set(set);
-	// if (show->gui.scenes[FILLER_SCENE_MAIN].ptr)
-	// 	main_update_colors(show, &(show->gui.scenes[FILLER_SCENE_MAIN].main));
-	// if (show->gui.scenes[FILLER_SCENE_END].ptr)
-	// 	end_update_colors(show, &(show->gui.scenes[FILLER_SCENE_END].end));
+	if (visu->gui.scenes[COREWAR_SCENE_MAIN].ptr)
+		main_update_colors(visu, &(visu->gui.scenes[COREWAR_SCENE_MAIN].main));
+	if (visu->gui.scenes[COREWAR_SCENE_END].ptr)
+		end_update_colors(visu, &(visu->gui.scenes[COREWAR_SCENE_END].end));
 	glClearColor(visu->gui.colors->background.r, visu->gui.colors->background.g,
 		visu->gui.colors->background.b, visu->gui.colors->background.a);
 }

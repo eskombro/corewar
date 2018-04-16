@@ -6,12 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 00:27:41 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:32:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VISUALIZER_H
-# define VISUALIZER_H
+#ifndef NVISUALIZER_H
+# define NVISUALIZER_H
 
 # include "libft.h"
 # include "types.h"
@@ -20,8 +20,8 @@
 # include <unistd.h>
 # include <ncurses.h>
 
-# define	MEM_TAB_LENGTH 64
-# define	PROC_TAB_SIZE 100
+# define MEM_TAB_LENGTH 64
+# define PROC_TAB_SIZE 100
 
 typedef struct			s_v_champ
 {

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 01:08:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 15:32:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:47:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		run_loop(t_visu *visu)
 			pthread_mutex_lock(&visu->run_mutex);
 			visu->run = 0;
 			pthread_mutex_unlock(&visu->run_mutex);
-			break;
+			break ;
 		}
 		run_gui(visu);
 	}

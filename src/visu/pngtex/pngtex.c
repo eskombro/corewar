@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 14:32:28 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 15:34:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:25:58 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static int			init_png(char *filename, png_structp *png_ptr,
 	if (!(file = fopen(filename, "r")) || (read(file->_file, header, 8)) != 8
 		|| !png_check_sig(header, 8))
 		return (1);
-	if (!(*png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL)))
+	if (!(*png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,
+			NULL, NULL, NULL)))
 		return (1);
 	if (!(*info_ptr = png_create_info_struct(*png_ptr)))
 	{
-		png_destroy_read_struct(png_ptr,NULL, NULL);
+		png_destroy_read_struct(png_ptr, NULL, NULL);
 		return (1);
 	}
 	if (setjmp(png_jmpbuf(*png_ptr)))
@@ -61,7 +62,8 @@ static t_pngtex		*get_texture(png_structp png_ptr, png_infop info_ptr)
 		return (NULL);
 	i = -1;
 	while ((unsigned int)++i < pngtex->width * pngtex->height * 4)
-		pngtex->data[i] = rows[i / (pngtex->width * 4)][i % (pngtex->width * 4)];
+		pngtex->data[i] =
+			rows[i / (pngtex->width * 4)][i % (pngtex->width * 4)];
 	return (pngtex);
 }
 

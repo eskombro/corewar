@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 04:03:17 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:48:51 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static long	get_com(int fd, t_champ *champ)
 		return (error_msg(3));
 	buf[COMMENT_LENGTH] = '\0';
 	champ_size = convert_int_endian(*(int*)buf_int);
-	champ->comment = ft_strdup(buf);
+	if (!(champ->comment = ft_strdup(buf)))
+		exit(1);
 	if (champ_size > CHAMP_MAX_SIZE)
 		return (error_msg(6));
 	if (!get_bin_champ(champ_size, fd, champ))
@@ -87,7 +88,8 @@ static int	open_champ(char *path, t_champ *champ)
 	if ((read(fd, buf2, PROG_NAME_LENGTH)) <= 0)
 		return (error_msg(3));
 	buf2[PROG_NAME_LENGTH] = '\0';
-	champ->name = ft_strdup(buf2);
+	if (!(champ->name = ft_strdup(buf2)))
+		exit(1);
 	if (!get_com(fd, champ))
 		return (0);
 	return (1);
@@ -104,17 +106,18 @@ t_champ		*get_all_champ(char **jcvd)
 		return (NULL);
 	while (*jcvd)
 	{
-		champs[i].fixed_id = i + 1;
-		champs[i].id = -i - 1;
-		if (!open_champ(*jcvd, champs + i))
-			return (free_champs(champs));
-		i++;
-		if (i > MAX_CHAMPS)
+		if (i >= MAX_CHAMPS)
 		{
 			ft_dprintf(2, "%rgbToo Many Champions%0rgb\n", 0xff0000);
 			return (free_champs(champs));
 		}
-		jcvd++;
+		champs[i].fixed_id = i + 1;
+		champs[i].id = -i - 1;
+		champs[i].name = NULL;
+		if (!open_champ(*jcvd, champs + i))
+			return (free_champs(champs));
+		i++;
+			jcvd++;
 	}
 	return (champs);
 }

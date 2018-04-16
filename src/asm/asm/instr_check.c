@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:46:18 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 17:42:27 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:51:53 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static char		*get_expr(t_expr **list, char *champ, char *tmp, int *lines)
 {

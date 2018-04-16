@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 18:03:52 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 00:57:19 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:52:36 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static char		*jump_label(char *tmp)
 {

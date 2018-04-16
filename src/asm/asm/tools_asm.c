@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:29:40 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 15:53:21 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:53:02 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 char		*jump_comment(char *tmp)
 {

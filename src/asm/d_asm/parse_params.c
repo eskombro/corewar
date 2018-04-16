@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:21:16 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/01 01:28:38 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:53:40 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static int	parse_param(char type, char ocp, t_par *par)
 {

@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 17:58:22 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:53:50 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/asm.h"
+#include "asm.h"
 
 static int	get_bin_champ(int size, int fd, t_bin_champ *champ)
 {

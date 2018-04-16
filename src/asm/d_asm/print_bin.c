@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:14:04 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/14 23:29:03 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:00:54 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static void	print_instr_param(int i, t_instr_list *instr, int fd)
 {

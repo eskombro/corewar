@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 02:32:22 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 16:58:37 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:54:04 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 int		print_champ_path(char *path, char *origin)
 {
@@ -28,20 +28,20 @@ int		end_free(char *name, char *input, t_expr *list)
 
 	freed = 1;
 	if (name)
-		free(name);
+		ft_strdel(&name);
 	if (input)
-		free(input);
+		ft_strdel(&input);
 	if (list)
 	{
 		while (list)
 		{
 			tmp = list;
 			if (tmp->instr)
-				free(tmp->instr);
+				ft_memdel((void**)&tmp->instr);
 			if (tmp->alloced && tmp->expr)
-				free(tmp->expr);
+				ft_memdel((void**)&tmp->expr);
 			else if (--freed == 0)
-				free(tmp->expr);
+				ft_memdel((void**)&tmp->expr);
 			list = list->next;
 			free(tmp);
 		}

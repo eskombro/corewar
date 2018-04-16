@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 22:24:46 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 17:12:28 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:54:53 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static t_instr_type	tget_instr_type(int opcode)
 {

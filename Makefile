@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/16 18:43:06 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/16 19:15:48 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,6 @@ LFLAGS_1 = $(DEBUG_FLAGS) \
 # TARGET 2
 TARGET_2 = show_corewar
 SRC_2 = visu/main.c \
-	visu/free_visu.c \
 	visu/visu.c \
 	visu/error.c \
 	visu/debug.c \
@@ -116,22 +115,17 @@ SRC_2 = visu/main.c \
 	visu/gui/scene/main/main_scene.c \
 	visu/gui/scene/main/main_components.c \
 	visu/gui/scene/main/main_components_2.c \
-	visu/gui/scene/end/end_scene.c \
-	visu/gui/scene/end/end_components.c \
 	\
 	visu/event/events.c \
 	visu/event/key/key_event.c \
-	visu/event/scene/scene_event.c \
 	visu/event/command/command_event.c \
 	visu/event/command/handlers/helper.c \
 	visu/event/command/handlers/proc_helper.c \
 	visu/event/command/handlers/core.c \
 	visu/event/command/handlers/write.c \
 	visu/event/command/handlers/champ.c \
-	visu/event/command/handlers/champ_info.c \
 	visu/event/command/handlers/proc.c \
 	visu/event/command/handlers/cycle.c \
-	visu/event/command/handlers/live.c \
 	\
 	visu/reader/reader.c \
 	\
@@ -143,8 +137,6 @@ SRC_2 = visu/main.c \
 	visu/components/display/display_setters.c \
 	visu/components/display/display_draw.c \
 	visu/components/display/display_event.c \
-	visu/components/display/display_tex.c \
-	visu/components/display/display_init.c \
 	\
 	visu/pngtex/pngtex.c
 
@@ -171,7 +163,18 @@ LFLAGS_2 = $(DEBUG_FLAGS) \
 # TARGET 3
 TARGET_3 = show_corewar_ncurse
 SRC_3 = nvisu/main.c \
-		nvisu/communication_corewar.c \
+	nvisu/communication_corewar.c \
+	nvisu/print_modules.c \
+	nvisu/handle_callers/handle_champ_callers.c \
+	nvisu/handle_callers/handle_core_callers.c \
+	nvisu/handle_callers/handle_logic_callers.c \
+	nvisu/handle_callers/handle_memory_callers.c \
+	nvisu/handle_callers/handle_process_callers.c \
+	nvisu/handle_callers/process_display.c \
+	nvisu/free_all.c \
+	nvisu/initialize_ncurses.c \
+	nvisu/test_char.c \
+	nvisu/display_shortcuts.c \
 	\
 	nvisu/commands/commands.c \
 	nvisu/commands/command_writers.c \

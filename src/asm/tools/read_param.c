@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 02:02:58 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 02:36:52 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:54:12 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 long		ft_atoi_hex(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 16:44:19 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 17:09:59 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:53:59 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 int		error_msg(char cse)
 {

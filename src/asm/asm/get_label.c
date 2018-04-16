@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:36:54 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 19:09:25 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:56:47 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 void		get_label_value(t_expr *expr)
 {

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 19:22:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:23:18 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static void		init_visu(t_visu *visu)
 	visu->mem.new_data = 1;
 	visu->tps = CYCLES_PER_SECOND;
 	pthread_mutex_init(&(visu->run_mutex), NULL);
-	pthread_mutex_init(&(visu->pause_mutex), NULL);
 }
 
 int				main(int argc, char **argv)
@@ -90,7 +89,6 @@ int				main(int argc, char **argv)
 	run_corewar(argv);
 	read_thread = run_read(&visu);
 	run_visu(&visu);
-	free_visu(&visu);
 	pthread_join(read_thread, NULL);
 	return (0);
 }

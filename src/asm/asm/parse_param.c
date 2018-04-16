@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:32:08 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 01:45:52 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:52:25 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static int		get_next_instr(char **src, t_par *par, t_expr *list,
 		t_expr *expr)

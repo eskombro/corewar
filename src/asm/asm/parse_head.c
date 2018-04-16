@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:30:22 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 18:10:02 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:52:10 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 void			calc_size(t_expr *expr)
 {

@@ -6,11 +6,11 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:17:40 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/14 23:28:02 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:53:18 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/asm.h"
+#include "asm.h"
 
 static int		*check_list(t_instr_list *instr, unsigned int addr)
 {

@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/16 18:18:50 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/16 18:43:06 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,6 +106,7 @@ LFLAGS_1 = $(DEBUG_FLAGS) \
 # TARGET 2
 TARGET_2 = show_corewar
 SRC_2 = visu/main.c \
+	visu/free_visu.c \
 	visu/visu.c \
 	visu/error.c \
 	visu/debug.c \

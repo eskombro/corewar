@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:16:17 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 05:21:51 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:22:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int				main(int argc, char **argv)
 	run_corewar(argv);
 	read_thread = run_read(&visu);
 	run_visu(&visu);
+	free_visu(&visu);
 	pthread_join(read_thread, NULL);
 	return (0);
 }

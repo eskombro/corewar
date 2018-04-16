@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 22:06:52 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 17:55:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:19:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_display	*default_display_data(t_visu *visu)
 {
 	t_display		*display_data;
+	char			*res;
 
 	if (!(display_data = (t_display *)ft_memalloc(sizeof(t_display))))
 		return (NULL);
@@ -31,9 +32,10 @@ static t_display	*default_display_data(t_visu *visu)
 	display_data->game = &(visu->game);
 	display_data->edge = 1;
 	display_data->map = 0;
-	if (!(display_data->hextex_data =
-			pngtex_from_file(get_resource_path(VM_MEMTEX))))
+	res = get_resource_path(VM_MEMTEX);
+	if (!(display_data->hextex_data = pngtex_from_file(res)))
 		error(ERR_VISU_MEMTEX, ERR_CRITICAL);
+	free(res);
 	display_data->hextex = 0;
 	return (display_data);
 }
@@ -58,4 +60,13 @@ void				*create_display(void *scene, t_visu *visu)
 	sg_set_component_event(display_ptr, &display_event);
 	sg_set_component_data(display_ptr, default_display_data(visu));
 	return (display_ptr);
+}
+
+void				destroy_display(void *ptr)
+{
+	t_display		*display;
+
+	display = (t_display *)sg_get_component_data(ptr);
+	free(display->hextex_data->data);
+	free(display->hextex_data);
 }

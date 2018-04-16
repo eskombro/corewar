@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 04:32:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:04:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:19:52 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void			player_id(t_visu *visu, t_player *player,
 	tmp = ft_itoa(player->vm_id);
 	sg_set_label_text(pinfo->id, sg_new_gstr(tmp,
 		get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
+	free(tmp);
 }
 
 static void			player_alive(t_visu *visu, t_player *player,
@@ -72,8 +73,9 @@ void				init_player_info_gui(t_visu *visu, t_player *player)
 	t_player_info	*pinfo;
 	t_main_scene	*main;
 
-	if (!(pinfo = (t_player_info *)malloc(sizeof(t_player_info))) ||
-		!(new = ft_llist_new(pinfo)))
+	if (!(pinfo = (t_player_info *)malloc(sizeof(t_player_info))))
+		error(ERR_MALLOC, ERR_CRITICAL);
+	if (!(new = ft_llist_new(pinfo)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	main = &(visu->gui.scenes[COREWAR_SCENE_MAIN].main);
 	ft_llist_back(&main->p_infos, new);

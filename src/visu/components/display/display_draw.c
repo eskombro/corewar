@@ -6,14 +6,13 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:22:18 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:52:03 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./display.h"
 
-static void		uniforms_norme(t_component_data *data, t_display *display,
-					float fx, float fy)
+static void		uniforms_norme(t_component_data *data, t_display *display)
 {
 	GLint		uniform;
 
@@ -56,7 +55,7 @@ static void		uniforms(t_component_data *data, t_rect bounds)
 	sg_uniform_color(uniform, display->ocolor);
 	uniform = glGetUniformLocation(data->shader_prog, "grid_color");
 	sg_uniform_color(uniform, display->grid_00);
-	uniforms_norme(data, display, fx, fy);
+	uniforms_norme(data, display);
 }
 
 void			display_draw(void *component, t_component_data *data,

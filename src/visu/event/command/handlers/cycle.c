@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 19:21:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:04:21 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:51:31 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void			update_cycles_to_die(t_visu *visu, int cycles_to_die)
 	free(tmp);
 }
 
-static void			update_alive(t_visu *visu, t_player_info *pinfo)
+static void			update_alive(t_player_info *pinfo)
 {
 	sg_set_label_text(
 		pinfo->alive,
@@ -36,7 +36,6 @@ static void			update_alive(t_visu *visu, t_player_info *pinfo)
 
 static void			udpdate_infos(t_visu *visu)
 {
-	t_llist			*pinfos;
 	t_llist			*tmp;
 	t_player_info	*pinfo;
 
@@ -44,7 +43,7 @@ static void			udpdate_infos(t_visu *visu)
 	while (tmp)
 	{
 		pinfo = (t_player_info *)tmp->data;
-		update_alive(visu, pinfo);
+		update_alive(pinfo);
 		tmp = tmp->next;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 05:03:25 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:07:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:51:54 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../events.h"
 
-static void			update_labels(t_visu *visu, t_player_info *pinfo)
+static void			update_labels(t_player_info *pinfo)
 {
 	sg_set_label_text(
 		pinfo->alive,
@@ -24,7 +24,6 @@ static void			update_labels(t_visu *visu, t_player_info *pinfo)
 void				handle_live(t_visu *visu, t_command *command)
 {
 	int				player;
-	t_llist			*pinfos;
 	t_llist			*tmp;
 	t_player_info	*pinfo;
 
@@ -35,7 +34,7 @@ void				handle_live(t_visu *visu, t_command *command)
 		pinfo = (t_player_info *)tmp->data;
 		if (pinfo->player->vm_id == player)
 		{
-			update_labels(visu, pinfo);
+			update_labels(pinfo);
 			break ;
 		}
 		tmp = tmp->next;

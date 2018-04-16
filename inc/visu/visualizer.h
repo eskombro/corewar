@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:33:21 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:20:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,5 +242,9 @@ void				set_display_edge(void *component, int edge);
 void				set_display_player_color(int n, void *component,
 						t_color color);
 void				set_display_check_color(void *component, t_color color);
+
+void				destroy_display(void *ptr);
+void				free_player_info(void *arg);
+void				free_visu(t_visu *visu);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:48:43 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:08:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:20:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void					uninit_gui(t_visu *visu)
 {
+	ft_llist_del(&visu->gui.scenes[COREWAR_SCENE_MAIN].main.p_infos,
+		&free_player_info);
+	destroy_display(visu->gui.scenes[COREWAR_SCENE_MAIN].main.mem_grid.frame);
 	sg_destroy_scene(visu->gui.scenes[COREWAR_SCENE_MAIN].ptr);
 	sg_destroy_scene(visu->gui.scenes[COREWAR_SCENE_END].ptr);
 }

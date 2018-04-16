@@ -6,13 +6,13 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 19:30:40 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 18:24:18 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:50:18 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./main_scene.h"
 
-static void			main_set_players_colors(t_visu *visu, t_main_scene *main)
+static void			main_set_players_colors(t_main_scene *main)
 {
 	t_llist			*tmp;
 	t_player_info	*pinfo;
@@ -62,7 +62,7 @@ void				main_update_colors(t_visu *visu, t_main_scene *main)
 	sg_set_label_color(main->cycles_rate_lbl, visu->gui.colors->main_text);
 	sg_set_label_color(main->cycles_rate, visu->gui.colors->main_text);
 	main_update_colors_display(visu, main);
-	main_set_players_colors(visu, main);
+	main_set_players_colors(main);
 }
 
 void				init_main_scene(t_visu *visu, t_main_scene *main)

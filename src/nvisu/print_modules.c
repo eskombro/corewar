@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 00:24:30 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/16 05:20:56 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/16 05:36:49 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void			display_stats(void)
 
 	i = -1;
 	y = get_visu()->start_y;
-	x = get_visu()->start_x + (3 * MEM_TAB_LENGTH) + 5;
+	x = get_visu()->start_x + (3 * MEM_TAB_LENGTH) + 2;
 	attron(COLOR_PAIR(3));
 	mvprintw(y++, x, " *--------------------------------------* ");
 	mvprintw(y++, x, " |               STATS                  | ");

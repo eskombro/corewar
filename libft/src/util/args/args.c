@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 01:44:58 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/11 00:48:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 23:05:19 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void		del_arg(void *ptr)
 **
 ** [Return]	Pointer to the arguments instance
 */
+
 void			*ft_args_new(void)
 {
 	t_args		*args;
@@ -43,6 +44,7 @@ void			*ft_args_new(void)
 **
 ** [ Args ]	args: a pointer to the concerned args instance
 */
+
 void			ft_args_del(void *args)
 {
 	if (!args)
@@ -58,6 +60,7 @@ void			ft_args_del(void *args)
 **			name: argument to create
 ** [Return]	0: Success; 1: Failure
 */
+
 int				ft_args_add(void *args, char const *name, char shortcut,
 							int data_len)
 {
@@ -85,6 +88,7 @@ int				ft_args_add(void *args, char const *name, char shortcut,
 ** [ Args ]	ptr: a pointer to the concerned args instance
 ** [Return]	0: Success; 1: Failure
 */
+
 char			**ft_args_default(void *ptr)
 {
 	t_args		*args;

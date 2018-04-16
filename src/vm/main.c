@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 22:37:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 23:08:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int						main(int argc, char **argv)
 	if (!init_args(argc, argv))
 		return (1);
 	run_corewar();
+	ft_args_del(init_args(0, NULL));
 	return (0);
 }

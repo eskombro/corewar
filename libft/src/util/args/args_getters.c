@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 19:39:28 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/11 03:28:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 23:04:58 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 **			name: argument to seek for
 ** [Return]	An array of char * with all the data set for this argument.
 */
+
 char			**ft_args_data(void *args, char *name)
 {
 	t_llist		*args_list;
@@ -42,6 +43,7 @@ char			**ft_args_data(void *args, char *name)
 **			name: argument to seek for
 ** [Return]	Status 1 if set, 0 if not set.
 */
+
 int				ft_args_get(void *args, char *name)
 {
 	t_llist		*args_list;

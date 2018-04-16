@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 05:03:25 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 05:11:52 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:07:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void			update_labels(t_visu *visu, t_player_info *pinfo)
 	sg_set_label_text(
 		pinfo->alive,
 		sg_new_gstr("Alive",
-			get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 }
 
 void				handle_live(t_visu *visu, t_command *command)
@@ -35,7 +36,7 @@ void				handle_live(t_visu *visu, t_command *command)
 		if (pinfo->player->vm_id == player)
 		{
 			update_labels(visu, pinfo);
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}

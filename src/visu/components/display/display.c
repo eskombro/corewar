@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 22:06:52 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 18:13:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:55:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_display	*default_display_data(t_visu *visu)
 
 	if (!(display_data = (t_display *)ft_memalloc(sizeof(t_display))))
 		return (NULL);
-		display_data->ocolor = sg_colorf(0.0, 0.0, 0.0, 1.0);
+	display_data->ocolor = sg_colorf(0.0, 0.0, 0.0, 1.0);
 	display_data->grid_00 = sg_colorf(1.0, 1.0, 1.0, 1.0);
 	display_data->p1 = sg_colorf(1.0, 1.0, 1.0, 1.0);
 	display_data->p2 = sg_colorf(1.0, 1.0, 1.0, 1.0);

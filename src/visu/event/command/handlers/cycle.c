@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 19:21:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 16:47:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:04:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void			update_cycles_to_die(t_visu *visu, int cycles_to_die)
 	sg_set_label_text(
 		visu->gui.scenes[COREWAR_SCENE_MAIN].main.cycles_to_die,
 		sg_new_gstr(tmp,
-			get_resource_path(COREWAR_FONT), (int)(0.75 * COREWAR_TOP_FONT_SIZE)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 	free(tmp);
 }
 
@@ -29,7 +30,8 @@ static void			update_alive(t_visu *visu, t_player_info *pinfo)
 	sg_set_label_text(
 		pinfo->alive,
 		sg_new_gstr("-----",
-			get_resource_path(COREWAR_FONT), (int)(0.75 * COREWAR_TOP_FONT_SIZE)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 }
 
 static void			udpdate_infos(t_visu *visu)

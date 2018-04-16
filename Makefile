@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/16 16:42:38 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/16 18:18:50 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,6 +142,8 @@ SRC_2 = visu/main.c \
 	visu/components/display/display_setters.c \
 	visu/components/display/display_draw.c \
 	visu/components/display/display_event.c \
+	visu/components/display/display_tex.c \
+	visu/components/display/display_init.c \
 	\
 	visu/pngtex/pngtex.c
 

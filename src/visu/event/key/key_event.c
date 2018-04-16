@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 21:22:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 17:03:01 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:08:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void		update_tps(t_visu *visu)
 	sg_set_label_text(
 		visu->gui.scenes[COREWAR_SCENE_MAIN].main.cycles_rate,
 		sg_new_gstr(tmp,
-			get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 	free(tmp);
 }
 

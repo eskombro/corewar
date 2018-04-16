@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:48:43 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 16:44:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:08:26 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,23 @@ static void				draw_gui(t_visu *visu)
 	sg_draw(visu->gui.active_scene->ptr);
 }
 
-static void			update_labels(t_visu *visu)
+static void				update_labels(t_visu *visu)
 {
-	char			*tmp;
+	char				*tmp;
 
 	tmp = ft_itoa(visu->game.cycle);
 	sg_set_label_text(
 		visu->gui.scenes[COREWAR_SCENE_MAIN].main.cycles,
 		sg_new_gstr(tmp,
-			get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 	free(tmp);
 	tmp = ft_itoa(visu->game.cycle_left);
 	sg_set_label_text(
 		visu->gui.scenes[COREWAR_SCENE_MAIN].main.cycles_left,
 		sg_new_gstr(tmp,
-			get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 	free(tmp);
 }
 

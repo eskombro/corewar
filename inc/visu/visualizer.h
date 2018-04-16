@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 16:54:02 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:33:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ typedef struct		s_main_scene
 	void			*cycles_left;
 	void			*cycles_rate_lbl;
 	void			*cycles_rate;
-	void			*winner_lbl;
-	void			*winner;
 }					t_main_scene;
 
 typedef struct		s_end_scene
@@ -182,10 +180,10 @@ typedef struct		s_process
 	int				pc;
 }					t_process;
 
-#define PROCESS_ARRAY_SIZE 10000
+# define PROCESS_ARRAY_SIZE 10000
 
-#define WRITE_ANIM_DUR 250
-#define CHECK_ANIM_DUR 250
+# define WRITE_ANIM_DUR 250
+# define CHECK_ANIM_DUR 250
 
 typedef struct		s_gamedata
 {

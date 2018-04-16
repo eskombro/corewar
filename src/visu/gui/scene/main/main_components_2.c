@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 19:23:59 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 17:07:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:54:30 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void					cycles_lbl(t_visu *visu, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->cycles,
 		sg_recti((int)(2.5 * MAIN_SCENE_MARGIN),
-			visu->win_h - 3 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - COREWAR_TOP_FONT_SIZE, 0, 0));
+			visu->win_h - 3 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT -
+			COREWAR_TOP_FONT_SIZE, 0, 0));
 	sg_set_flags(main->cycles, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
@@ -42,7 +43,8 @@ void					cycles_to_die_lbl(t_visu *visu, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->cycles_to_die_lbl,
 		sg_recti(2 * MAIN_SCENE_MARGIN,
-			visu->win_h - 4 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - (int)(1.75 * COREWAR_TOP_FONT_SIZE), 0, 0));
+			visu->win_h - 4 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT -
+			(int)(1.75 * COREWAR_TOP_FONT_SIZE), 0, 0));
 	sg_set_flags(main->cycles_to_die_lbl, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
@@ -52,7 +54,8 @@ void					cycles_to_die_lbl(t_visu *visu, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->cycles_to_die,
 		sg_recti((int)(2.5 * MAIN_SCENE_MARGIN),
-			visu->win_h - 4 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - (int)(2.75 * COREWAR_TOP_FONT_SIZE), 0, 0));
+			visu->win_h - 4 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT -
+			(int)(2.75 * COREWAR_TOP_FONT_SIZE), 0, 0));
 	sg_set_flags(main->cycles_to_die, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
@@ -66,7 +69,8 @@ void					cycles_left_lbl(t_visu *visu, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->cycles_left_lbl,
 		sg_recti(2 * MAIN_SCENE_MARGIN,
-			visu->win_h - 5 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - (int)(3.5 * COREWAR_TOP_FONT_SIZE), 0, 0));
+			visu->win_h - 5 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT -
+			(int)(3.5 * COREWAR_TOP_FONT_SIZE), 0, 0));
 	sg_set_flags(main->cycles_left_lbl, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
@@ -76,7 +80,8 @@ void					cycles_left_lbl(t_visu *visu, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->cycles_left,
 		sg_recti((int)(2.5 * MAIN_SCENE_MARGIN),
-			visu->win_h - 5 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - (int)(4.5 * COREWAR_TOP_FONT_SIZE), 0, 0));
+			visu->win_h - 5 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT -
+			(int)(4.5 * COREWAR_TOP_FONT_SIZE), 0, 0));
 	sg_set_flags(main->cycles_left, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);

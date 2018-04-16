@@ -6,16 +6,26 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 15:34:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 16:55:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:59:49 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../events.h"
 
-static void			push_player(t_visu *visu, t_player *player)
+static void			push_player(t_visu *visu, t_player *player, int champ_len)
 {
 	t_llist			*new;
+	int				i;
 
+	i = -1;
+	while (++i < champ_len)
+	{
+		visu->mem.data[(player->spawn + i) % visu->mem.size].content =
+			player->champ[i];
+		visu->mem.data[(player->spawn + i) % visu->mem.size].writer =
+			player->visu_id;
+	}
+	visu->mem.new_data = 1;
 	if (!(new = ft_llist_new(player)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	ft_llist_back(&visu->players, new);
@@ -40,7 +50,6 @@ void				handle_champ_spawn(t_visu *visu, t_command *command)
 	t_player		*player;
 	int				name_len;
 	int				champ_len;
-	int				i;
 
 	if (!visu->mem.data)
 		return ;
@@ -53,19 +62,11 @@ void				handle_champ_spawn(t_visu *visu, t_command *command)
 	player->name = read_str(command->data + 6, name_len);
 	player->spawn = read_int(command->data + 6 + name_len);
 	champ_len = read_int(command->data + 6 + name_len + 4);
-	player->champ = (unsigned char *)read_str(command->data + 6 + name_len + 8, champ_len);
+	player->champ = (unsigned char *)read_str(command->data + 6 + name_len + 8,
+		champ_len);
 	while (player->spawn < 0)
 		player->spawn += visu->mem.size;
-	i = -1;
-	while (++i < champ_len)
-	{
-		visu->mem.data[(player->spawn + i) % visu->mem.size].content =
-			player->champ[i];
-		visu->mem.data[(player->spawn + i) % visu->mem.size].writer =
-			player->visu_id;
-	}
-	visu->mem.new_data = 1;
-	push_player(visu, player);
+	push_player(visu, player, champ_len);
 	init_player_info_gui(visu, player);
 }
 
@@ -79,7 +80,8 @@ void				handle_champ_win(t_visu *visu, t_command *command)
 		sg_set_label_text(
 			visu->gui.scenes[COREWAR_SCENE_END].end.msg,
 			sg_new_gstr(player->name,
-				get_resource_path(COREWAR_FONT), (int)(1.5 * COREWAR_TOP_FONT_SIZE)));
+				get_resource_path(COREWAR_FONT),
+					(int)(1.5 * COREWAR_TOP_FONT_SIZE)));
 		sg_set_label_color(visu->gui.scenes[COREWAR_SCENE_END].end.msg,
 			*player->color);
 	}

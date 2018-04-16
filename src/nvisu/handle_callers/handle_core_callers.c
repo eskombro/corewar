@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 02:11:26 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/15 03:25:40 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/16 01:01:26 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,6 @@ static void		display_arena(void)
 	get_visu()->mem_tab_height = y;
 }
 
-static void		free_all(void)
-{
-	int			i;
-	t_v_proc	*tmp;
-	t_v_proc	*tmp_proc;
-
-	i = -1;
-	ft_strdel((char**)&get_visu()->mem);
-	while (++i < get_visu()->champ_nb)
-	{
-		ft_strdel(&get_visu()->champs[i]->name);
-		ft_memdel((void**)&get_visu()->champs[i]);
-	}
-	ft_memdel((void**)&get_visu()->champs);
-	i = -1;
-	tmp_proc = NULL;
-	while (++i < PROC_TAB_SIZE)
-	{
-		tmp_proc = get_visu()->procs[i];
-		while (tmp_proc)
-		{
-			tmp_proc->next ? tmp = tmp_proc->next : 0;
-			ft_memdel((void**)tmp_proc);
-			tmp_proc = tmp;
-		}
-	}
-	ft_memdel((void**)get_visu()->procs);
-}
-
 void			handle_core_begin(t_command *command)
 {
 	get_visu()->m_size = read_int(command->data);
@@ -80,8 +51,5 @@ void			handle_core_begin(t_command *command)
 
 void			handle_core_end(void)
 {
-	free_all();
-	while (1)
-		;
-	endwin();
+	get_visu()->end = 1;
 }

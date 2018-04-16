@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/15 02:50:39 by sjimenez         ###   ########.fr        #
+#    Updated: 2018/04/16 04:38:22 by sjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,12 +125,16 @@ TARGET_3 = show_corewar_ncurse
 SRC_3 = nvisu/main.c \
 	nvisu/communication_corewar.c \
 	nvisu/print_modules.c \
-	nvisu/handle_champ_callers.c \
-	nvisu/handle_core_callers.c \
-	nvisu/handle_logic_callers.c \
-	nvisu/handle_memory_callers.c \
-	nvisu/handle_process_callers.c \
-	nvisu/process_display.c \
+	nvisu/handle_callers/handle_champ_callers.c \
+	nvisu/handle_callers/handle_core_callers.c \
+	nvisu/handle_callers/handle_logic_callers.c \
+	nvisu/handle_callers/handle_memory_callers.c \
+	nvisu/handle_callers/handle_process_callers.c \
+	nvisu/handle_callers/process_display.c \
+	nvisu/free_all.c \
+	nvisu/initialize_ncurses.c \
+	nvisu/test_char.c \
+	nvisu/display_shortcuts.c \
 	\
 	nvisu/commands/commands.c \
 	nvisu/commands/command_writers.c \

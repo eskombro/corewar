@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 02:38:24 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/15 02:44:34 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/16 00:28:19 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			handle_logic_cycle(t_command *command)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	get_visu()->stats->cycles = read_int(command->data);

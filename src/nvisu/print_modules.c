@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 00:24:30 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/15 04:00:17 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/16 05:20:56 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 void			print_header2(int y, int x, int i)
 {
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i -= 2));
 	printw(" 888        888     888 888   d88P 8888888");
 	printw("    888 d888b 888     d88P 888 888   d88P ");
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i--));
 	printw(" 888        888     888 8888888P   888    ");
 	printw("    888d88888b888    d88P  888 8888888P   ");
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i--));
 	printw(" 888    888 888     888 888 T88b   888    ");
 	printw("    88888P Y88888   d88P   888 888 T88b   ");
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i--));
 	printw(" Y88b  d88P Y88b. .d88P 888  T88b  888    ");
 	printw("    8888P   Y8888  d8888888888 888  T88b  ");
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i--));
 	printw("   Y8888P     Y88888P   888   T88b 8888888");
 	printw("888 888P     Y888 d88P     888 888   T88b ");
@@ -47,21 +47,21 @@ void			print_header(void)
 	int		x;
 	int		i;
 
-	y = 3;
+	y = 2;
 	i = 246;
 	x = (COLS - 83) / 2;
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i--));
 	printw("  .d8888b.   .d88888b.  8888888b.  8888888");
 	printw("888 888       888        d8888 8888888b.  ");
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i -= 2));
 	printw(" d88P  Y88b d88P   Y88b 888   Y88b 888    ");
 	printw("    888   o   888       d88888 888   Y88b ");
 	move(y++, x);
-	init_pair(i, i, COLOR_BLACK);
+	init_pair(i, i, 232);
 	attron(COLOR_PAIR(i -= 2));
 	printw(" 888    888 888     888 888    888 888    ");
 	printw("    888  d8b  888      d88P888 888    888 ");
@@ -80,17 +80,18 @@ void			display_leaderboard(void)
 	while (++i < get_visu()->champ_nb)
 	{
 		attron(COLOR_PAIR(i + 32));
-		mvprintw(y++, x, "*--------------------------------------*");
-		mvprintw(y++, x, "|                                      |");
-		mvprintw(y++, x, "|\t%-31.31s |", get_visu()->champs[i]->name);
-		mvprintw(y++, x, "|                                      |");
-		mvprintw(y++, x, "|\tPlayer %-3d (%.8x)           |",
+		mvprintw(y++, x, " *--------------------------------------* ");
+		mvprintw(y++, x, " |    %-31.31s   | ", get_visu()->champs[i]->name);
+		mvprintw(y++, x, " *--------------------------------------* ");
+		mvprintw(y++, x, " |                                      | ");
+		mvprintw(y++, x, " |    Player %-3d (%.8x)             | ",
 			get_visu()->champs[i]->id, get_visu()->champs[i]->id);
-		mvprintw(y++, x, "|\tLives this round: %-13d |",
-				get_visu()->champs[i]->lifes_round);
-		mvprintw(y++, x, "|\tLives: %-24d |", get_visu()->champs[i]->lifes);
-		mvprintw(y++, x, "|                                      |");
-		mvprintw(y++, x, "*--------------------------------------*");
+		mvprintw(y++, x, " |    Lives this round: %-13d   | ",
+			get_visu()->champs[i]->lifes_round);
+		mvprintw(y++, x, " |    Total lives: %-18d   | ",
+			get_visu()->champs[i]->lifes);
+		mvprintw(y++, x, " |                                      | ");
+		mvprintw(y++, x, " *--------------------------------------* ");
 		y++;
 	}
 }
@@ -105,34 +106,37 @@ void			display_stats(void)
 	y = get_visu()->start_y;
 	x = get_visu()->start_x + (3 * MEM_TAB_LENGTH) + 5;
 	attron(COLOR_PAIR(3));
-	mvprintw(y++, x, "*--------------------------------------*");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|\tSTATS                             |");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|\tCycles:       %- 16d    |", get_visu()->stats->cycles);
-	mvprintw(y++, x, "|\tCycles to die: %-6d             |",
+	mvprintw(y++, x, " *--------------------------------------* ");
+	mvprintw(y++, x, " |               STATS                  | ");
+	mvprintw(y++, x, " *--------------------------------------* ");
+	mvprintw(y++, x, " |   Cycles:           %- 15d  | ",
+		get_visu()->stats->cycles);
+	mvprintw(y++, x, " |   Cycles to die:     %-6d          | ",
 		get_visu()->stats->cycles_to_die);
-	mvprintw(y++, x, "|\tCycles left:   %-8d           |",
+	mvprintw(y++, x, " |   Cycles left:       %-8d        | ",
 		get_visu()->stats->cycles_left);
-	mvprintw(y++, x, "|\tLast live:     %-18s |", get_visu()->stats->last_life);
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "*--------------------------------------*");
+	mvprintw(y++, x, " |   Last live:         %-12.12s    | ",
+		get_visu()->stats->last_life);
+	mvprintw(y++, x, " |   Cycles per second: %-4d            | ",
+		get_visu()->cps);
+	mvprintw(y++, x, " |                                      | ");
+	mvprintw(y++, x, " *--------------------------------------* ");
 }
 
 void			print_win_panel(int x, int y, char *str)
 {
-	mvprintw(y++, x, "*--------------------------------------*");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|             THE END                  |");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|\tWinner: %-24s  |", str);
-	mvprintw(y++, x, "|\tCycles: %-6d                    |",
+	y++;
+	mvprintw(y++, x, " *--------------------------------------* ");
+	mvprintw(y++, x, " |             THE END                  | ");
+	mvprintw(y++, x, " *--------------------------------------* ");
+	mvprintw(y++, x, " |                                      | ");
+	mvprintw(y++, x, " |    Winner: %-24s  | ", str);
+	mvprintw(y++, x, " |    Cycles: %-6d                    | ",
 			get_visu()->stats->cycles);
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|\tPRESS ctrl + c TO CLOSE           |");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "|                                      |");
-	mvprintw(y++, x, "*--------------------------------------*");
+	mvprintw(y++, x, " |                                      | ");
+	mvprintw(y++, x, " |                                      | ");
+	mvprintw(y++, x, " |    PRESS 'q' TO CLOSE                | ");
+	mvprintw(y++, x, " |                                      | ");
+	mvprintw(y++, x, " |                                      | ");
+	mvprintw(y++, x, " *--------------------------------------* ");
 }

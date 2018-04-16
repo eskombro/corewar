@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 21:22:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:50:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:08:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void		update_tps(t_visu *visu)
 	sg_set_label_text(
 		visu->gui.scenes[COREWAR_SCENE_MAIN].main.cycles_rate,
 		sg_new_gstr(tmp,
-			get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
+			get_resource_path(COREWAR_FONT),
+			(int)(0.75 * COREWAR_TOP_FONT_SIZE)));
 	free(tmp);
 }
 
@@ -59,21 +60,33 @@ static void		handle_tps(t_visu *visu, SDL_KeyboardEvent key)
 		visu->tps += 10;
 	else if (key.keysym.sym == SDLK_PAGEDOWN || key.keysym.sym == SDLK_f)
 		visu->tps -= 10;
-	if (visu->tps <= 0)
+	if (visu->tps <= 0 || key.keysym.sym == SDLK_END ||
+		key.keysym.sym == SDLK_g)
 		visu->tps = 1;
-	else if (visu->tps > CYCLES_PER_SECOND_MAX)
+	else if (visu->tps > CYCLES_PER_SECOND_MAX || key.keysym.sym == SDLK_HOME ||
+		key.keysym.sym == SDLK_t)
 		visu->tps = CYCLES_PER_SECOND_MAX;
 	update_tps(visu);
 	pthread_mutex_unlock(&visu->run_mutex);
 }
 
+static void		handle_escape(t_visu *visu)
+{
+	SDL_Event	e;
+
+	if (visu->gui.active_scene == visu->gui.scenes + COREWAR_SCENE_MAIN)
+	{
+		e.type = SDL_QUIT;
+		SDL_PushEvent(&e);
+	}
+	else if (visu->gui.active_scene == visu->gui.scenes + COREWAR_SCENE_END)
+		push_user_event(COREWAR_EVENT_SCENE, (void *)COREWAR_SCENE_MAIN, NULL);
+}
+
 void			handle_key_event(t_visu *visu, SDL_KeyboardEvent key)
 {
-	SDL_Event	quit;
-
-	quit.type = SDL_QUIT;
 	if (key.keysym.sym == SDLK_ESCAPE)
-		SDL_PushEvent(&quit);
+		handle_escape(visu);
 	else if (key.keysym.sym == SDLK_RETURN)
 	{
 		if (SDL_GetWindowFlags(visu->window) & SDL_WINDOW_FULLSCREEN_DESKTOP)
@@ -82,10 +95,18 @@ void			handle_key_event(t_visu *visu, SDL_KeyboardEvent key)
 			SDL_SetWindowFullscreen(visu->window,
 				SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
+	else if (key.keysym.sym == SDLK_SPACE)
+	{
+		pthread_mutex_lock(&visu->pause_mutex);
+		visu->pause ^= 1;
+		pthread_mutex_unlock(&visu->pause_mutex);
+	}
 	else if (key.keysym.sym == SDLK_UP || key.keysym.sym == SDLK_w ||
 		key.keysym.sym == SDLK_DOWN || key.keysym.sym == SDLK_s ||
 		key.keysym.sym == SDLK_PAGEUP || key.keysym.sym == SDLK_r ||
-		key.keysym.sym == SDLK_PAGEDOWN || key.keysym.sym == SDLK_f)
+		key.keysym.sym == SDLK_PAGEDOWN || key.keysym.sym == SDLK_f ||
+		key.keysym.sym == SDLK_HOME || key.keysym.sym == SDLK_t ||
+		key.keysym.sym == SDLK_END || key.keysym.sym == SDLK_g)
 		handle_tps(visu, key);
 	handle_color_set_pick(visu, key);
 }

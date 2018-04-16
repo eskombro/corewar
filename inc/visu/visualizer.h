@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:45:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:20:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define COREWAR_TOP_FONT_SIZE 30
 
 # define COREWAR_EVENT_COMMAND 0
+# define COREWAR_EVENT_SCENE 1
 
 typedef struct timespec	t_time;
 
@@ -64,16 +65,27 @@ typedef struct		s_mem_grid
 }					t_mem_grid;
 
 # define MAIN_SCENE_TOP_HEIGHT 50
-# define MAIN_SCENE_BOTTOM_HEIGHT 100
 
 # define MAIN_SCENE_MARGIN 20
 # define MAIN_SCENE_CORNER_RADIUS 7
 # define MAIN_SCENE_EDGE 1
 
+typedef struct		s_player
+{
+	int				vm_id;
+	int				visu_id;
+	char			*name;
+	int				spawn;
+	unsigned char	*champ;
+	t_color			*color;
+}					t_player;
+
 typedef struct		s_player_info
 {
+	t_player		*player;
 	void			*name;
-	void			*lives;
+	void			*id;
+	void			*alive;
 }					t_player_info;
 
 typedef struct		s_main_scene
@@ -91,8 +103,6 @@ typedef struct		s_main_scene
 	void			*cycles_left;
 	void			*cycles_rate_lbl;
 	void			*cycles_rate;
-	void			*winner_lbl;
-	void			*winner;
 }					t_main_scene;
 
 typedef struct		s_end_scene
@@ -100,9 +110,7 @@ typedef struct		s_end_scene
 	void			*ptr;
 	void			*heckyeah;
 	void			*msg;
-	void			*vs;
-	void			*score_1;
-	void			*score_2;
+	void			*wins;
 	void			*popup;
 	void			*background;
 }					t_end_scene;
@@ -172,22 +180,14 @@ typedef struct		s_process
 	int				pc;
 }					t_process;
 
-typedef struct		s_player
-{
-	int				vm_id;
-	int				visu_id;
-	char			*name;
-	int				spawn;
-	unsigned char	*champ;
-}					t_player;
+# define PROCESS_ARRAY_SIZE 10000
 
-#define PROCESS_ARRAY_SIZE 10000
-
-#define WRITE_ANIM_DUR 250
-#define CHECK_ANIM_DUR 250
+# define WRITE_ANIM_DUR 250
+# define CHECK_ANIM_DUR 250
 
 typedef struct		s_gamedata
 {
+	int				update_labels;
 	int				cycle;
 	int				cycle_to_die;
 	int				cycle_left;
@@ -197,8 +197,10 @@ typedef struct		s_gamedata
 typedef struct		s_visu
 {
 	int				run;
+	int				pause;
 	int				end;
 	pthread_mutex_t	run_mutex;
+	pthread_mutex_t	pause_mutex;
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Rect		max_size;
@@ -240,5 +242,9 @@ void				set_display_edge(void *component, int edge);
 void				set_display_player_color(int n, void *component,
 						t_color color);
 void				set_display_check_color(void *component, t_color color);
+
+void				destroy_display(void *ptr);
+void				free_player_info(void *arg);
+void				free_visu(t_visu *visu);
 
 #endif

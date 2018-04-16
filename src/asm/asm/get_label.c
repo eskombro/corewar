@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:36:54 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/07 01:56:08 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 19:09:25 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static int	cmp_label_to_expr(t_expr *current, char *cmp)
 	tmp++;
 	while (*tmp && *tmp != SEPARATOR_CHAR && *tmp != '-' && *tmp != '+')
 		tmp++;
+	if (ft_strlen(current->expr) != (size_t)(tmp - cmp))
+		return (0);
 	if (!ft_strnequ(current->expr, cmp + 1, tmp - cmp - 1))
 		return (0);
 	else

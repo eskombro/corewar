@@ -6,24 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 04:32:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 05:25:49 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:07:37 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../events.h"
-
-static t_color		*color_from_id(int writer, t_color_set *colors)
-{
-	if ((writer - 1) % 4 == 0)
-		return (&colors->display_p1);
-	if ((writer - 1) % 4 == 1)
-		return (&colors->display_p2);
-	if ((writer - 1) % 4 == 2)
-		return (&colors->display_p3);
-	if ((writer - 1) % 4 == 3)
-		return (&colors->display_p4);
-	return (&colors->display_grid_00);
-}
 
 void				init_player_info_gui(t_visu *visu, t_player *player)
 {
@@ -38,7 +25,6 @@ void				init_player_info_gui(t_visu *visu, t_player *player)
 	main = &(visu->gui.scenes[COREWAR_SCENE_MAIN].main);
 	ft_llist_back(&main->p_infos, new);
 	pinfo->player = player;
-	pinfo->color = color_from_id(player->visu_id, visu->gui.colors);
 	if (!(pinfo->name = sg_create_label(main->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(pinfo->name,
@@ -52,7 +38,7 @@ void				init_player_info_gui(t_visu *visu, t_player *player)
 	if (!(pinfo->id = sg_create_label(main->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(pinfo->id,
-		sg_recti(visu->win_w - 2 * MAIN_SCENE_MARGIN,
+		sg_recti(visu->win_w - (int)(2.5 * MAIN_SCENE_MARGIN),
 			visu->win_h - (2 + player->visu_id) * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - (int)(((player->visu_id) * 2.5 - 1.5) * COREWAR_TOP_FONT_SIZE), 0, 0));
 	sg_set_flags(pinfo->id, SG_LOCK_TOP
 		| SG_LOCK_RIGHT | SG_LOCK_SIZE
@@ -63,14 +49,14 @@ void				init_player_info_gui(t_visu *visu, t_player *player)
 	if (!(pinfo->alive = sg_create_label(main->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(pinfo->alive,
-		sg_recti(visu->win_w - 2 * MAIN_SCENE_MARGIN,
+		sg_recti(visu->win_w - (int)(2.5 * MAIN_SCENE_MARGIN),
 			visu->win_h - (2 + player->visu_id) * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT - (int)(((player->visu_id) * 2.5 - 0.75) * COREWAR_TOP_FONT_SIZE), 0, 0));
 	sg_set_flags(pinfo->alive, SG_LOCK_TOP
 		| SG_LOCK_RIGHT | SG_LOCK_SIZE
 		| SG_ALIGN_LEFT);
 	sg_set_label_text(pinfo->alive, sg_new_gstr("-----",
 		get_resource_path(COREWAR_FONT), (int)(COREWAR_TOP_FONT_SIZE * 0.75)));
-	sg_set_label_color(pinfo->name, *pinfo->color);
-	sg_set_label_color(pinfo->id, *pinfo->color);
-	sg_set_label_color(pinfo->alive, *pinfo->color);
+	sg_set_label_color(pinfo->name, *pinfo->player->color);
+	sg_set_label_color(pinfo->id, *pinfo->player->color);
+	sg_set_label_color(pinfo->alive, *pinfo->player->color);
 }

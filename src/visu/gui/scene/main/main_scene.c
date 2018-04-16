@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 19:30:40 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 04:58:53 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:50:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void			main_set_players_colors(t_visu *visu, t_main_scene *main)
 	while (tmp)
 	{
 		pinfo = (t_player_info *)tmp->data;
-		sg_set_label_color(pinfo->name, *pinfo->color);
-		sg_set_label_color(pinfo->id, *pinfo->color);
-		sg_set_label_color(pinfo->alive, *pinfo->color);
+		sg_set_label_color(pinfo->name, *pinfo->player->color);
+		sg_set_label_color(pinfo->id, *pinfo->player->color);
+		sg_set_label_color(pinfo->alive, *pinfo->player->color);
 		tmp = tmp->next;
 	}
 }

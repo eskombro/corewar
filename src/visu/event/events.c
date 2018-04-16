@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:39:06 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 17:13:02 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:39:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void			handle_event(t_visu *visu, SDL_Event e)
 	{
 		if (e.user.code == COREWAR_EVENT_COMMAND)
 			handle_command_event(visu, e.user);
+		if (e.user.code == COREWAR_EVENT_SCENE)
+			handle_scene_event(visu, e.user);
 	}
 }
 

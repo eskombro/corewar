@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 21:39:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 04:42:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:25:37 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void		update_mem_raw(t_display *display)
 	int			i;
 	t_color		tmp;
 	float		f;
+	float		a;
 
 	if (!display->mem->raw_content && !(display->mem->raw_content =
 		(unsigned char *)ft_memalloc(
@@ -143,14 +144,14 @@ static void		update_mem_raw(t_display *display)
 		f = (display->game->cycle - display->game->check_cycle
 			 > CHECK_ANIM_DUR) ? 0.0 : (1.0 - ((float)(display->game->cycle -
 			display->game->check_cycle)) / ((float)(CHECK_ANIM_DUR)));
-		display->mem->raw_back[i * 4] = (1.0 - f) * tmp.r +
-			f * display->check.r;
-		display->mem->raw_back[i * 4 + 1] = (1.0 - f) * tmp.g +
-			f * display->check.g;
-		display->mem->raw_back[i * 4 + 2] = (1.0 - f) * tmp.b +
-			f * display->check.b;
-		display->mem->raw_back[i * 4 + 3] = (1.0 - f) * tmp.a +
-			f * display->check.a;
+		a = (1.0 - tmp.a) * f * display->check.a + tmp.a;
+		display->mem->raw_back[i * 4] = ((1.0 - tmp.a) * f *
+			display->check.a * display->check.r + tmp.a * tmp.r) / a;
+		display->mem->raw_back[i * 4 + 1] = ((1.0 - tmp.a) * f *
+			display->check.a * display->check.g + tmp.a * tmp.g) / a;
+		display->mem->raw_back[i * 4 + 2] = ((1.0 - tmp.a) * f *
+			display->check.a * display->check.b + tmp.a * tmp.b) / a;
+		display->mem->raw_back[i * 4 + 3] = a;
 	}
 }
 

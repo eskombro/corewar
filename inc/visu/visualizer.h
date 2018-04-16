@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 05:21:32 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:54:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define COREWAR_TOP_FONT_SIZE 30
 
 # define COREWAR_EVENT_COMMAND 0
+# define COREWAR_EVENT_SCENE 1
 
 typedef struct timespec	t_time;
 
@@ -76,6 +77,7 @@ typedef struct		s_player
 	char			*name;
 	int				spawn;
 	unsigned char	*champ;
+	t_color			*color;
 }					t_player;
 
 typedef struct		s_player_info
@@ -84,7 +86,6 @@ typedef struct		s_player_info
 	void			*name;
 	void			*id;
 	void			*alive;
-	t_color			*color;
 }					t_player_info;
 
 typedef struct		s_main_scene
@@ -111,9 +112,7 @@ typedef struct		s_end_scene
 	void			*ptr;
 	void			*heckyeah;
 	void			*msg;
-	void			*vs;
-	void			*score_1;
-	void			*score_2;
+	void			*wins;
 	void			*popup;
 	void			*background;
 }					t_end_scene;
@@ -190,6 +189,7 @@ typedef struct		s_process
 
 typedef struct		s_gamedata
 {
+	int				update_labels;
 	int				cycle;
 	int				cycle_to_die;
 	int				cycle_left;

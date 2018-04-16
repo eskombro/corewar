@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 19:23:59 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 22:46:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 04:26:05 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void					cycles_rate_lbl(t_visu *visu, t_main_scene *main)
 	sg_set_component_boundaries(main->cycles_rate_lbl,
 		sg_recti(2 * MAIN_SCENE_MARGIN,
 			2 * MAIN_SCENE_MARGIN + (int)(1 * COREWAR_TOP_FONT_SIZE), 0, 0));
-	sg_set_flags(main->cycles_rate_lbl, SG_LOCK_TOP
+	sg_set_flags(main->cycles_rate_lbl, SG_LOCK_BOTTOM
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
 	sg_set_label_text(main->cycles_rate_lbl, sg_new_gstr("Cycles per second",
@@ -104,7 +104,7 @@ void					cycles_rate_lbl(t_visu *visu, t_main_scene *main)
 	sg_set_component_boundaries(main->cycles_rate,
 		sg_recti(2 * MAIN_SCENE_MARGIN,
 			2 * MAIN_SCENE_MARGIN, 0, 0));
-	sg_set_flags(main->cycles_rate, SG_LOCK_TOP
+	sg_set_flags(main->cycles_rate, SG_LOCK_BOTTOM
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
 	tmp = ft_itoa(CYCLES_PER_SECOND);

@@ -6,13 +6,29 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 19:30:40 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:32:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 04:58:53 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./main_scene.h"
 
-void			main_update_colors(t_visu *visu, t_main_scene *main)
+static void			main_set_players_colors(t_visu *visu, t_main_scene *main)
+{
+	t_llist			*tmp;
+	t_player_info	*pinfo;
+
+	tmp = main->p_infos;
+	while (tmp)
+	{
+		pinfo = (t_player_info *)tmp->data;
+		sg_set_label_color(pinfo->name, *pinfo->color);
+		sg_set_label_color(pinfo->id, *pinfo->color);
+		sg_set_label_color(pinfo->alive, *pinfo->color);
+		tmp = tmp->next;
+	}
+}
+
+void				main_update_colors(t_visu *visu, t_main_scene *main)
 {
 	sg_set_rectangle_icolor(main->top_frame, visu->gui.colors->background);
 	sg_set_rectangle_ocolor(main->top_frame, visu->gui.colors->main_text);
@@ -39,9 +55,10 @@ void			main_update_colors(t_visu *visu, t_main_scene *main)
 		visu->gui.colors->display_p4);
 	set_display_check_color(main->mem_grid.frame,
 		visu->gui.colors->display_check);
+	main_set_players_colors(visu, main);
 }
 
-void			init_main_scene(t_visu *visu, t_main_scene *main)
+void				init_main_scene(t_visu *visu, t_main_scene *main)
 {
 	if (!(main->ptr = sg_new_scene(visu->window)))
 		error(ERR_MALLOC, ERR_CRITICAL);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:45:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 05:21:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,27 @@ typedef struct		s_mem_grid
 }					t_mem_grid;
 
 # define MAIN_SCENE_TOP_HEIGHT 50
-# define MAIN_SCENE_BOTTOM_HEIGHT 100
 
 # define MAIN_SCENE_MARGIN 20
 # define MAIN_SCENE_CORNER_RADIUS 7
 # define MAIN_SCENE_EDGE 1
 
+typedef struct		s_player
+{
+	int				vm_id;
+	int				visu_id;
+	char			*name;
+	int				spawn;
+	unsigned char	*champ;
+}					t_player;
+
 typedef struct		s_player_info
 {
+	t_player		*player;
 	void			*name;
-	void			*lives;
+	void			*id;
+	void			*alive;
+	t_color			*color;
 }					t_player_info;
 
 typedef struct		s_main_scene
@@ -172,15 +183,6 @@ typedef struct		s_process
 	int				pc;
 }					t_process;
 
-typedef struct		s_player
-{
-	int				vm_id;
-	int				visu_id;
-	char			*name;
-	int				spawn;
-	unsigned char	*champ;
-}					t_player;
-
 #define PROCESS_ARRAY_SIZE 10000
 
 #define WRITE_ANIM_DUR 250
@@ -197,8 +199,10 @@ typedef struct		s_gamedata
 typedef struct		s_visu
 {
 	int				run;
+	int				pause;
 	int				end;
 	pthread_mutex_t	run_mutex;
+	pthread_mutex_t	pause_mutex;
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Rect		max_size;

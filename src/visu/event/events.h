@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 21:23:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 18:24:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 05:06:51 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void			handle_champ_spawn(t_visu *visu, t_command *command);
 void			handle_proc_spawn(t_visu *visu, t_command *command);
 void			handle_proc_move(t_visu *visu, t_command *command);
 void			handle_new_cycle(t_visu *visu, t_command *command);
+void			handle_live(t_visu *visu, t_command *command);
 void			handle_proc_death(t_visu *visu, t_command *command);
 
 /*
@@ -38,4 +39,6 @@ t_process		*find_process(t_visu *visu, int proc_id);
 void			push_proc(t_visu *visu, t_process *proc);
 void			proc_add(t_visu *visu, t_process *proc);
 void			proc_remove(t_visu *visu, t_process *proc);
+void			init_player_info_gui(t_visu *visu, t_player *player);
+
 #endif

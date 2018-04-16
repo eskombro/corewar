@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 01:07:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/12 15:12:42 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 05:23:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ static void			*start_read(void *arg)
 	while (visu->run)
 	{
 		pthread_mutex_unlock(&visu->run_mutex);
+		pthread_mutex_lock(&visu->pause_mutex);
+		if (visu->pause)
+		{
+			pthread_mutex_unlock(&visu->pause_mutex);
+			pthread_mutex_lock(&visu->run_mutex);
+			continue ;
+		}
+		pthread_mutex_unlock(&visu->pause_mutex);
 		clock_gettime(CLOCK_MONOTONIC_RAW, &current_time);
 		delta = (current_time.tv_sec - last_time.tv_sec) * 1000000000 +
 				current_time.tv_nsec - last_time.tv_nsec;

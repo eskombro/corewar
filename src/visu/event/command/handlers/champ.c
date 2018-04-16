@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 15:34:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 18:08:47 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 04:35:37 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void				handle_champ_spawn(t_visu *visu, t_command *command)
 	}
 	visu->mem.new_data = 1;
 	push_player(visu, player);
+	init_player_info_gui(visu, player);
 }

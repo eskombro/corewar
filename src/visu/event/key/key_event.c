@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 21:22:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:50:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 05:23:01 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ void			handle_key_event(t_visu *visu, SDL_KeyboardEvent key)
 		else
 			SDL_SetWindowFullscreen(visu->window,
 				SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+	else if (key.keysym.sym == SDLK_SPACE)
+	{
+		pthread_mutex_lock(&visu->pause_mutex);
+		visu->pause ^= 1;
+		pthread_mutex_unlock(&visu->pause_mutex);
 	}
 	else if (key.keysym.sym == SDLK_UP || key.keysym.sym == SDLK_w ||
 		key.keysym.sym == SDLK_DOWN || key.keysym.sym == SDLK_s ||

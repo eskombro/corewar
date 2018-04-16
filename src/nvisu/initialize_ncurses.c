@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 02:07:44 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/16 05:18:33 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:24:24 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void			initialize_ncurses(void)
 	initscr();
 	start_color();
 	init_pair(1, 235, 232);
-	init_pair(2, 16, 16);
+	init_pair(2, 16, 232);
 	init_pair(3, 232, 241);
-	init_pair(4, 237, 233);
+	init_pair(4, 237, 232);
 	init_pair(11, 235, 242);
 	init_pair(12, 214, 232);
 	init_pair(13, 91, 232);

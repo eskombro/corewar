@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:46:18 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 15:53:39 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:42:27 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ static char		*get_expr(t_expr **list, char *champ, char *tmp, int *lines)
 
 static int		check_for_label_err(char *champ, char *tmp, int word)
 {
-	if (word && champ != tmp && *champ == LABEL_CHAR && (*(champ - 1)
-				== ' ' || *(champ - 1) == '\t') && (!*(champ + 1) ||
-				(*(champ + 1) && (*(champ + 1) == ' ' ||
-								*(champ + 1) == '\t'))))
+	if (word && champ != tmp && *champ == LABEL_CHAR && (*(champ - 1) == ' ' ||
+				*(champ - 1) == '\t') && (!*(champ + 1) ||
+				*(champ + 1) == '\n'))
+		return (0);
+	if (word && champ != tmp && *champ == LABEL_CHAR && (*(champ - 1) == ' ' ||
+				*(champ - 1) == '\t') && *(champ + 1) && (*(champ + 1) == ' '
+				|| *(champ + 1) == '\t'))
 		return (0);
 	return (1);
 }
@@ -86,7 +89,7 @@ int				parse_instr(char *champ, int lines, t_expr **list)
 
 	champ = trim_champ(champ, &expr, &lines);
 	begin = expr;
-	*list = expr;
+	*list = champ ? expr : NULL;
 	addr = 0;
 	if (!champ)
 		return ((int)error_instr(1, 0, NULL));

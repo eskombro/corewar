@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 11:08:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/26 23:16:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:24:00 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_instr_def				get_instr_def(int opcode)
 { I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_RG | T_D2 }, 25, OCP, &sti },
 { I_FORK, 1, { T_D2 }, 800, 0, &sfork },
 { I_LLD, 2, { T_ID | T_D4, T_RG }, 10, OCP, &lld },
-{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, 50, OCP, &lldi },
+{ I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2 | T_RG, T_RG }, 50, OCP, &lldi },
 { I_LFORK, 1, { T_D2 }, 1000, 0, &lfork },
 { I_AFF, 1, { T_RG }, 2, OCP, &aff }};
 

@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:30:22 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/02 02:56:46 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:10:02 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ long			parse_name(char *tmp)
 		if (*(tmp + 1))
 			tmp++;
 	}
-	if (*(tmp + 1) && *tmp != '.')
+	if (*tmp && *(tmp + 1) && *tmp != '.')
 		tmp++;
 	if (!ft_strchr(tmp, '.'))
 		return (0);

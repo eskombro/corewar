@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:47:03 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 23:30:51 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:19:44 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_instr_type		get_instr_type(char *name)
 { "sti", I_STI, 3, { T_RG, T_RG | T_ID | T_D2, T_RG | T_D2 }, F_OCP },
 { "fork", I_FORK, 1, { T_D2 }, 0 },
 { "lld", I_LLD, 2, { T_ID | T_D4, T_RG }, F_OCP },
-{ "lldi", I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2, T_RG }, F_OCP },
+{ "lldi", I_LLDI, 3, { T_RG | T_ID | T_D2, T_ID | T_D2 | T_RG, T_RG }, F_OCP },
 { "lfork", I_LFORK, 1, { T_D2 }, 0 },
 { "aff", I_AFF, 1, { T_RG }, F_OCP} };
 

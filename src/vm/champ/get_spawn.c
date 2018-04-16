@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 21:50:39 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 04:15:51 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:43:56 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,21 @@ static int		checkdup(int *tab, int size)
 		{
 			if (tab[i] == tab[j] && i != j)
 				return (0);
+			j++;
 		}
 		j = 0;
+		i++;
 	}
 	return (1);
 }
 
 void			get_champnbr(t_champ *champs, char *arg)
 {
-	int tab[10];
+	int tab[MAX_CHAMPS];
 	int i;
 
 	i = 0;
+	ft_bzero(&tab, sizeof(int) * MAX_CHAMPS);
 	while (champs[i].fixed_id)
 	{
 		tab[i] = ft_atoi(arg);
@@ -47,12 +50,12 @@ void			get_champnbr(t_champ *champs, char *arg)
 			arg++;
 		i++;
 	}
-	i = 0;
 	if (!checkdup(tab, i))
 		return ;
+	i = 0;
 	while (champs[i].fixed_id)
 	{
-		champs[i].fixed_id = tab[i];
+		champs[i].id = tab[i];
 		i++;
 	}
 }

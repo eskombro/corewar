@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 22:39:14 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 23:50:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct					s_params
 {
 	char						**champs_files;
+	char						*ids;
 	int							players;
 	int							dump;
 	int							verbose;

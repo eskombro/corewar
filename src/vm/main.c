@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 23:08:50 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 23:57:19 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void				run_corewar(void)
 	get_logic()->params = params;
 	if (!(champions = get_all_champ(params.champs_files)))
 		return ;
+	if (params.ids)
+		get_champnbr(champions, params.ids);
 	calc_spawn(params.players, champions);
 	i = -1;
 	while (++i < params.players)
@@ -31,6 +33,8 @@ static void				run_corewar(void)
 	free_champs(champions);
 	call_core_end();
 	ft_chartabfree(params.champs_files);
+	if (params.ids)
+		free(params.ids);
 }
 
 static void				*init_args(int argc, char **argv)
@@ -48,6 +52,8 @@ static void				*init_args(int argc, char **argv)
 		if (ft_args_add(args, "verbose", 'v', 1))
 			return (NULL);
 		if (ft_args_add(args, "commands", 'c', 0))
+			return (NULL);
+		if (ft_args_add(args, "id", 'n', 1))
 			return (NULL);
 		if (ft_args_parse(args, argc, argv))
 			return (NULL);
@@ -76,6 +82,13 @@ static void				fill_params(void *args, t_params *params)
 		params->verbose = ft_atoi(*tmp);
 		ft_chartabfree(tmp);
 	}
+	if (ft_args_get(args, "id"))
+	{
+		if (!(tmp = ft_args_data(args, "id")))
+			exit(1);
+		params->ids = ft_strdup(*tmp);
+		ft_chartabfree(tmp);
+	}
 	if (ft_args_get(args, "commands"))
 		params->command_io = 1;
 }
@@ -92,7 +105,7 @@ t_params				get_params(void)
 		params.verbose = -1;
 		params.command_io = 0;
 		fill_params(args, &params);
-		free(args);
+		ft_args_del(init_args(0, NULL));
 	}
 	return (params);
 }
@@ -102,6 +115,5 @@ int						main(int argc, char **argv)
 	if (!init_args(argc, argv))
 		return (1);
 	run_corewar();
-	ft_args_del(init_args(0, NULL));
 	return (0);
 }

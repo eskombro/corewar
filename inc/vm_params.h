@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:07:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 19:14:16 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 23:49:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,5 @@
 */
 # define MAX_CHAMPS 4
 # define CHAMP_MAX_SIZE (MEM_SIZE / 6)
-
-/*
-** Ncurse parameters
-*/
-# define NCURSE_DELAY 1000000 / 2
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 16:44:19 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/14 23:10:59 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 23:16:34 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		error_msg_instr(char cse, int nbr)
 				, nbr);
 	if (cse == 4)
 		ft_dprintf(2, "%rgb%s on instruction %d\n%0rgb", RED, "Parameter is \
-invalid" , nbr);
+invalid", nbr);
 	if (cse == 5)
 		ft_dprintf(2, "%rgb%s %d is invalid to open\n%0rgb", RED, "Parameter"
 				, nbr);

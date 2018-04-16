@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:30:45 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 04:18:37 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_params			get_params(void);
 /*
 ** Champions importation
 */
+void				get_champnbr(t_champ *champs, char *arg);
 t_champ				*get_all_champ(char **champ_files);
 int					calc_spawn(int players, t_champ *champs);
 

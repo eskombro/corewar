@@ -6,14 +6,58 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 21:50:39 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/03/14 16:55:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 04:15:51 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "corewar.h"
 
-int		calc_spawn(int players, t_champ *champs)
+static int		checkdup(int *tab, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < size)
+	{
+		while (j < size)
+		{
+			if (tab[i] == tab[j] && i != j)
+				return (0);
+		}
+		j = 0;
+	}
+	return (1);
+}
+
+void			get_champnbr(t_champ *champs, char *arg)
+{
+	int tab[10];
+	int i;
+
+	i = 0;
+	while (champs[i].fixed_id)
+	{
+		tab[i] = ft_atoi(arg);
+		while (*arg && *arg != ',')
+			arg++;
+		if (*arg && *arg == ',')
+			arg++;
+		i++;
+	}
+	i = 0;
+	if (!checkdup(tab, i))
+		return ;
+	while (champs[i].fixed_id)
+	{
+		champs[i].fixed_id = tab[i];
+		i++;
+	}
+}
+
+int				calc_spawn(int players, t_champ *champs)
 {
 	int lines;
 	int div;

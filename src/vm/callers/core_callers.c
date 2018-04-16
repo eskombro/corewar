@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 00:42:36 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/07 04:32:38 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 01:45:27 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void				call_core_begin(void)
 {
 	t_command		command;
 
-	ft_bzero(&command, sizeof(t_command));
+	if (!(get_logic()->params.command_io))
+		return ;
+	command.size = 0;
 	command.type = COMMAND_CORE_BEGIN;
 	command.size += write_int(command.data + command.size, MEM_SIZE);
 	send_command(command);
@@ -26,7 +28,9 @@ void				call_core_end(void)
 {
 	t_command		command;
 
-	ft_bzero(&command, sizeof(t_command));
+	if (!(get_logic()->params.command_io))
+		return ;
+	command.size = 0;
 	command.type = COMMAND_CORE_END;
 	send_command(command);
 }

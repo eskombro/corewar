@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 23:14:51 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/15 23:07:36 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void				run_corewar(void)
 		write_champ(champions + i);
 	call_core_begin();
 	run_loop(champions);
+	free_champs(champions);
 	call_core_end();
 	ft_chartabfree(params.champs_files);
-	free(champions);
 }
 
 static void				*init_args(int argc, char **argv)

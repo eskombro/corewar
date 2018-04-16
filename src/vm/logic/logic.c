@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:45:39 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/14 20:22:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:29:38 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void				run_process_cycle(t_proc *process)
 		{
 			call_instr_exec(process);
 			process->current_task->run_instr(process);
-			logic->params.ncurse ? update_arena_visu(process) : 0;
 		}
 		if (!(process->current_task->opcode == I_ZJMP && process->carry == 1))
 			process->pc += process->current_task->mem_size;
@@ -127,7 +126,6 @@ void					run_loop(t_champ *champs)
 		if (!run_cycle())
 			break ;
 		check_lives();
-		logic->params.ncurse ? print_screen(logic) : 0;
 		logic->cycles_left--;
 		logic->cycles++;
 	}

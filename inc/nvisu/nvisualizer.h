@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 22:09:21 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:13:51 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@
 
 # define MEM_TAB_LENGTH 64
 # define PROC_TAB_SIZE 100
-<<<<<<< HEAD
 # define SECOND 1000000000
 
 typedef struct timespec	t_time;
-=======
->>>>>>> acf57b6344c6d1c22fd38981c2bd082dafbd8fda
 
 typedef struct			s_v_champ
 {

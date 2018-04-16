@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/16 22:10:39 by bacrozat         ###   ########.fr        #
+#    Updated: 2018/04/16 22:33:34 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,6 @@ SRC_1 = vm/main.c \
 	vm/display/spe_instr.c \
 	vm/display/store.c \
 	vm/display/bin_op.c \
-	\
-	vm/ncurse/arena_visu.c \
-	vm/ncurse/display.c \
-	vm/ncurse/visual.c \
 	\
 	vm/callers/process_callers.c \
 	vm/callers/memory_callers.c \

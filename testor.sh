@@ -1,4 +1,4 @@
-dir=cc/poub/tests
+dir=cc/poub/champs
 #dir=~/ASM_Corewar_tests
 
 rm $dir/*.cor

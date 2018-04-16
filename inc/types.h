@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:45:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 19:19:49 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:39:14 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct					s_params
 	int							players;
 	int							dump;
 	int							verbose;
-	int							ncurse;
 	int							command_io;
 }								t_params;
 

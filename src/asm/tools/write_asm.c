@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 02:06:44 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 15:01:48 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:28:08 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,5 @@ void			write_champ_bin(t_expr *list, char *champ, int fd)
 			write_instr(begin->instr, fd);
 		begin = begin->next;
 	}
+	ft_strdel(&name);
 }

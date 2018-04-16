@@ -6,25 +6,12 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 20:14:44 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/08 00:22:54 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/15 22:00:39 by sjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nvisualizer.h"
 #include "errno.h"
-
-void			parent(int *to_vm, int *from_vm)
-{
-	close(0);
-	if (dup2(from_vm[0], 0) == -1)
-	{
-		ft_dprintf(2, "parent dup2 failed (%d).\n", errno);
-		exit(1);
-	}
-	if (close(from_vm[0]) == -1 || close(from_vm[1]) == -1 ||
-		close(to_vm[0]) == -1 || close(to_vm[1]) == -1)
-		ft_dprintf(2, "parent close failed (%d).\n", errno);
-}
 
 void			child(int *to_vm, int *from_vm, char **argv)
 {
@@ -64,7 +51,7 @@ void			run_corewar(char **argv)
 		(void)0;
 	}
 	if (pid)
-		parent(to_vm, from_vm);
+		return ;
 	else
 		child(to_vm, from_vm, argv);
 }

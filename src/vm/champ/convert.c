@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 18:42:52 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 21:42:40 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:21:31 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void				*free_champs(t_champ *champs)
 	while (champs[i].name != NULL)
 	{
 		if (champs[i].champion)
-			free(champs[i].champion);
+			ft_strdel(&champs[i].champion);
 		if (champs[i].name)
-			free(champs[i].name);
+			ft_strdel(&champs[i].name);
 		if (champs[i].comment)
-			free(champs[i].comment);
+			ft_strdel(&champs[i].comment);
 		i++;
 	}
 	free(champs);
@@ -95,7 +95,7 @@ int						convert_to_hex(char *path, t_champ *champ)
 		last = list->instr->mem_size;
 	last += list->addr;
 	name_com = get_name(&champ->name, name_com);
-	champ->comment = get_comment(name_com);
+	champ->comment = ft_strdup(get_comment(name_com));
 	champ->size = last;
 	champ->champion = write_to_champ(begin, champ->size);
 	return (1 | end_free(NULL, tmp, begin));

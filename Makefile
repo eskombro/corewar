@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/15 19:26:37 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/16 19:15:48 by bacrozat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,7 +163,18 @@ LFLAGS_2 = $(DEBUG_FLAGS) \
 # TARGET 3
 TARGET_3 = show_corewar_ncurse
 SRC_3 = nvisu/main.c \
-		nvisu/communication_corewar.c \
+	nvisu/communication_corewar.c \
+	nvisu/print_modules.c \
+	nvisu/handle_callers/handle_champ_callers.c \
+	nvisu/handle_callers/handle_core_callers.c \
+	nvisu/handle_callers/handle_logic_callers.c \
+	nvisu/handle_callers/handle_memory_callers.c \
+	nvisu/handle_callers/handle_process_callers.c \
+	nvisu/handle_callers/process_display.c \
+	nvisu/free_all.c \
+	nvisu/initialize_ncurses.c \
+	nvisu/test_char.c \
+	nvisu/display_shortcuts.c \
 	\
 	nvisu/commands/commands.c \
 	nvisu/commands/command_writers.c \

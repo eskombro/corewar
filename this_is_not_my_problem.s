@@ -1,5 +1,5 @@
-.name "sam"
-.comment "I am Sam"
+.name "NotMyProblem"
+.comment "I dont care about you..."
 
 label_1:
 	or					r3, %-16186880, r3

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:06:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 01:45:52 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 17:14:48 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void				call_new_cycle(t_logic *logic)
 {
 	t_command		command;
 
+	if (get_logic()->params.verbose & 1)
+		ft_printf("It is now cycle %d\n", logic->cycles);
 	if (!(get_logic()->params.command_io))
 		return ;
 	command.size = 0;

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 22:04:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 00:51:30 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 17:16:00 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void				call_instr_exec(t_proc *process)
 	t_command		command;
 	int				i;
 
+	if (get_logic()->params.verbose & 2)
+		verbose(process);
 	if (!(get_logic()->params.command_io))
 		return ;
 	command.type = COMMAND_INSTR_EXEC;

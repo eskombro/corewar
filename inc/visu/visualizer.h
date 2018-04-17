@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:17:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 22:13:09 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 16:45:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 # define FRAMES_PER_SECOND 60
 # define CYCLES_PER_SECOND 200
-# define CYCLES_PER_SECOND_MAX 1000
+# define CYCLES_PER_SECOND_MAX 10000
 
 # define COREWAR_FONT "fonts/TheLightFont.ttf"
 # define VM_MEMTEX "tex/mem_hex.png"
@@ -225,7 +225,7 @@ void				run_visu(t_visu *visu);
 
 int					run_events(t_visu *visu);
 unsigned int		get_user_event(void);
-void				push_user_event(int code, void *data1, void *data2);
+int					push_user_event(int code, void *data1, void *data2);
 
 void				run_gui(t_visu *visu);
 void				init_gui(t_visu *visu);

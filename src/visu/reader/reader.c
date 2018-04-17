@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 01:07:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 01:21:56 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 16:31:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void			send_command_event(t_command *command)
 	if (!(to_send = ft_memalloc(sizeof(t_command))))
 		exit(1);
 	ft_memcpy(to_send, command, sizeof(t_command));
-	push_user_event(COREWAR_EVENT_COMMAND, to_send, NULL);
+	while (push_user_event(COREWAR_EVENT_COMMAND, to_send, NULL) < 0)
+		;
 }
 
 int					read_command(void)

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:39:06 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 16:39:35 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 16:40:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ unsigned int		get_user_event(void)
 	return (user_event);
 }
 
-void				push_user_event(int code, void *data1, void *data2)
+int				push_user_event(int code, void *data1, void *data2)
 {
 	SDL_Event	e;
 
@@ -31,7 +31,7 @@ void				push_user_event(int code, void *data1, void *data2)
 	e.user.code = code;
 	e.user.data1 = data1;
 	e.user.data2 = data2;
-	SDL_PushEvent(&e);
+	return (SDL_PushEvent(&e));
 }
 
 static void			handle_event(t_visu *visu, SDL_Event e)
@@ -53,28 +53,43 @@ static void			handle_event(t_visu *visu, SDL_Event e)
 	}
 }
 
+void				handle_scene_events(t_visu *visu, SDL_Event e)
+{
+	int				scene;
+
+	scene = -1;
+	while (++scene < COREWAR_SCENES_AMOUNT)
+	{
+		if (!visu->gui.scenes[scene].ptr)
+			continue ;
+		if (visu->gui.scenes + scene == visu->gui.active_scene)
+			sg_event(visu->gui.scenes[scene].ptr, e,
+				SG_MODE_ACTIVE);
+		else
+			sg_event(visu->gui.scenes[scene].ptr, e,
+				SG_MODE_PASSIVE);
+	}
+}
+
 int					run_events(t_visu *visu)
 {
 	SDL_Event		e;
-	int				scene;
+	t_time			last_time;
+	t_time			current_time;
+	unsigned long	delta;
 
+	clock_gettime(CLOCK_MONOTONIC_RAW, &last_time);
 	while (SDL_PollEvent(&e))
 	{
 		if (e.type == SDL_QUIT)
 			return (1);
-		scene = -1;
 		handle_event(visu, e);
-		while (++scene < COREWAR_SCENES_AMOUNT)
-		{
-			if (!visu->gui.scenes[scene].ptr)
-				continue ;
-			if (visu->gui.scenes + scene == visu->gui.active_scene)
-				sg_event(visu->gui.scenes[scene].ptr, e,
-					SG_MODE_ACTIVE);
-			else
-				sg_event(visu->gui.scenes[scene].ptr, e,
-					SG_MODE_PASSIVE);
-		}
+		handle_scene_events(visu, e);
+		clock_gettime(CLOCK_MONOTONIC_RAW, &current_time);
+		delta = (current_time.tv_sec - last_time.tv_sec) * 1000000000 +
+				current_time.tv_nsec - last_time.tv_nsec;
+		if (delta > 1000000000 / FRAMES_PER_SECOND)
+			break ;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 16:37:07 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/15 22:43:57 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 16:25:44 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void				handle_proc_move(t_visu *visu, t_command *command)
 		return ;
 	id = read_int(command->data);
 	proc = find_process(visu, id);
+	if (!proc)
+		return ;
 	proc_remove(visu, proc);
 	proc->pc = read_int(command->data + 4);
 	while (proc->pc < 0)
@@ -58,5 +60,7 @@ void				handle_proc_death(t_visu *visu, t_command *command)
 		return ;
 	id = read_int(command->data);
 	proc = find_process(visu, id);
+	if (!proc)
+		return ;
 	proc_remove(visu, proc);
 }

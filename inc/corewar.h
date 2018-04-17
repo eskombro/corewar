@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 06:06:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 22:29:54 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 16:33:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_logic				*get_logic();
 ** Corewar parameters
 */
 t_params			get_params(void);
+void				fill_params(void *args, t_params *params);
+
 
 /*
 ** Champions importation

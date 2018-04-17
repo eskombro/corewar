@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 03:33:29 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 16:31:29 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,39 +59,6 @@ static void				*init_args(int argc, char **argv)
 			return (NULL);
 	}
 	return (args);
-}
-
-static void				fill_params(void *args, t_params *params)
-{
-	char				**tmp;
-
-	if (!(params->champs_files = ft_args_default(args)))
-		exit(1);
-	params->players = ft_chartablen(params->champs_files);
-	if (ft_args_get(args, "dump"))
-	{
-		if (!(tmp = ft_args_data(args, "dump")))
-			exit(1);
-		params->dump = ft_atoi(*tmp);
-		ft_chartabfree(tmp);
-	}
-	if (ft_args_get(args, "verbose"))
-	{
-		if (!(tmp = ft_args_data(args, "verbose")))
-			exit(1);
-		params->verbose = ft_atoi(*tmp);
-		ft_chartabfree(tmp);
-	}
-	if (ft_args_get(args, "id"))
-	{
-		if (!(tmp = ft_args_data(args, "id")))
-			exit(1);
-		if (!(params->ids = ft_strdup(*tmp)))
-			exit(1);
-		ft_chartabfree(tmp);
-	}
-	if (ft_args_get(args, "commands"))
-		params->command_io = 1;
 }
 
 t_params				get_params(void)

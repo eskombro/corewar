@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/14 15:09:24 by hbouillo          #+#    #+#              #
-#    Updated: 2018/04/17 00:07:56 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/04/17 16:30:15 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CC = clang
 # TARGET 1
 TARGET_1 = corewar
 SRC_1 = vm/main.c \
+	vm/fill_params.c \
 	vm/debug.c \
 	\
 	vm/champ/convert.c \

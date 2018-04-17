@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 16:31:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 17:41:13 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_params				get_params(void)
 	{
 		args = init_args(0, NULL);
 		params.dump = -1;
-		params.verbose = -1;
+		params.verbose = 0;
 		params.command_io = 0;
 		fill_params(args, &params);
 		ft_args_del(init_args(0, NULL));

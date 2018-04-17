@@ -12,7 +12,7 @@
 # Modeled after libxml-config.
 
 version="1.6.34"
-prefix="/Users/hbouillo/.libs"
+prefix="/Users/bacrozat/.libs"
 exec_prefix="${prefix}"
 libdir="${exec_prefix}/lib"
 includedir="${prefix}/include/libpng16"

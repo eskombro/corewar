@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 00:05:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 01:45:10 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 00:51:13 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void				call_champ_spawn(t_champ *champ)
 	command.size = 0;
 	command.type = COMMAND_CHAMP_SPAWN;
 	command.size += write_int(command.data + command.size, champ->id);
-	command.size += write_short(command.data + command.size, ft_strlen(champ->name));
+	command.size += write_short(command.data + command.size,
+			ft_strlen(champ->name));
 	command.size += write_str(command.data + command.size, champ->name);
 	command.size += write_int(command.data + command.size, champ->spawn);
 	command.size += write_int(command.data + command.size, champ->size);

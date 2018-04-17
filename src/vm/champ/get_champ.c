@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 22:19:27 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 19:48:51 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:59:40 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_champ		*get_all_champ(char **jcvd)
 		if (!open_champ(*jcvd, champs + i))
 			return (free_champs(champs));
 		i++;
-			jcvd++;
+		jcvd++;
 	}
 	return (champs);
 }

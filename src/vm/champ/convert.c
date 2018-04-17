@@ -6,13 +6,13 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 18:42:52 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 21:21:31 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 03:19:47 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/asm.h"
 
-void				*free_champs(t_champ *champs)
+void					*free_champs(t_champ *champs)
 {
 	int i;
 
@@ -81,6 +81,7 @@ int						convert_to_hex(char *path, t_champ *champ)
 	t_expr	*begin;
 	int		last;
 
+	last = 0;
 	if (!convert_champ(path, 1, &name_com, &list))
 		return (0);
 	begin = list;
@@ -95,8 +96,8 @@ int						convert_to_hex(char *path, t_champ *champ)
 		last = list->instr->mem_size;
 	last += list->addr;
 	name_com = get_name(&champ->name, name_com);
-	champ->comment = ft_strdup(get_comment(name_com));
+	!(champ->comment = ft_strdup(get_comment(name_com))) ? exit(1) : 0;
 	champ->size = last;
 	champ->champion = write_to_champ(begin, champ->size);
-	return (1 | end_free(NULL, tmp, begin));
+	return ((last ? 1 : 0) | end_free(NULL, tmp, begin));
 }

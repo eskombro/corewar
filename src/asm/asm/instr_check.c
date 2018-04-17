@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/31 23:46:18 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 17:42:27 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:34:30 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static char		*trim_champ(char *champ, t_expr **list, int *lines)
 	int		size;
 	char	*tmp;
 	int		word;
+	char	*alloc;
 
 	tmp = champ;
 	size = 0;
@@ -78,7 +79,8 @@ static char		*trim_champ(char *champ, t_expr **list, int *lines)
 	}
 	if (!(*list = (t_expr*)ft_memalloc(sizeof(t_expr))))
 		exit(1);
-	return (get_expr(list, ft_strnew(size), tmp, lines));
+	!(alloc = ft_strnew(size)) ? exit(1) : 0;
+	return (get_expr(list, alloc, tmp, lines));
 }
 
 int				parse_instr(char *champ, int lines, t_expr **list)

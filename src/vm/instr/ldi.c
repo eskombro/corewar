@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 19:11:41 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/03/23 23:40:27 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:03:02 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	load_indirect(void *proc, int restricted)
 		restricted);
 	while (++i < REG_SIZE)
 		reg[i] = ustr[i];
+	ft_memdel((void**)&ustr);
 	p1->carry = (read_reg(reg) == 0 ? 1 : 0);
 }
 

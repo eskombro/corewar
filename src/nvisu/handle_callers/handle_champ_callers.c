@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 01:16:59 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/16 02:08:39 by sjimenez         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:28:12 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void			handle_champ_wins(t_command *command)
 	i = 0;
 	while (get_visu()->champs[i]->id != read_int(command->data))
 		i++;
-	str = ft_strdup(get_visu()->champs[i]->name);
+	if (!(str = ft_strdup(get_visu()->champs[i]->name)))
+		exit(1);
 	attron(COLOR_PAIR(3));
 	print_win_panel(x, y, str);
 	move(LINES, COLS);

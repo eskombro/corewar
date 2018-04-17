@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:16:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 00:03:43 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 03:33:29 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ static void				fill_params(void *args, t_params *params)
 	{
 		if (!(tmp = ft_args_data(args, "id")))
 			exit(1);
-		params->ids = ft_strdup(*tmp);
+		if (!(params->ids = ft_strdup(*tmp)))
+			exit(1);
 		ft_chartabfree(tmp);
 	}
 	if (ft_args_get(args, "commands"))

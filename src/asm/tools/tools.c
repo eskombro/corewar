@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 18:57:57 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 22:16:43 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:27:16 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char		*get_name(char **name, char *champ)
 	*name = tmp;
 	tmp = ft_strchr(tmp, '"');
 	*tmp = '\0';
-	*name = ft_strdup(*name);
+	if (!(*name = ft_strdup(*name)))
+		exit(1);
 	tmp++;
 	return (tmp);
 }

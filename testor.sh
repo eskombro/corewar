@@ -5,7 +5,7 @@ rm $dir/*.cor
 for file in $dir/*.s;
 do
 	echo "==> $file <=="
-	./asm $file 2>> bison
+	./asm $file
 	echo ""
 	echo ""
 done

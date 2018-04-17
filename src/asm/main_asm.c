@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:14:37 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 17:58:22 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 02:58:16 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	get_bin_champ(int size, int fd, t_bin_champ *champ)
 	if (!(champion = (char *)malloc(sizeof(char) * (size + 1))))
 		exit(1);
 	if ((read(fd, buf, INT_SIZE)) <= 0)
-		return (error_msg(3));
+		return (end_free(champion, NULL, NULL) | error_msg(3));
 	if (*(int*)buf)
-		return (error_msg(7));
+		return (end_free(champion, NULL, NULL) | error_msg(7));
 	champ->size = size;
 	ret = read(fd, champion, size);
 	if (ret <= 0)
@@ -56,7 +56,8 @@ static long	get_com(int fd, t_bin_champ *champ)
 		return (error_msg(3));
 	buf[COMMENT_LENGTH] = '\0';
 	champ_size = convert_int_endian(*(int*)buf_int);
-	champ->comment = ft_strdup(buf);
+	if (!(champ->comment = ft_strdup(buf)))
+		exit(1);
 	if (!get_bin_champ(champ_size, fd, champ))
 		return (end_free(champ->comment, NULL, NULL));
 	return (champ_size);
@@ -81,7 +82,8 @@ static int	open_champ(char *path, t_bin_champ *champ)
 	if ((read(fd, buf2, PROG_NAME_LENGTH)) <= 0)
 		return (error_msg(3));
 	buf2[PROG_NAME_LENGTH] = '\0';
-	champ->name = ft_strdup(buf2);
+	if (!(champ->name = ft_strdup(buf2)))
+		exit(1);
 	if (!get_com(fd, champ))
 		return (end_free(champ->name, NULL, NULL));
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sjimenez <sjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 22:47:20 by sjimenez          #+#    #+#             */
-/*   Updated: 2018/04/14 20:22:41 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:04:50 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_uchar				*read_memory(t_addr pc, t_addr address, int size, int mod)
 
 	arena = get_arena();
 	if (!(reg = (t_uchar *)ft_memalloc(sizeof(t_uchar) * (size + 1))))
-		return (NULL);
+		exit(1);
 	reg[size] = 0;
 	i = -1;
 	address = (mod ? pc + (address % IDX_MOD) : pc + address);

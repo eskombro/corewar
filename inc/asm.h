@@ -6,7 +6,7 @@
 /*   By: bacrozat <bacrozat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 21:15:06 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 18:32:09 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 00:48:53 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,13 @@ t_instr_type					get_instr_type(char *name);
 int								print_champ_path(char *path, char *origin);
 long							parse_comment(char *tmp);
 long							parse_name(char *tmp);
-int								parse_expr(t_expr *current, t_expr **list, t_addr *addr);
-int								parse_instr(char *champ, int lines, t_expr **list);
+int								parse_expr(t_expr *current, t_expr **list,
+		t_addr *addr);
+int								parse_instr(char *champ, int lines,
+		t_expr **list);
 void							calc_size(t_expr *expr);
-int								check_instr(t_expr *expr, t_expr *list, t_instr_type *type);
+int								check_instr(t_expr *expr, t_expr *list,
+		t_instr_type *type);
 int								test_instr(t_expr *expr, t_instr_type *type);
 char							*jump_comment(char *tmp);
 int								get_name_len(char *name);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 22:04:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/16 19:39:34 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 00:51:30 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void				call_instr_exec(t_proc *process)
 	i = -1;
 	while (++i < 3)
 	{
-		command.size += write_int(command.data + command.size, process->current_task->par[i].type);
-		command.size += write_int(command.data + command.size, process->current_task->par[i].value);
+		command.size += write_int(command.data + command.size,
+				process->current_task->par[i].type);
+		command.size += write_int(command.data + command.size,
+				process->current_task->par[i].value);
 	}
 	send_command(command);
 }

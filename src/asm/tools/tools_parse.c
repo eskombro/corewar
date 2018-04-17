@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 01:51:58 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/15 15:48:07 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:08:33 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 static t_expr	*push_new_elem(int size, char **tmp, t_expr *origin, int jump)
 {
-	t_expr *expr;
+	t_expr	*expr;
+	char	*new;
 
 	if (!(expr = (t_expr*)ft_memalloc(sizeof(t_expr))))
 		exit(1);
-	expr->expr = ft_strncpy(ft_strnew(size), *tmp + jump, size - jump);
+	if (!(new = ft_strnew(size)))
+		exit(1);
+	expr->expr = ft_strncpy(new, *tmp + jump, size - jump);
 	expr->alloced = 100;
 	expr->type = LABEL;
 	if (!jump)

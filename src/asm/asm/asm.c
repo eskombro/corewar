@@ -6,7 +6,7 @@
 /*   By: bacrozat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 21:47:03 by bacrozat          #+#    #+#             */
-/*   Updated: 2018/04/16 18:19:44 by bacrozat         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:35:08 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,16 @@ static int			read_champ(char *champ_path, char **src)
 	char	*tmp;
 	char	buf[14];
 
-	mod = ft_strnew(0);
+	if (!(mod = ft_strnew(0)))
+		exit(1);
 	if ((fd = open(champ_path, O_RDONLY)) <= 0)
 		return (error_msg(1));
 	while ((ret = read(fd, buf, 13)) > 0)
 	{
 		tmp = mod;
 		buf[ret] = '\0';
-		mod = ft_strjoin(mod, buf);
+		if (!(mod = ft_strjoin(mod, buf)))
+			exit(1);
 		if (tmp)
 			free(tmp);
 	}
@@ -138,7 +140,7 @@ int					convert_champ(char *champ_path, int sig, char **src,
 		if (!sig)
 	{
 		*ft_strrchr(champ_path, '.') = '\0';
-		mod = ft_strnew(ft_strlen(champ_path) + 4);
+		!(mod = ft_strnew(ft_strlen(champ_path) + 4)) ? exit(1) : 0;
 		mod = ft_strcpy(mod, champ_path);
 		mod = ft_strcat(mod, ".cor");
 		if ((fd = open(mod, O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)

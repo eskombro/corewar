@@ -8,6 +8,10 @@ test.cor
 lib/
 libft/lib
 
+/simple-gui/SDL2
+/simple-gui/freetype-2.9
+/libpng-1.6.34
+
 # Prerequisites
 *.d
 

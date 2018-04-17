@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 16:28:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 16:35:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 17:19:47 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void				fill_params_norm(void *args, t_params *params)
 {
 	char				**tmp;
-	
+
 	if (ft_args_get(args, "id"))
 	{
 		if (!(tmp = ft_args_data(args, "id")))

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:39:06 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/04/17 16:40:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/04/17 17:19:26 by bacrozat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ unsigned int		get_user_event(void)
 	return (user_event);
 }
 
-int				push_user_event(int code, void *data1, void *data2)
+int					push_user_event(int code, void *data1, void *data2)
 {
 	SDL_Event	e;
 
